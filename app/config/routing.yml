@@ -1,0 +1,9 @@
+oktolab_media:
+    resource: "@OktolabMediaBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+oktolab_delorian:
+    resource: "@OktolabDelorianBundle/Controller/"
+    type:     annotation
+    prefix:   /
