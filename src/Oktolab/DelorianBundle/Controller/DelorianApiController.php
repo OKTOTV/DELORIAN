@@ -26,7 +26,7 @@ class DelorianApiController extends Controller
     {
         $old_seriess = $this->getDoctrine()->getManager()->getRepository('OktolabDelorianBundle:Series')->findAll();
         $seriess = array();
-        foreach ($old_sereiss as $old_series) {
+        foreach ($old_seriess as $old_series) {
             $series = new Series();
             $series->setName($old_series->getTitle());
             $series->setDescription($old_series->getAbstractTextPublic());

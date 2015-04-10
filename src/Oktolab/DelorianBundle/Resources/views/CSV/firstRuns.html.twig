@@ -3,5 +3,9 @@
     <div class="page-header">
     <h1>[{{series.abbrevation}}] {{series.title}}</h1>
     <div>
-    {{ form(form) }}
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    {{ form_row(form.from) }}
+    {{ form_row(form.to) }}
+    {{ form_end(form) }}
 {% endblock %}

@@ -22,7 +22,7 @@ class MediaApiController extends Controller
 {
     /**
      * @Route("/series.{format}", defaults={"format": "json"}, requirements={"format": "json|xml"})
-     * @Cache(expires="+1 day", public="yes")
+     * Cache(expires="+1 day", public="yes")
      * @Method("GET")
      */
     public function listSeriesAction($format)
