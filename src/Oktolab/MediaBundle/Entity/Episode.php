@@ -57,15 +57,40 @@ class Episode
     private $updatedAt;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="online_start", type="datetime")
+     */
+    private $onlineStart;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="online_end", type="datetime")
+     */
+    private $onlineEnd;
+
+    /**
      * @var string
      * @ORM\Column(name="uniqID", type="string", length=13)
      */
     private $uniqID;
 
     /**
+    * @ORM\ManyToOne(targetEntity="Oktolab\MediaBundle\Entity\Series", inversedBy="episodes")
+    */
+    private $series;
+
+    public function __construct()
+    {
+        $this->isActive = true;
+        $this->uniqID = uniqid();
+    }
+
+    /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -88,7 +113,7 @@ class Episode
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -111,7 +136,7 @@ class Episode
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -134,7 +159,7 @@ class Episode
     /**
      * Get isActive
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsActive()
     {
@@ -157,7 +182,7 @@ class Episode
     /**
      * Get createdAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -180,11 +205,57 @@ class Episode
     /**
      * Get updatedAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * Set onlineStart
+     *
+     * @param \DateTime $onlineStart
+     * @return Episode
+     */
+    public function setOnlineStart($onlineStart)
+    {
+        $this->onlineStart = $onlineStart;
+
+        return $this;
+    }
+
+    /**
+     * Get onlineStart
+     *
+     * @return \DateTime
+     */
+    public function getOnlineStart()
+    {
+        return $this->onlineStart;
+    }
+
+    /**
+     * Set onlineEnd
+     *
+     * @param \DateTime $onlineEnd
+     * @return Episode
+     */
+    public function setOnlineEnd($onlineEnd)
+    {
+        $this->onlineEnd = $onlineEnd;
+
+        return $this;
+    }
+
+    /**
+     * Get onlineEnd
+     *
+     * @return \DateTime
+     */
+    public function getOnlineEnd()
+    {
+        return $this->onlineEnd;
     }
 
     /**
@@ -203,10 +274,33 @@ class Episode
     /**
      * Get uniqID
      *
-     * @return string 
+     * @return string
      */
     public function getUniqID()
     {
         return $this->uniqID;
+    }
+
+    /**
+     * Set series
+     *
+     * @param \Oktolab\MediaBundle\Entity\Series $series
+     * @return Episode
+     */
+    public function setSeries(\Oktolab\MediaBundle\Entity\Series $series = null)
+    {
+        $this->series = $series;
+        $series->addEpisode($this);
+        return $this;
+    }
+
+    /**
+     * Get series
+     *
+     * @return \Oktolab\MediaBundle\Entity\Series
+     */
+    public function getSeries()
+    {
+        return $this->series;
     }
 }

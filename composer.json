@@ -20,7 +20,10 @@
         "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
         "incenteev/composer-parameter-handler": "~2.0",
         "jms/serializer-bundle": "0.13.*",
-        "bprs/style-bundle": "~1.0"
+        "bprs/style-bundle": "~1.0",
+        "bprs/applink-bundle": "dev-master",
+        "bprs/asset-bundle": "~1.0",
+        "bprs/user-bundle": "^2.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

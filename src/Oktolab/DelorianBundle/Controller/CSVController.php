@@ -18,7 +18,7 @@ class CSVController extends Controller
      */
     public function indexAction($page)
     {
-        $total = $this->getDoctrine()->getManager()->getRepository('OktolabDelorianBundle:Series')->findAll();
+        $total = $this->getDoctrine()->getManager('flow')->getRepository('OktolabDelorianBundle:Series')->findAll();
 
         if ($page < 0) {
             $page = 0;
@@ -27,7 +27,7 @@ class CSVController extends Controller
             $page = $total -10;
         }
 
-        $old_seriess = $this->getDoctrine()->getManager()->getRepository('OktolabDelorianBundle:Series')->findBy(array(), array(), 10, $page*10);
+        $old_seriess = $this->getDoctrine()->getManager('flow')->getRepository('OktolabDelorianBundle:Series')->findBy(array(), array(), 10, $page*10);
 
         $start_result = $page*10+1;
         if ($page == 0) {
@@ -37,9 +37,9 @@ class CSVController extends Controller
 
         return array(
             'currentPage' => $page,
-            'start_result' => $start_result, 
-            'end_result' => $end_result, 
-            'seriess' => $old_seriess, 
+            'start_result' => $start_result,
+            'end_result' => $end_result,
+            'seriess' => $old_seriess,
             'total' => count($total));
     }
 
@@ -59,7 +59,7 @@ class CSVController extends Controller
         if ($request->getMethod() == "POST") { //form sent
             $form->handleRequest($request);
 
-            if ($form->isValid()) { 
+            if ($form->isValid()) {
                 $data = $form->getData();
                 $query = $this->getDoctrine()->getManager()->createQuery('SELECT u FROM OktolabDelorianBundle:Episode u WHERE u.firstRanAt > :from AND u.firstRanAt < :to AND u.series = :series ORDER BY u.firstRanAt ASC');
                 $query->setParameter('from', $data['from']);
@@ -70,7 +70,7 @@ class CSVController extends Controller
                 //die(var_dump($old_episodes));
                 return $this->CSVResponse($old_episodes);
             } else {
-                $this->get('session')->getFlashBag()->add('error', "ERROR"); 
+                $this->get('session')->getFlashBag()->add('error', "ERROR");
             }
         }
         return array('form' => $form->createView(), 'series' => $old_series);
@@ -82,7 +82,7 @@ class CSVController extends Controller
             // to transform your object into an array
         $response = new StreamedResponse(function() use($old_episodes) {
             $handle = fopen('php://output', 'r+');
-                fputcsv($handle, 
+                fputcsv($handle,
                     array(
                         'Bezeichnung',
                         'Titel',
@@ -93,12 +93,12 @@ class CSVController extends Controller
                 );
 
             foreach ($old_episodes as $old_episode) {
-                fputcsv($handle, 
+                fputcsv($handle,
                     array(
                         $old_episode->getSeries()->getAbbrevation().' '.$old_episode->getSeasonNumber().'x'.$old_episode->getEpisodeNumber(),
-                        $old_episode->getTitle(), 
+                        $old_episode->getTitle(),
                         $old_episode->getFirstRanAt()->format('d.m.Y'),
-                        $old_episode->getAbstractTextPublic(), 
+                        $old_episode->getAbstractTextPublic(),
                         $old_episode->getComments()
                     )
                 );

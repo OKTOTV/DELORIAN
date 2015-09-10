@@ -49,13 +49,19 @@ assetic:
 # Doctrine Configuration
 doctrine:
     dbal:
-        driver:   "%database_driver%"
-        host:     "%database_host%"
-        port:     "%database_port%"
-        dbname:   "%database_name%"
-        user:     "%database_user%"
-        password: "%database_password%"
-        charset:  utf8
+        default_connection: delorian
+        connections:
+            flow:
+                driver:   "%database_driver%"
+                host:     "%database_host%"
+                port:     "%database_port%"
+                dbname:   "%database_name%"
+                user:     "%database_user%"
+                password: "%database_password%"
+                charset:  utf8
+            delorian:
+                driver: pdo_sqlite
+                path: "%kernel.root_dir%/delorian.db3"
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml
         #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
@@ -65,7 +71,17 @@ doctrine:
 
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
-        auto_mapping: true
+        # auto_mapping: true
+        default_entity_manager: delorian
+        entity_managers:
+            flow:
+                connection: flow
+                mappings:
+                    OktolabDelorianBundle: ~
+            delorian:
+                connection: delorian
+                mappings:
+                    OktolabMediaBundle: ~
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -79,3 +95,6 @@ services:
     jms_serializer.object_constructor:
         alias: jms_serializer.doctrine_object_constructor
         public: false
+
+bprs_app_link:
+    commandline_host:   "localhost/DELORIAN/web/app.php"

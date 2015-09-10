@@ -3,12 +3,13 @@
 namespace Oktolab\MediaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Series
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity()
  */
 class Series
 {
@@ -27,6 +28,11 @@ class Series
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
+
+    /**
+    * @ORM\Column(name="webtitle", type="string", length=255, unique=true)
+    */
+    private $webtitle;
 
     /**
      * @var string
@@ -63,9 +69,21 @@ class Series
     private $uniqID;
 
     /**
+    *
+    * @ORM\OneToMany(targetEntity="Oktolab\MediaBundle\Entity\Episode", mappedBy="series")
+    */
+    private $episodes;
+
+    public function __construct() {
+        $this->uniqID = uniqid();
+        $this->isActive = true;
+        $this->episodes = new ArrayCollection();
+    }
+
+    /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -88,7 +106,7 @@ class Series
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -111,7 +129,7 @@ class Series
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -134,7 +152,7 @@ class Series
     /**
      * Get isActive
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsActive()
     {
@@ -157,7 +175,7 @@ class Series
     /**
      * Get createdAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -180,7 +198,7 @@ class Series
     /**
      * Get updatedAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
@@ -203,10 +221,65 @@ class Series
     /**
      * Get uniqID
      *
-     * @return string 
+     * @return string
      */
     public function getUniqID()
     {
         return $this->uniqID;
+    }
+
+    /**
+     * Set webtitle
+     *
+     * @param string $webtitle
+     * @return Series
+     */
+    public function setWebtitle($webtitle)
+    {
+        $this->webtitle = $webtitle;
+
+        return $this;
+    }
+
+    /**
+     * Get webtitle
+     *
+     * @return string
+     */
+    public function getWebtitle()
+    {
+        return $this->webtitle;
+    }
+
+    /**
+     * Add episodes
+     *
+     * @param \Oktolab\MediaBundle\Entity\Episode $episodes
+     * @return Series
+     */
+    public function addEpisode(\Oktolab\MediaBundle\Entity\Episode $episodes)
+    {
+        $this->episodes[] = $episodes;
+        return $this;
+    }
+
+    /**
+     * Remove episodes
+     *
+     * @param \Oktolab\MediaBundle\Entity\Episode $episodes
+     */
+    public function removeEpisode(\Oktolab\MediaBundle\Entity\Episode $episodes)
+    {
+        $this->episodes->removeElement($episodes);
+    }
+
+    /**
+     * Get episodes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEpisodes()
+    {
+        return $this->episodes;
     }
 }

@@ -24,7 +24,7 @@ class DelorianApiController extends Controller
      */
     public function listSeriesAction($format)
     {
-        $old_seriess = $this->getDoctrine()->getManager()->getRepository('OktolabDelorianBundle:Series')->findAll();
+        $old_seriess = $this->getDoctrine()->getManager('flow')->getRepository('OktolabDelorianBundle:Series')->findAll();
         $seriess = array();
         foreach ($old_seriess as $old_series) {
             $series = new Series();
@@ -46,6 +46,7 @@ class DelorianApiController extends Controller
      */
     public function showSeriesAction(DelorianSeries $old_series, $format)
     {
+        $old_series = $this->getDoctrine()->getManager('flow')->getRepository('OktolabDelorianBundle:Series')->findOneBy(array('id' => $id));
         $series = new Series();
         $series->setName($old_series->getTitle());
         $series->setDescription($old_series->getAbstractTextPublic());
@@ -63,7 +64,7 @@ class DelorianApiController extends Controller
      */
     public function showSeriesEpisodesAction(DelorianSeries $old_series, $format)
     {
-        $old_episodes = $this->getDoctrine()->getManager()->getRepository('OktolabDelorianBundle:Episode')->findBy(array('series' => $old_series->getId()));
+        $old_episodes = $this->getDoctrine()->getManager('flow')->getRepository('OktolabDelorianBundle:Episode')->findBy(array('series' => $old_series->getId()));
         $episodes = array();
         foreach ($old_episodes as $old_episode) {
             $episode = new Episode();
@@ -83,15 +84,16 @@ class DelorianApiController extends Controller
      * @Route("/episode/{id}.{format}", defaults={"format": "json"}, requirements={"format": "json|xml"})
      * @Method("GET")
      */
-    public function showEpisodeAction(DelorianEpisode $old_episode, $format)
+    public function showEpisodeAction($id, $format)
     {
+        $old_episode = $this->getDoctrine()->getManager('flow')->getRepository('OktolabDelorianBundle:Episode')->findOneBy(array('id' => $id));
         $episode = new Episode();
         $episode->setName($old_episode->getTitle());
         $episode->setDescription($old_episode->getAbstractTextPublic());
         $episode->setCreatedAt($old_episode->getCreatedAt());
         $episode->setUpdatedAt($old_episode->getUpdatedAt());
         $episode->setUniqID($old_episode->getId());
-        
+
         $jsonContent = $this->get('jms_serializer')->serialize($episode, $format);
         return new Response($jsonContent, 200, array('Content-Type' => 'application/json; charset=utf8'));
     }
