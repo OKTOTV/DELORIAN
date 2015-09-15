@@ -82,6 +82,7 @@ doctrine:
                 connection: delorian
                 mappings:
                     OktolabMediaBundle: ~
+                    BprsAssetBundle: ~
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -98,3 +99,51 @@ services:
 
 bprs_app_link:
     commandline_host:   "localhost/DELORIAN/web/app.php"
+
+bprs_asset:
+    class:  "Oktolab\MediaBundle\Entity\Asset"
+    adapters:
+        lta_lager:
+            path: "/Volumes/Share 1/LTA Lager"
+        lta_v2:
+            path: "/Volumes/LTAv1/LTAv2"
+        gallery:
+            url:  "http://localhost/DELORIAN/web/uploads/posterframes"
+            path: "/opt/local/apache2/htdocs/DELORIAN/web/uploads/posterframes"
+        video:
+            url:  "http://localhost/DELORIAN/web/uploads/videos"
+            path: "/opt/local/apache2/htdocs/DELORIAN/web/uploads/videos"
+
+knp_gaufrette:
+    adapters:
+        posterframe:
+            local:
+                directory: %kernel.root_dir%/../web/uploads/posterframes
+                create: true
+        video:
+            local:
+                directory: %kernel.root_dir%/../web/uploads/videos
+                create: true
+
+    filesystems:
+        gallery:
+            adapter: posterframe
+        video:
+            adapter: video
+
+    stream_wrapper: ~
+
+oneup_uploader:
+    mappings:
+        gallery:
+            frontend: blueimp
+            storage:
+                type: gaufrette
+                filesystem: gaufrette.gallery_filesystem
+                sync_buffer_size: 100M
+        video:
+            frontend: blueimp
+            storage:
+                type: gaufrette
+                filesystem: gaufrette.video_filesystem
+                stream_wrapper: gaufrette://video/

@@ -21,7 +21,11 @@ class AppKernel extends Kernel
             new Oktolab\MediaBundle\OktolabMediaBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new Bprs\AppLinkBundle\BprsAppLinkBundle(),
-            new EightPoints\Bundle\GuzzleBundle\GuzzleBundle()
+            new EightPoints\Bundle\GuzzleBundle\GuzzleBundle(),
+            new Bprs\AssetBundle\BprsAssetBundle(),
+            new Oneup\UploaderBundle\OneupUploaderBundle(),
+            new Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),
+            new Bprs\CommandLineBundle\BprsCommandLineBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

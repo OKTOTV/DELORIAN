@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table()
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks()
  */
 class Episode
 {
@@ -24,14 +25,14 @@ class Episode
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=255, nullable=true)
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=500)
+     * @ORM\Column(name="description", type="string", length=500, nullable=true)
      */
     private $description;
 
@@ -59,14 +60,14 @@ class Episode
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="online_start", type="datetime")
+     * @ORM\Column(name="online_start", type="datetime", nullable=true)
      */
     private $onlineStart;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="online_end", type="datetime")
+     * @ORM\Column(name="online_end", type="datetime", nullable=true)
      */
     private $onlineEnd;
 
@@ -77,14 +78,31 @@ class Episode
     private $uniqID;
 
     /**
-    * @ORM\ManyToOne(targetEntity="Oktolab\MediaBundle\Entity\Series", inversedBy="episodes")
+    * @ORM\ManyToOne(targetEntity="Oktolab\MediaBundle\Entity\Series", inversedBy="episodes", cascade={"persist"})
     */
     private $series;
+
+    /**
+    * @ORM\OneToOne(targetEntity="Oktolab\MediaBundle\Entity\Asset")
+    * @ORM\JoinColumn(name="video_id", referencedColumnName="id")
+    */
+    private $video;
+
+    /**
+    * @ORM\OneToOne(targetEntity="Oktolab\MediaBundle\Entity\Asset")
+    * @ORM\JoinColumn(name="posterframe_id", referencedColumnName="id")
+    */
+    private $posterframe;
 
     public function __construct()
     {
         $this->isActive = true;
         $this->uniqID = uniqid();
+    }
+
+    public function __toString()
+    {
+        return $this->name.'_'.$this->uniqID;
     }
 
     /**
@@ -168,14 +186,13 @@ class Episode
 
     /**
      * Set createdAt
-     *
+     * @ORM\PrePersist
      * @param \DateTime $createdAt
      * @return Episode
      */
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt()
     {
-        $this->createdAt = $createdAt;
-
+        $this->createdAt = new \DateTime();
         return $this;
     }
 
@@ -191,14 +208,15 @@ class Episode
 
     /**
      * Set updatedAt
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
      *
      * @param \DateTime $updatedAt
      * @return Episode
      */
-    public function setUpdatedAt($updatedAt)
+    public function setUpdatedAt()
     {
-        $this->updatedAt = $updatedAt;
-
+        $this->updatedAt = new \DateTime();
         return $this;
     }
 
@@ -290,7 +308,6 @@ class Episode
     public function setSeries(\Oktolab\MediaBundle\Entity\Series $series = null)
     {
         $this->series = $series;
-        $series->addEpisode($this);
         return $this;
     }
 
@@ -302,5 +319,51 @@ class Episode
     public function getSeries()
     {
         return $this->series;
+    }
+
+    /**
+     * Set video
+     *
+     * @param \Oktolab\MediaBundle\Entity\Asset $video
+     * @return Episode
+     */
+    public function setVideo(\Oktolab\MediaBundle\Entity\Asset $video = null)
+    {
+        $this->video = $video;
+
+        return $this;
+    }
+
+    /**
+     * Get video
+     *
+     * @return \Oktolab\MediaBundle\Entity\Asset
+     */
+    public function getVideo()
+    {
+        return $this->video;
+    }
+
+    /**
+     * Set posterframe
+     *
+     * @param \Oktolab\MediaBundle\Entity\Asset $posterframe
+     * @return Episode
+     */
+    public function setPosterframe(\Oktolab\MediaBundle\Entity\Asset $posterframe = null)
+    {
+        $this->posterframe = $posterframe;
+
+        return $this;
+    }
+
+    /**
+     * Get posterframe
+     *
+     * @return \Oktolab\MediaBundle\Entity\Asset
+     */
+    public function getPosterframe()
+    {
+        return $this->posterframe;
     }
 }

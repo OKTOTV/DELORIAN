@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4e999eb9488b6a968729b9acc53eb5c4",
+    "hash": "4c99804394431f6d7f0f0dbc90e70411",
     "packages": [
         {
             "name": "bprs/applink-bundle",
@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/SrgSteak/BprsAppLinkBundle.git",
-                "reference": "e932155a03af876a4e61ba90c08d81dd1deecdce"
+                "reference": "e808e965f8d3592824d1900c1bf3b35961ba33ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SrgSteak/BprsAppLinkBundle/zipball/e932155a03af876a4e61ba90c08d81dd1deecdce",
-                "reference": "e932155a03af876a4e61ba90c08d81dd1deecdce",
+                "url": "https://api.github.com/repos/SrgSteak/BprsAppLinkBundle/zipball/e808e965f8d3592824d1900c1bf3b35961ba33ad",
+                "reference": "e808e965f8d3592824d1900c1bf3b35961ba33ad",
                 "shasum": ""
             },
             "require": {
@@ -50,7 +50,7 @@
                 "api",
                 "link"
             ],
-            "time": "2015-09-08 08:41:27"
+            "time": "2015-09-10 08:40:47"
         },
         {
             "name": "bprs/asset-bundle",
@@ -101,6 +101,44 @@
                 "upload"
             ],
             "time": "2015-08-05 09:11:49"
+        },
+        {
+            "name": "bprs/commandline-bundle",
+            "version": "dev-master",
+            "target-dir": "Bprs/CommandLineBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SrgSteak/BPRSCommandlineBundle.git",
+                "reference": "bf323fa7e57e4a79b451a4e0f05bb82bb170a9b9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SrgSteak/BPRSCommandlineBundle/zipball/bf323fa7e57e4a79b451a4e0f05bb82bb170a9b9",
+                "reference": "bf323fa7e57e4a79b451a4e0f05bb82bb170a9b9",
+                "shasum": ""
+            },
+            "require": {
+                "chrisboulton/php-resque": "1.2.x",
+                "ext-pcntl": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Bprs\\CommandLineBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "rs",
+                    "email": "rs@okto.tv"
+                }
+            ],
+            "description": "Allows shellcommand execution in a separate thread. reports output as usable array",
+            "time": "2015-07-10 17:39:54"
         },
         {
             "name": "bprs/style-bundle",
@@ -186,6 +224,49 @@
                 "user"
             ],
             "time": "2015-07-24 12:37:38"
+        },
+        {
+            "name": "chrisboulton/php-resque",
+            "version": "1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/chrisboulton/php-resque.git",
+                "reference": "0549d6c88a4aed934655b7c03b6153349d6c3ad0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/chrisboulton/php-resque/zipball/0549d6c88a4aed934655b7c03b6153349d6c3ad0",
+                "reference": "0549d6c88a4aed934655b7c03b6153349d6c3ad0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Resque": "lib"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Chris Boulton",
+                    "email": "chris@bigcommerce.com"
+                }
+            ],
+            "description": "Redis backed library for creating background jobs and processing them later. Based on resque for Ruby.",
+            "homepage": "http://www.github.com/chrisboulton/php-resque/",
+            "keywords": [
+                "background",
+                "job",
+                "redis",
+                "resque"
+            ],
+            "time": "2012-10-13 07:28:16"
         },
         {
             "name": "doctrine/annotations",
@@ -2707,7 +2788,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "bprs/applink-bundle": 20
+        "bprs/applink-bundle": 20,
+        "bprs/commandline-bundle": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

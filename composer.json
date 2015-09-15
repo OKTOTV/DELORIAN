@@ -23,7 +23,8 @@
         "bprs/style-bundle": "~1.0",
         "bprs/applink-bundle": "dev-master",
         "bprs/asset-bundle": "~1.0",
-        "bprs/user-bundle": "^2.0"
+        "bprs/user-bundle": "^2.0",
+        "bprs/commandline-bundle": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
