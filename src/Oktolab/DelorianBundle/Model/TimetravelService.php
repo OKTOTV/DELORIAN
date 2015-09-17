@@ -30,38 +30,45 @@ class TimetravelService {
     public function timetravelEpisode($id) {
         echo "import episode ".$id."\n";
         $old_episode = $this->flow_em->getRepository('OktolabDelorianBundle:Episode')->findOneBy(array('id' => $id));
-        $episode = $this->delorian_em->getRepository('OktolabMediaBundle:Episode')->findOneBy(array('uniqID' => $old_episode->getId()));
-        if (!$episode) {
-            $episode = new Episode();
-        }
-        $old_series = $old_episode->getSeries();
-        $series = $this->delorian_em->getRepository('OktolabMediaBundle:Series')->findOneBy(array('uniqID' => $old_series->getId()));
-        if (!$series) {
-            $series = new Series();
-            $series->setUniqID($old_series->getId());
-            $series->setName($old_series->getTitle());
-            $series->setWebTitle($old_series->getWebAbbrevation());
-            $series->setDescription($old_series->getAbstractTextPublic());
-        }
 
-        $episode->setName($old_episode->getTitle());
-        $episode->setDescription($old_episode->getAbstractTextPublic());
-        $episode->setUniqID($old_episode->getId());
-        $episode->setOnlineStart($old_episode->getOnlineStartDate());
-        $episode->setOnlineEnd($old_episode->getOnlineEndDate());
-        $episode->setSeries($series);
+            $episode = $this->delorian_em->getRepository('OktolabMediaBundle:Episode')->findOneBy(array('uniqID' => $old_episode->getId()));
+            if (!$episode) {
+                $episode = new Episode();
+            }
+            $old_series = $old_episode->getSeries();
+            $series = $this->delorian_em->getRepository('OktolabMediaBundle:Series')->findOneBy(array('uniqID' => $old_series->getId()));
+            if (!$series) {
+                $series = new Series();
+                $series->setUniqID($old_series->getId());
+                $series->setName($old_series->getTitle());
+                $series->setWebTitle($old_series->getWebAbbrevation());
+                $series->setDescription($old_series->getAbstractTextPublic());
+            }
+            if ($old_episode->getTitle() == "" || $old_episode->getTitle() == null ) {
+                //use the name of the first clip
+                $episodeclips = $this->flow_em->getRepository('OktolabDelorianBundle:EpisodeClip')->findBy(array('episode' => $old_episode->getId()));
+                if ($episodeclips) {
+                    $episode->setName($episodeclips[0]->getClip()->getTitle());
+                }
+            } else {
+                $episode->setName($old_episode->getTitle());
+            }
+            $episode->setDescription($old_episode->getAbstractTextPublic());
+            $episode->setUniqID($old_episode->getId());
+            $episode->setOnlineStart($old_episode->getOnlineStartDate());
+            $episode->setOnlineEnd($old_episode->getOnlineEndDate());
+            $episode->setSeries($series);
 
-        $this->importEpisodePosterframe($episode);
-        $this->importEpisodeVideo($episode);
+            $this->importEpisodePosterframe($episode);
+            $this->importEpisodeVideo($episode);
 
-        $this->delorian_em->persist($episode);
-        $this->delorian_em->persist($series);
-        $this->delorian_em->flush();
-        $this->delorian_em->clear();
-        $this->flow_em->clear();
-        unset($episode);
-        unset($series);
-
+            $this->delorian_em->persist($episode);
+            $this->delorian_em->persist($series);
+            $this->delorian_em->flush();
+            $this->delorian_em->clear();
+            $this->flow_em->clear();
+            unset($episode);
+            unset($series);
     }
 
     public function timetravelSeries($id) {
@@ -97,7 +104,7 @@ class TimetravelService {
                 $name = uniqID();
                 $adapter = new LocalAdapter($this->adapters['gallery']['path']);
                 $filesystem = new Filesystem($adapter);
-                $filesystem->write($name.'_'.$attachment->getFileName(), stream_get_contents($attachment->getContent()));
+                $filesystem->write($name, stream_get_contents($attachment->getContent()));
                 unset($adapter);
                 unset($filesystem);
                 //add posterframe as Asset to the Episode!
@@ -132,11 +139,12 @@ class TimetravelService {
             // use the video shortcode to find the file in the filesystem
             $gaufretteAdapters = array();
             foreach ($this->adapters as $key => $adapter) {
-                $gaufretteAdapter = new LocalAdapter($adapter['path'].'/'.$old_series->getAbbrevation(), true);
-                if ($gaufretteAdapter->exists($video->getShortCode())) {
+                $path = $adapter['path'].'/'.$old_series->getAbbrevation().'/'.$video->getShortCode();
+                if (file_exists($path)) {
                     //video found! all hail the flying spagetti monster!
-                    echo "found video ".$adapter['path'].'/'.$old_series->getAbbrevation().'/'.$video->getShortCode()."\n";
-                    $this->encodeVideo($adapter['path'].'/'.$old_series->getAbbrevation().'/'.$video->getShortCode(), $video->getShortCode(), $episode);
+                    echo "found video ".$path."\n";
+                    //TODO: if path is LTA, use own encode Video job to scale 720x576 videos to HD ready!
+                    $this->encodeVideo($path, $video->getShortCode(), $episode);
                     break;
                 }
             }
@@ -148,7 +156,7 @@ class TimetravelService {
     * ffmpeg command to encode video to delorian
     */
     private function encodeVideo($path, $filename, Episode $episode) {
-        $key = uniqID();
+        $key = uniqID().".mov";
         $asset = new Asset();
         $asset->setKey($key);
         $asset->setAdapter('video');
@@ -159,7 +167,7 @@ class TimetravelService {
         $this->delorian_em->persist($episode);
         $this->delorian_em->flush();
         echo "start encoding \n";
-        shell_exec(sprintf('ffmpeg -i "%s" -deinterlace -crf 21 -s 1280x720 -movflags +faststart -acodec aac -strict -2 -vcodec h264 -r 50 "%s.mov"', $path, $this->adapters['video']['path'].'/'.$key));
+        shell_exec(sprintf('ffmpeg -i "%s" -deinterlace -crf 21 -s 1280x720 -movflags +faststart -acodec aac -strict -2 -vcodec h264 -r 50 "%s"', $path, $this->adapters['video']['path'].'/'.$key));
     }
 }
 

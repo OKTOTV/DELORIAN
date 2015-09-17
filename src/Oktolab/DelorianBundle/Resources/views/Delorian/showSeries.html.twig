@@ -1,0 +1,36 @@
+{% extends "BprsStyleBundle::layout.html.twig" %}
+{% block body_main %}
+    <div class="page-header">
+        <h1>{{ series.name }}</h1>
+        <p>{{ series.description|default('') }}</p>
+        <p>Webtitel: {{series.webtitle }}</p>
+        <p>Aktiv: {{ series.isActive }}</p>
+        <p>Angelegt am: {{ series.createdAt|date("d.m.Y H:i") }}</p>
+        <p>Aktualisiert am: {{ series.updatedAt|date("d.m.Y H:i") }}</p>
+        <p>UniqID: {{ series.uniqID }}</p>
+    </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <td>Posterframe</td>
+                    <td>Title</td>
+                    <td>Description</td>
+                    <td>UniqID</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for episode in series.episodes %}
+                    <tr>
+                        <td>
+                            {% if episode.posterframe is not empty %}
+                                <img src="{{ episode.posterframe|thumb(80, 120) }}" class="img-responsive"/>
+                            {% endif %}
+                        </td>
+                        <td>{{ episode.name }}</td>
+                        <td>{{ episode.description|default('') }}</td>
+                        <td><a href="{{ path( 'show_episode', {'episode': episode.id}) }}">{{ episode.uniqID }}</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+{% endblock %}
