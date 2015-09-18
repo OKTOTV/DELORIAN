@@ -10,6 +10,9 @@
     </div>
     <div class="row">
         <div class="col-md-8">
+            {% if entity.posterframe is not empty %}
+                <img src="{{ entity.posterframe|path }}" class="img-responsive" />
+            {% endif %}
             {{ entity.description }}
         </div>
         <div class="col-md-4">
@@ -40,7 +43,11 @@
     <tbody>
         {% for episode in entity.episodes %}
             <tr>
-                <td><img src="{{ episode.posterframe|thumb(80,120)}}" /></td>
+                <td>
+                    {% if episode.posterframe is not empty %}
+                        <img src="{{ episode.posterframe|thumb(80,120)}}" />
+                    {% endif %}
+                </td>
                 <td>{{ episode.name }}</td>
                 <td>{{ episode.description }}</td>
                 <td><a href="{{ path('oktolab_episode_show', {'id': episode.id })}}">{{ episode.uniqID }}</a></td>

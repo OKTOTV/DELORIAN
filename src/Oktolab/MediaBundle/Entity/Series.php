@@ -75,6 +75,12 @@ class Series
     */
     private $episodes;
 
+    /**
+    * @ORM\OneToOne(targetEntity="Oktolab\MediaBundle\Entity\Asset")
+    * @ORM\JoinColumn(name="posterframe_id", referencedColumnName="id")
+    */
+    private $posterframe;
+
     public function __construct() {
         $this->uniqID = uniqid();
         $this->isActive = true;
@@ -287,5 +293,28 @@ class Series
     public function getEpisodes()
     {
         return $this->episodes;
+    }
+
+    /**
+     * Set posterframe
+     *
+     * @param \Oktolab\MediaBundle\Entity\Asset $posterframe
+     * @return Episode
+     */
+    public function setPosterframe(\Oktolab\MediaBundle\Entity\Asset $posterframe = null)
+    {
+        $this->posterframe = $posterframe;
+
+        return $this;
+    }
+
+    /**
+     * Get posterframe
+     *
+     * @return \Oktolab\MediaBundle\Entity\Asset
+     */
+    public function getPosterframe()
+    {
+        return $this->posterframe;
     }
 }

@@ -77,6 +77,7 @@ class TimetravelService {
             $episode->setOnlineEnd($old_episode->getOnlineEndDate());
             $episode->setSeries($series);
 
+            $this->importSeriesPosterframe($series);
             $this->importEpisodePosterframe($episode);
             $this->importEpisodeVideo($episode);
 
@@ -135,7 +136,6 @@ class TimetravelService {
 
                 $episode->setPosterframe($asset);
                 $this->delorian_em->persist($asset);
-
             }
         }
         unset($attachmentObject);
@@ -144,7 +144,31 @@ class TimetravelService {
 
     private function importSeriesPosterframe(Series $series)
     {
-        
+        $attachmentObject = $this->flow_em->getRepository('OktolabDelorianBundle:AttachmentObject')->findOneBy(array('reference' => $series->getUniqID()));
+        if ($attachmentObject) {
+            $attachment = $this->flow_em->getRepository('OktolabDelorianBundle:Attachment')->findOneBy(array('attachmentObject' => $attachmentObject->getId(), 'attachmentRole' => 2));
+            if ($attachment) {
+                // decode blob and save as file to the filesystem
+                $name = uniqID();
+                $adapter = new LocalAdapter($this->adapters['gallery']['path']);
+                $filesystem = new Filesystem($adapter);
+                $filesystem->write($name, stream_get_contents($attachment->getContent()));
+                unset($adapter);
+                unset($filesystem);
+                //add posterframe as Asset to the Episode!
+                $asset = new Asset();
+                $asset->setKey($name);
+                $asset->setAdapter('gallery');
+                $asset->setName($attachment->getFileName());
+                $asset->setFileSize($attachment->getFileSize());
+                $asset->setMimetype($attachment->getMimetype());
+
+                $series->setPosterframe($asset);
+                $this->delorian_em->persist($asset);
+            }
+        }
+        unset($attachmentObject);
+        unset($attachment);
     }
 
     /**
