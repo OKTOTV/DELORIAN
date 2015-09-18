@@ -17,54 +17,71 @@ use Oktolab\DelorianBundle\Entity\Episode as DelorianEpisode;
 class DelorianController extends Controller
 {
     /**
-     * @Route("/series", name="series")
+     * @Route("/{page}", defaults={"page": 0}, name="list_series", requirements={"page": "\d+"})
      * @Template()
      */
-    public function listSeriesAction()
+    public function listSeriesAction($page)
     {
-        $em = $this->getDoctrine()->getManager('delorian');
-        // TODO: service! pagination!
-        $series = $em->getRepository('OktolabMediaBundle:Series')->findAll();
-        return array('seriess' => $series);
+        $total = $this->getDoctrine()->getManager('flow')->getRepository('OktolabDelorianBundle:Series')->findAll();
+
+        if ($page < 0) {
+            $page = 0;
+        }
+        if ($page*10 > $total) {
+            $page = $total -10;
+        }
+
+        $old_seriess = $this->getDoctrine()->getManager('flow')->getRepository('OktolabDelorianBundle:Series')->findBy(array(), array(), 10, $page*10);
+
+        $start_result = $page*10+1;
+        if ($page == 0) {
+            $start_result = 1;
+        }
+        $end_result = $start_result + 10;
+
+        return array(
+            'currentPage' => $page,
+            'start_result' => $start_result,
+            'end_result' => $end_result,
+            'seriess' => $old_seriess,
+            'total' => count($total));
     }
 
     /**
-     * @Route("/series/{series}", name="show_series", requirements={"series": "\d+"})
+     * @Route("/series/{id}", name="show_series", requirements={"id": "\d+"})
      * @Template()
      */
-    public function showSeriesAction($series)
+    public function showSeriesAction($id)
     {
-        $em = $this->getDoctrine()->getManager('delorian');
-        $series = $em->getRepository('OktolabMediaBundle:Series')->findOneBy(array('id' => $series));
-        return array('series' => $series);
-    }
-
-    /**
-     * @Route("/episode/{episode}", name="show_episode", requirements={"episode": "\d+"})
-     * @Template()
-     */
-    public function showEpisodeAction($episode)
-    {
-        $em = $this->getDoctrine()->getManager('delorian');
-        $episode = $em->getRepository('OktolabMediaBundle:Episode')->findOneBy(array('id' => $episode));
-        return array('episode' => $episode);
+        $em = $this->getDoctrine()->getManager('flow');
+        $series = $em->getRepository('OktolabDelorianBundle:Series')->findOneBy(array('id' => $id));
+        $episodes = $em->getRepository('OktolabDelorianBundle:Episode')->findBy(array('series' => $id), array('firstRanAt' => 'DESC'));
+        return array('series' => $series, 'episodes' => $episodes);
     }
 
     /**
      * @Route("/timetravelseries", name="timetravelseries")
-     * @Template()
      */
-     public function timetravelSeriesAction(DelorianSeries $old_series)
-     {
+    public function timetravelSeriesAction(Request $request)
+    {
+        $id = $request->request->get('id');
+        if ($id) {
+            $this->get('delorian.timetravel')->fluxCompensateSeries($id);
+            return new Response("", Response::HTTP_OK);
+        }
+        return new Response("", Response::HTTP_BAD_REQUEST);
+    }
 
-     }
-
-     /**
-      * @Route("/timetravelseries", name="timetravelepisode")
-      * @Template()
-      */
-     public function timetravelEpisodeAction(DelorianEpisode $old_episode)
-     {
-
-     }
+    /**
+    * @Route("/timetravelepisode", name="timetravelepisode")
+    */
+    public function timetravelEpisodeAction(Request $request)
+    {
+        $id = $request->request->get('id');
+        if ($id) {
+            $this->get('delorian.timetravel')->fluxCompensateEpisode($id);
+            return new Response("", Response::HTTP_OK);
+        }
+        return new Response("", Response::HTTP_BAD_REQUEST);
+    }
 }

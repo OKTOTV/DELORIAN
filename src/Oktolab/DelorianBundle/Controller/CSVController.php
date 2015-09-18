@@ -10,39 +10,11 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 use Oktolab\DelorianBundle\Entity\Series as DelorianSeries;
 
+/**
+* @Route("/delorian")
+*/
 class CSVController extends Controller
 {
-    /**
-     * @Route("/{page}", defaults={"page": 0}, name="csv_series")
-     * @Template()
-     */
-    public function indexAction($page)
-    {
-        $total = $this->getDoctrine()->getManager('flow')->getRepository('OktolabDelorianBundle:Series')->findAll();
-
-        if ($page < 0) {
-            $page = 0;
-        }
-        if ($page*10 > $total) {
-            $page = $total -10;
-        }
-
-        $old_seriess = $this->getDoctrine()->getManager('flow')->getRepository('OktolabDelorianBundle:Series')->findBy(array(), array(), 10, $page*10);
-
-        $start_result = $page*10+1;
-        if ($page == 0) {
-            $start_result = 1;
-        }
-        $end_result = $start_result + 10;
-
-        return array(
-            'currentPage' => $page,
-            'start_result' => $start_result,
-            'end_result' => $end_result,
-            'seriess' => $old_seriess,
-            'total' => count($total));
-    }
-
     /**
      * @Route("/firstruns/{id}", defaults={"page": 0}, name="csv_firstruns")
      * @Template()
@@ -67,7 +39,6 @@ class CSVController extends Controller
                 $query->setParameter('series', $old_series);
                 $old_episodes = $query->getResult();
 
-                //die(var_dump($old_episodes));
                 return $this->CSVResponse($old_episodes);
             } else {
                 $this->get('session')->getFlashBag()->add('error', "ERROR");

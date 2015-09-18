@@ -16,11 +16,29 @@ class TimetravelService {
     private $flow_em;
     private $delorian_em;
     private $adapters;
+    private $jobservice;
 
-    public function __construct($flow_manager, $delorian_manager, $adapters) {
+    public function __construct($flow_manager, $delorian_manager, $adapters, $jobservice) {
         $this->adapters = $adapters;
         $this->flow_em = $flow_manager;
         $this->delorian_em = $delorian_manager;
+        $this->jobservice = $jobservice;
+    }
+
+    /**
+    * adds timetraveljob for given episode id
+    */
+    public function fluxCompensateEpisode($id)
+    {
+        $this->jobservice->addJob("Oktolab\DelorianBundle\Model\TimetravelJob", array('type' => 'episode', 'id' => $id), "default");
+    }
+
+    /**
+    * adds timetraveljob for given series id
+    */
+    public function fluxCompensateSeries($id)
+    {
+        $this->jobservice->addJob("Oktolab\DelorianBundle\Model\TimetravelJob", array('type' => 'series', 'id' => $id));
     }
 
     /**
@@ -124,6 +142,11 @@ class TimetravelService {
         unset($attachment);
     }
 
+    private function importSeriesPosterframe(Series $series)
+    {
+        
+    }
+
     /**
     * uses ffmpeg to import and reencode a video to DELORIAN (webuseable)
     */
@@ -168,6 +191,22 @@ class TimetravelService {
         $this->delorian_em->flush();
         echo "start encoding \n";
         shell_exec(sprintf('ffmpeg -i "%s" -deinterlace -crf 21 -s 1280x720 -movflags +faststart -acodec aac -strict -2 -vcodec h264 -r 50 "%s"', $path, $this->adapters['video']['path'].'/'.$key));
+    }
+
+    /**
+     * ffmpeg command for old LTA videos in 4:3
+     */
+    private function encode4to3Video()
+    {
+
+    }
+
+    /**
+     * ffmpeg command for old LTA videos in 4:3 with letterboxed 16:9
+     */
+    private function encodeLetterboxed16to9Video()
+    {
+
     }
 }
 

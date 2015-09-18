@@ -81,6 +81,10 @@ class Series
         $this->episodes = new ArrayCollection();
     }
 
+    public function __toString() {
+        return $this->name;
+    }
+
     /**
      * Get id
      *

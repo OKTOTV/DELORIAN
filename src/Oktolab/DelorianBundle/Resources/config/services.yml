@@ -1,4 +1,4 @@
 services:
     delorian.timetravel:
         class:  Oktolab\DelorianBundle\Model\TimetravelService
-        arguments: [ @doctrine.orm.flow_entity_manager, @doctrine.orm.delorian_entity_manager, %bprs_asset.adapters% ]
+        arguments: [ @doctrine.orm.flow_entity_manager, @doctrine.orm.delorian_entity_manager, %bprs_asset.adapters%, @bprs_jobservice ]

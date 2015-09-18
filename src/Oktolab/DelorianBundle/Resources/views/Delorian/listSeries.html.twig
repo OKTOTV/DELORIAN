@@ -1,11 +1,21 @@
 {% extends "BprsStyleBundle::layout.html.twig" %}
+
+{% block nav_head%}
+    {% include 'BprsStyleBundle::menu.html.twig' with {'selected': 'programmtool', 'dropdown': ''} %}
+{% endblock %}
+
 {% block body_main %}
     <div class="page-header">
-    <h1>Showing Imported series</h1>
-    <div>
+        <h1>Showing {{ start_result }} - {{ end_result }} of {{ total }} series</h1>
+    </div>
     <ul class="list-group">
         {% for series in seriess %}
-            <li class="list-group-item"><a href="{{ path('show_series', {'series': series.id}) }}">{{ series.name }}</a> - {{ series.description|default('') }}</li>
+            <li class="list-group-item">[<a href="{{ path('show_series', {'id': series.id}) }}">{{ series.abbrevation}}</a>] {{ series.title }} - {{ series.promoText }}</li>
         {% endfor %}
     </ul>
+    {% if currentPage <= 0 %}
+        <a href="{{ path('list_series', {'page': currentPage+1 }) }}">nächste</a>
+    {% else %}
+        <a href="{{ path('list_series', {'page': currentPage-1 }) }}">vorherige</a> - <a href="{{ path('list_series', {'page': currentPage+1 }) }}">nächste</a>
+    {% endif %}
 {% endblock %}
