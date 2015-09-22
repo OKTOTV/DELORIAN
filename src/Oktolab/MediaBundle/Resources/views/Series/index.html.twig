@@ -16,6 +16,7 @@
     <table class="table">
         <thead>
             <tr>
+                <th>Posterframe</th>
                 <th>Name</th>
                 <th>Webtitle</th>
                 <th>Uniqid</th>
@@ -24,6 +25,11 @@
         <tbody>
         {% for entity in entities %}
             <tr>
+                <td>
+                    {% if entity.posterframe is not empty %}
+                        <img src="{{ entity.posterframe|thumb(80,120) }}" class="img-responsive" />
+                    {% endif %}
+                </td>
                 <td><a href="{{ path('oktolab_series_show', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
                 <td>{{ entity.webtitle }}</td>
                 <td>{{ entity.uniqID }}</td>
