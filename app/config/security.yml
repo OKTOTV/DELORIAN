@@ -3,10 +3,29 @@ security:
         in_memory:
             memory: ~
 
+        bprs_applink:
+            entity:
+                class: BprsAppLinkBundle:Keychain
+                property: user
+                manager_name: delorian
+
+    encoders:
+        Bprs\AppLinkBundle\Entity\Keychain: plaintext
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt|error)|css|images|js)/
             security: false
 
-        default:
-            anonymous: ~
+        # default:
+        #     anonymous: ~
+
+        api:
+            pattern:  ^/api
+            http_basic: ~
+            provider: bprs_applink
+            #stateless: true
+
+    access_control:
+    # require BPRS_APPLINK for /api*
+        - { path: ^/api, roles: ROLE_BPRS_APPLINK }

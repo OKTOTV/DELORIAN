@@ -83,6 +83,7 @@ doctrine:
                 mappings:
                     OktolabMediaBundle: ~
                     BprsAssetBundle: ~
+                    BprsAppLinkBundle: ~
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -96,9 +97,6 @@ services:
     jms_serializer.object_constructor:
         alias: jms_serializer.doctrine_object_constructor
         public: false
-
-bprs_app_link:
-    commandline_host:   "localhost/DELORIAN/web/app.php"
 
 bprs_asset:
     class:  "Oktolab\MediaBundle\Entity\Asset"

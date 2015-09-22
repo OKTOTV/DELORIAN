@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/SrgSteak/BprsAppLinkBundle.git",
-                "reference": "e808e965f8d3592824d1900c1bf3b35961ba33ad"
+                "reference": "0c62a6e58a07245c1c55d495f9601365f3fe5904"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SrgSteak/BprsAppLinkBundle/zipball/e808e965f8d3592824d1900c1bf3b35961ba33ad",
-                "reference": "e808e965f8d3592824d1900c1bf3b35961ba33ad",
+                "url": "https://api.github.com/repos/SrgSteak/BprsAppLinkBundle/zipball/0c62a6e58a07245c1c55d495f9601365f3fe5904",
+                "reference": "0c62a6e58a07245c1c55d495f9601365f3fe5904",
                 "shasum": ""
             },
             "require": {
@@ -50,7 +50,7 @@
                 "api",
                 "link"
             ],
-            "time": "2015-09-10 08:40:47"
+            "time": "2015-09-22 10:41:53"
         },
         {
             "name": "bprs/asset-bundle",
@@ -610,16 +610,16 @@
         },
         {
             "name": "doctrine/doctrine-bundle",
-            "version": "v1.5.1",
+            "version": "v1.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineBundle.git",
-                "reference": "8c5cedb4f2f7ebb66a963ae46ad9daa1e31cee01"
+                "reference": "d63be7eb9a95d46720f7d6badac4e5bc2bcff2e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/8c5cedb4f2f7ebb66a963ae46ad9daa1e31cee01",
-                "reference": "8c5cedb4f2f7ebb66a963ae46ad9daa1e31cee01",
+                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/d63be7eb9a95d46720f7d6badac4e5bc2bcff2e3",
+                "reference": "d63be7eb9a95d46720f7d6badac4e5bc2bcff2e3",
                 "shasum": ""
             },
             "require": {
@@ -646,7 +646,7 @@
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.5.x-dev"
+                    "dev-master": "1.6.x-dev"
                 }
             },
             "autoload": {
@@ -684,7 +684,7 @@
                 "orm",
                 "persistence"
             ],
-            "time": "2015-08-12 15:52:00"
+            "time": "2015-08-31 14:47:06"
         },
         {
             "name": "doctrine/doctrine-cache-bundle",
@@ -2675,16 +2675,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.21.2",
+            "version": "v1.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "ddce1136beb8db29b9cd7dffa8ab518b978c9db3"
+                "reference": "b7fc2469fa009897871fb95b68237286fc54a5ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/ddce1136beb8db29b9cd7dffa8ab518b978c9db3",
-                "reference": "ddce1136beb8db29b9cd7dffa8ab518b978c9db3",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/b7fc2469fa009897871fb95b68237286fc54a5ad",
+                "reference": "b7fc2469fa009897871fb95b68237286fc54a5ad",
                 "shasum": ""
             },
             "require": {
@@ -2697,7 +2697,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.21-dev"
+                    "dev-master": "1.22-dev"
                 }
             },
             "autoload": {
@@ -2732,7 +2732,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2015-09-09 05:28:51"
+            "time": "2015-09-15 06:50:16"
         }
     ],
     "packages-dev": [
