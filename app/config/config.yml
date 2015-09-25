@@ -99,8 +99,8 @@ services:
         public: false
 
 oktolab_media:
-    episode_class: "Oktolab\MediaBundle\Entity\Episode"
-    series_class: "Oktolab\MediaBundle\Entity\Series"
+    episode_class: "AppBundle\Entity\Episode"
+    series_class: "AppBundle\Entity\Series"
 
 bprs_asset:
     class:  "Oktolab\MediaBundle\Entity\Asset"

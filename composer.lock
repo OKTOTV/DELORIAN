@@ -4,21 +4,61 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4c99804394431f6d7f0f0dbc90e70411",
+    "hash": "440d76222ebbf712142a5e1d748a37fc",
     "packages": [
         {
+            "name": "behat/transliterator",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Behat/Transliterator.git",
+                "reference": "c93521d3462a554332d1ef5bb0e9b5b8ca4106c4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Behat/Transliterator/zipball/c93521d3462a554332d1ef5bb0e9b5b8ca4106c4",
+                "reference": "c93521d3462a554332d1ef5bb0e9b5b8ca4106c4",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Behat\\Transliterator": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Artistic-1.0"
+            ],
+            "description": "String transliterator",
+            "keywords": [
+                "i18n",
+                "slug",
+                "transliterator"
+            ],
+            "time": "2014-05-15 22:08:22"
+        },
+        {
             "name": "bprs/applink-bundle",
-            "version": "dev-master",
+            "version": "1.0",
             "target-dir": "Bprs/AppLinkBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SrgSteak/BprsAppLinkBundle.git",
-                "reference": "0c62a6e58a07245c1c55d495f9601365f3fe5904"
+                "reference": "563503a8d3815c4ee6092ceb1dcb55f8a90a6538"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SrgSteak/BprsAppLinkBundle/zipball/0c62a6e58a07245c1c55d495f9601365f3fe5904",
-                "reference": "0c62a6e58a07245c1c55d495f9601365f3fe5904",
+                "url": "https://api.github.com/repos/SrgSteak/BprsAppLinkBundle/zipball/563503a8d3815c4ee6092ceb1dcb55f8a90a6538",
+                "reference": "563503a8d3815c4ee6092ceb1dcb55f8a90a6538",
                 "shasum": ""
             },
             "require": {
@@ -50,7 +90,7 @@
                 "api",
                 "link"
             ],
-            "time": "2015-09-22 10:41:53"
+            "time": "2015-09-25 13:59:30"
         },
         {
             "name": "bprs/asset-bundle",
@@ -1074,6 +1114,139 @@
             "time": "2014-12-10 05:09:18"
         },
         {
+            "name": "floriansemm/solr-bundle",
+            "version": "1.3.1",
+            "target-dir": "FS/SolrBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/floriansemm/SolrBundle.git",
+                "reference": "a2b38ea865a6fd058b3d0f17c08d6d03eddfd798"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/floriansemm/SolrBundle/zipball/a2b38ea865a6fd058b3d0f17c08d6d03eddfd798",
+                "reference": "a2b38ea865a6fd058b3d0f17c08d6d03eddfd798",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.5",
+                "solarium/solarium": "*"
+            },
+            "require-dev": {
+                "behat/behat": "3.*",
+                "doctrine/doctrine-module": "*",
+                "doctrine/doctrine-orm-module": "*",
+                "doctrine/mongodb": "*",
+                "doctrine/mongodb-odm": "*",
+                "symfony/config": "*",
+                "symfony/dependency-injection": "*",
+                "symfony/doctrine-bridge": "*",
+                "symfony/http-kernel": "*"
+            },
+            "suggest": {
+                "doctrine/mongodb": "Required if you want to use the MongoDB ODM features",
+                "doctrine/mongodb-odm": "Required if you want to use the MongoDB ODM features"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "FS\\SolrBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Symfony2 Solr integration bundle",
+            "homepage": "https://github.com/floriansemm/SolrBundle",
+            "keywords": [
+                "index",
+                "search",
+                "solr",
+                "symfony"
+            ],
+            "time": "2015-07-27 18:55:16"
+        },
+        {
+            "name": "gedmo/doctrine-extensions",
+            "version": "v2.4.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Atlantic18/DoctrineExtensions.git",
+                "reference": "5d330411e27ab0ced67e1e5383ccae975c23c17d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/5d330411e27ab0ced67e1e5383ccae975c23c17d",
+                "reference": "5d330411e27ab0ced67e1e5383ccae975c23c17d",
+                "shasum": ""
+            },
+            "require": {
+                "behat/transliterator": "~1.0",
+                "doctrine/common": "~2.4",
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "doctrine/common": ">=2.5.0",
+                "doctrine/mongodb-odm": "dev-master",
+                "doctrine/orm": ">=2.5.0",
+                "phpunit/phpunit": "~4.4",
+                "phpunit/phpunit-mock-objects": "~2.3",
+                "symfony/yaml": "~2.6"
+            },
+            "suggest": {
+                "doctrine/mongodb-odm": "to use the extensions with the MongoDB ODM",
+                "doctrine/orm": "to use the extensions with the ORM"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Gedmo\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "David Buchmann",
+                    "email": "david@liip.ch"
+                },
+                {
+                    "name": "Gediminas Morkevicius",
+                    "email": "gediminas.morkevicius@gmail.com"
+                },
+                {
+                    "name": "Gustavo Falco",
+                    "email": "comfortablynumb84@gmail.com"
+                }
+            ],
+            "description": "Doctrine2 behavioral extensions",
+            "homepage": "http://gediminasm.org/",
+            "keywords": [
+                "Blameable",
+                "behaviors",
+                "doctrine2",
+                "extensions",
+                "gedmo",
+                "loggable",
+                "nestedset",
+                "sluggable",
+                "sortable",
+                "timestampable",
+                "translatable",
+                "tree",
+                "uploadable"
+            ],
+            "time": "2015-08-28 11:07:14"
+        },
+        {
             "name": "guzzlehttp/guzzle",
             "version": "5.3.0",
             "source": {
@@ -1859,6 +2032,52 @@
             "time": "2015-08-31 09:17:37"
         },
         {
+            "name": "oktolab/media-bundle",
+            "version": "dev-master",
+            "target-dir": "Oktolab/MediaBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/OKTOTV/OktolabMediaBundle.git",
+                "reference": "a03ac3af162ca8d275d4b1592f21d14302820b09"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/OKTOTV/OktolabMediaBundle/zipball/a03ac3af162ca8d275d4b1592f21d14302820b09",
+                "reference": "a03ac3af162ca8d275d4b1592f21d14302820b09",
+                "shasum": ""
+            },
+            "require": {
+                "bprs/applink-bundle": "~1.0",
+                "floriansemm/solr-bundle": "~1.2",
+                "jms/serializer-bundle": "0.13.*",
+                "stof/doctrine-extensions-bundle": "~1.1"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Oktolab\\MediaBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Robin Schmidt",
+                    "email": "rs@okto.tv",
+                    "role": "Developer"
+                }
+            ],
+            "description": "In- and exportable media-metainformations with RESTful Api",
+            "homepage": "https://github.com/OKTOTV/OktolabMediaBundle",
+            "keywords": [
+                "media",
+                "restful"
+            ],
+            "time": "2015-09-25 13:30:45"
+        },
+        {
             "name": "oneup/uploader-bundle",
             "version": "v1.3.1",
             "target-dir": "Oneup/UploaderBundle",
@@ -2266,6 +2485,121 @@
             "time": "2015-08-11 12:11:25"
         },
         {
+            "name": "solarium/solarium",
+            "version": "3.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/solariumphp/solarium.git",
+                "reference": "90d006c65efffcbcbfa8a31920e93c10d0657b96"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/solariumphp/solarium/zipball/90d006c65efffcbcbfa8a31920e93c10d0657b96",
+                "reference": "90d006c65efffcbcbfa8a31920e93c10d0657b96",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "symfony/event-dispatcher": "~2.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~3.7",
+                "satooshi/php-coveralls": "~0.6",
+                "squizlabs/php_codesniffer": "~1.4",
+                "zendframework/zendframework1": "~1.12"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "3.3.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Solarium\\": "library/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "NewBSD"
+            ],
+            "authors": [
+                {
+                    "name": "See GitHub contributors",
+                    "homepage": "https://github.com/basdenooijer/solarium/contributors"
+                }
+            ],
+            "description": "PHP Solr client",
+            "homepage": "http://www.solarium-project.org",
+            "keywords": [
+                "php",
+                "search",
+                "solr"
+            ],
+            "time": "2015-06-14 17:22:39"
+        },
+        {
+            "name": "stof/doctrine-extensions-bundle",
+            "version": "v1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stof/StofDoctrineExtensionsBundle.git",
+                "reference": "7b3144572617b0555f9a443317dbc2f9cf5b524e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stof/StofDoctrineExtensionsBundle/zipball/7b3144572617b0555f9a443317dbc2f9cf5b524e",
+                "reference": "7b3144572617b0555f9a443317dbc2f9cf5b524e",
+                "shasum": ""
+            },
+            "require": {
+                "gedmo/doctrine-extensions": "^2.3.1",
+                "php": ">=5.3.2",
+                "symfony/framework-bundle": "~2.1"
+            },
+            "suggest": {
+                "doctrine/doctrine-bundle": "to use the ORM extensions",
+                "doctrine/mongodb-odm-bundle": "to use the MongoDB ODM extensions"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Stof\\DoctrineExtensionsBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christophe Coevoet",
+                    "email": "stof@notk.org"
+                }
+            ],
+            "description": "Integration of the gedmo/doctrine-extensions with Symfony2",
+            "homepage": "https://github.com/stof/StofDoctrineExtensionsBundle",
+            "keywords": [
+                "behaviors",
+                "doctrine2",
+                "extensions",
+                "gedmo",
+                "loggable",
+                "nestedset",
+                "sluggable",
+                "sortable",
+                "timestampable",
+                "translatable",
+                "tree"
+            ],
+            "time": "2015-08-12 16:23:48"
+        },
+        {
             "name": "swiftmailer/swiftmailer",
             "version": "v5.4.1",
             "source": {
@@ -2323,12 +2657,12 @@
             "version": "v2.7.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/AsseticBundle.git",
+                "url": "https://github.com/symfony/assetic-bundle.git",
                 "reference": "3ae5c8ca3079b6e0033cc9fbfb6500e2bc964da5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/AsseticBundle/zipball/3ae5c8ca3079b6e0033cc9fbfb6500e2bc964da5",
+                "url": "https://api.github.com/repos/symfony/assetic-bundle/zipball/3ae5c8ca3079b6e0033cc9fbfb6500e2bc964da5",
                 "reference": "3ae5c8ca3079b6e0033cc9fbfb6500e2bc964da5",
                 "shasum": ""
             },
@@ -2393,12 +2727,12 @@
             "version": "v2.7.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/MonologBundle.git",
+                "url": "https://github.com/symfony/monolog-bundle.git",
                 "reference": "9320b6863404c70ebe111e9040dab96f251de7ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/MonologBundle/zipball/9320b6863404c70ebe111e9040dab96f251de7ac",
+                "url": "https://api.github.com/repos/symfony/monolog-bundle/zipball/9320b6863404c70ebe111e9040dab96f251de7ac",
                 "reference": "9320b6863404c70ebe111e9040dab96f251de7ac",
                 "shasum": ""
             },
@@ -2452,12 +2786,12 @@
             "version": "v2.3.8",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/SwiftmailerBundle.git",
+                "url": "https://github.com/symfony/swiftmailer-bundle.git",
                 "reference": "970b13d01871207e81d17b17ddda025e7e21e797"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/SwiftmailerBundle/zipball/970b13d01871207e81d17b17ddda025e7e21e797",
+                "url": "https://api.github.com/repos/symfony/swiftmailer-bundle/zipball/970b13d01871207e81d17b17ddda025e7e21e797",
                 "reference": "970b13d01871207e81d17b17ddda025e7e21e797",
                 "shasum": ""
             },
@@ -2675,16 +3009,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.22.1",
+            "version": "v1.22.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "b7fc2469fa009897871fb95b68237286fc54a5ad"
+                "reference": "79249fc8c9ff62e41e217e0c630e2e00bcadda6a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/b7fc2469fa009897871fb95b68237286fc54a5ad",
-                "reference": "b7fc2469fa009897871fb95b68237286fc54a5ad",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/79249fc8c9ff62e41e217e0c630e2e00bcadda6a",
+                "reference": "79249fc8c9ff62e41e217e0c630e2e00bcadda6a",
                 "shasum": ""
             },
             "require": {
@@ -2732,7 +3066,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2015-09-15 06:50:16"
+            "time": "2015-09-22 13:59:32"
         }
     ],
     "packages-dev": [
@@ -2788,8 +3122,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "bprs/applink-bundle": 20,
-        "bprs/commandline-bundle": 20
+        "bprs/commandline-bundle": 20,
+        "oktolab/media-bundle": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
