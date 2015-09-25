@@ -5,6 +5,11 @@ namespace Oktolab\MediaBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
+interface SeriesMergerInterface
+{
+    public function merge(Series $series);
+}
+
 /**
  * Series
  *
@@ -12,7 +17,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks()
  */
-class Series
+class Series implements SeriesMergerInterface
 {
     /**
      * @var integer
@@ -316,5 +321,13 @@ class Series
     public function getPosterframe()
     {
         return $this->posterframe;
+    }
+
+    public function merge(Series $series)
+    {
+        $this->name = $series->getName();
+        $this->description = $series->getDescription();
+        $this->webtitle = $series->webtitle();
+        $this->isActive = $series->isActive();
     }
 }

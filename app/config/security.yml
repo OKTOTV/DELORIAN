@@ -24,7 +24,7 @@ security:
             pattern:  ^/api
             http_basic: ~
             provider: bprs_applink
-            #stateless: true
+            stateless: true
 
     access_control:
     # require BPRS_APPLINK for /api*

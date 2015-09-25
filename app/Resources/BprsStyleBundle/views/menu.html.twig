@@ -17,7 +17,7 @@
         </li>
     </ul>
     {# example for an login area #}
-    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
+{# {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
         <ul class="nav navbar-nav navbar-right">
             <li {% if dropdown == "dropdown_1" %}class="dropdown active"{% else %}class="dropdown"{% endif %}>
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> {{ app.user.username }}</a>
@@ -42,4 +42,5 @@
             <li {% if selected == "selected_6" %}class="active"{% endif %}><a href="#"><span class="glyphicon glyphicon-user"></span> login</a></li>
         </ul>
     {% endif %}
+    #}
 {% endblock %}

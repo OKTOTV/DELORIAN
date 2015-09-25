@@ -4,6 +4,12 @@ namespace Oktolab\MediaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+interface EpisodeMergerInterface
+{
+    public function merge(Episode $episode);
+}
+
+
 /**
  * Episode
  *
@@ -11,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks()
  */
-class Episode
+class Episode implements EpisodeMergerInterface
 {
     /**
      * @var integer
@@ -365,5 +371,15 @@ class Episode
     public function getPosterframe()
     {
         return $this->posterframe;
+    }
+
+    public function merge(Episode $episode)
+    {
+        $this->name = $episode->getName();
+        $this->description = $episode->getDescription();
+        $this->isActive = $episode->getIsActive();
+        $this->onlineStart = $episode->getOnlineStart();
+        $this->onlineEnd = $episode->getOnlineEnd();
+        $this->createdAt = $episode->getCreatedAt();
     }
 }

@@ -61,6 +61,7 @@ class TimetravelService {
                 $series->setName($old_series->getTitle());
                 $series->setWebTitle($old_series->getWebAbbrevation());
                 $series->setDescription($old_series->getAbstractTextPublic());
+                $this->importSeriesPosterframe($series);
             }
             if ($old_episode->getTitle() == "" || $old_episode->getTitle() == null ) {
                 //use the name of the first clip
@@ -77,7 +78,6 @@ class TimetravelService {
             $episode->setOnlineEnd($old_episode->getOnlineEndDate());
             $episode->setSeries($series);
 
-            $this->importSeriesPosterframe($series);
             $this->importEpisodePosterframe($episode);
             $this->importEpisodeVideo($episode);
 

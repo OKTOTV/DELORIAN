@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 use Oktolab\MediaBundle\Entity\Series;
 use Oktolab\MediaBundle\Entity\Episode;
@@ -60,10 +61,11 @@ class MediaApiController extends Controller
      */
     public function importSeriesAction($uniqID)
     {
-        //TODO: get usertoken, get url, use url + uniqid
+        //get usertoken, get url, use url + uniqid
         $apiuser = $this->get('security.context')->getToken()->getUser();
+        $this->get('oktolab_media')->addSeriesJob($apiuser, $uniqID);
         return new Response("", Response::HTTP_ACCEPTED);
-        //TODO:and send OktolabMediaBundle worker to import an entire series
+        //and send OktolabMediaBundle worker to import an entire series
     }
 
     /**
@@ -73,9 +75,41 @@ class MediaApiController extends Controller
      */
     public function importEpisodeAction($uniqID)
     {
-        //TODO: get usertoken, get url, use url + uniqid
+        //get usertoken, get url, use url + uniqid
         $apiuser = $this->get('security.context')->getToken()->getUser();
+        $this->get('oktolab_media')->addEpisodeJob($apiuser, $uniqID);
         return new Response("", Response::HTTP_ACCEPTED);
-        //TODO:and send OktolabMediaBundle worker to import an episode
+        //and send OktolabMediaBundle worker to import an episode
+    }
+
+    /**
+     * @Route("/asset/{key}")
+     * @Security("has_role('ROLE_OKTOLAB_MEDIA_READ')")
+     * @Method("GET")
+     */
+    public function downloadAsset($key)
+    {
+        $asset = $this->getDoctrine()->getManager()->getRepository('OktolabMediaBundle:Asset')->findOneBy(array('key' => $key));
+        if ($this->container->getParameter('xsendfile')) {
+            $response = new Response();
+            $response->headers->set('Content-Disposition', sprintf('attachment; filename="%s"', $asset->getName()));
+            $response->headers->set('Content-type', $asset->getMimetype());
+            $response->headers->set('X-Sendfile', $this->get('bprs.asset_helper')->getPath($asset));
+            $response->sendHeaders();
+            return $response;
+        }
+        $response = new Response();
+        // Set headers
+        $response->headers->set('Cache-Control', 'private');
+        $response->headers->set('Content-type', $asset->getMimetype());
+        $response->headers->set('Content-Disposition', sprintf('attachment; filename="%s"',$asset->getName()));
+        $response->headers->set('Content-length', filesize($this->get('bprs.asset_helper')->getPath($asset)));
+
+        // // Send headers before outputting anything
+        $response->sendHeaders();
+        $response->setContent(readfile($this->get('bprs.asset_helper')->getPath($asset)));
+
+        return $response;
+
     }
 }

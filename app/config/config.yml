@@ -98,6 +98,10 @@ services:
         alias: jms_serializer.doctrine_object_constructor
         public: false
 
+oktolab_media:
+    episode_class: "Oktolab\MediaBundle\Entity\Episode"
+    series_class: "Oktolab\MediaBundle\Entity\Series"
+
 bprs_asset:
     class:  "Oktolab\MediaBundle\Entity\Asset"
     adapters:
