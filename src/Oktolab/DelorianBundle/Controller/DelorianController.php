@@ -12,6 +12,7 @@ use Oktolab\DelorianBundle\Entity\Series as DelorianSeries;
 use Oktolab\DelorianBundle\Entity\Episode as DelorianEpisode;
 
 /**
+* handles local import from remote ressources. You may want to secure this controller.
 * @Route("/delorian")
 */
 class DelorianController extends Controller

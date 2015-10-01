@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "440d76222ebbf712142a5e1d748a37fc",
+    "hash": "719ea101aaa659257274410f26b4bb48",
     "packages": [
         {
             "name": "behat/transliterator",
-            "version": "v1.0.1",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Behat/Transliterator.git",
-                "reference": "c93521d3462a554332d1ef5bb0e9b5b8ca4106c4"
+                "reference": "868e05be3a9f25ba6424c2dd4849567f50715003"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Behat/Transliterator/zipball/c93521d3462a554332d1ef5bb0e9b5b8ca4106c4",
-                "reference": "c93521d3462a554332d1ef5bb0e9b5b8ca4106c4",
+                "url": "https://api.github.com/repos/Behat/Transliterator/zipball/868e05be3a9f25ba6424c2dd4849567f50715003",
+                "reference": "868e05be3a9f25ba6424c2dd4849567f50715003",
                 "shasum": ""
             },
             "require": {
@@ -26,7 +26,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0-dev"
+                    "dev-master": "1.1-dev"
                 }
             },
             "autoload": {
@@ -44,7 +44,7 @@
                 "slug",
                 "transliterator"
             ],
-            "time": "2014-05-15 22:08:22"
+            "time": "2015-09-28 16:26:35"
         },
         {
             "name": "bprs/applink-bundle",
@@ -94,17 +94,17 @@
         },
         {
             "name": "bprs/asset-bundle",
-            "version": "1.0.2",
+            "version": "1.1.0",
             "target-dir": "Bprs/AssetBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SrgSteak/BPRSAssetBundle.git",
-                "reference": "73313626ea078c82b39c48aefb33e34ef6a8c52a"
+                "reference": "c3fe1478073a1faff3549fa8f33e2187201d8ac2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SrgSteak/BPRSAssetBundle/zipball/73313626ea078c82b39c48aefb33e34ef6a8c52a",
-                "reference": "73313626ea078c82b39c48aefb33e34ef6a8c52a",
+                "url": "https://api.github.com/repos/SrgSteak/BPRSAssetBundle/zipball/c3fe1478073a1faff3549fa8f33e2187201d8ac2",
+                "reference": "c3fe1478073a1faff3549fa8f33e2187201d8ac2",
                 "shasum": ""
             },
             "require": {
@@ -140,21 +140,21 @@
                 "form",
                 "upload"
             ],
-            "time": "2015-08-05 09:11:49"
+            "time": "2015-09-30 09:22:30"
         },
         {
             "name": "bprs/commandline-bundle",
-            "version": "dev-master",
+            "version": "1.1.0",
             "target-dir": "Bprs/CommandLineBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SrgSteak/BPRSCommandlineBundle.git",
-                "reference": "bf323fa7e57e4a79b451a4e0f05bb82bb170a9b9"
+                "reference": "72fbdf0d3a51cb4d92e722a683e6c893e258a209"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SrgSteak/BPRSCommandlineBundle/zipball/bf323fa7e57e4a79b451a4e0f05bb82bb170a9b9",
-                "reference": "bf323fa7e57e4a79b451a4e0f05bb82bb170a9b9",
+                "url": "https://api.github.com/repos/SrgSteak/BPRSCommandlineBundle/zipball/72fbdf0d3a51cb4d92e722a683e6c893e258a209",
+                "reference": "72fbdf0d3a51cb4d92e722a683e6c893e258a209",
                 "shasum": ""
             },
             "require": {
@@ -178,21 +178,21 @@
                 }
             ],
             "description": "Allows shellcommand execution in a separate thread. reports output as usable array",
-            "time": "2015-07-10 17:39:54"
+            "time": "2015-09-30 08:57:42"
         },
         {
             "name": "bprs/style-bundle",
-            "version": "1.1.2",
+            "version": "1.1.3",
             "target-dir": "Bprs/StyleBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SrgSteak/BPRSStyleBundle.git",
-                "reference": "374a7351f281dfed2d6638302cda5e9e44292ea3"
+                "reference": "78088162820c35c3c1521ffde76147e3f9f0091f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SrgSteak/BPRSStyleBundle/zipball/374a7351f281dfed2d6638302cda5e9e44292ea3",
-                "reference": "374a7351f281dfed2d6638302cda5e9e44292ea3",
+                "url": "https://api.github.com/repos/SrgSteak/BPRSStyleBundle/zipball/78088162820c35c3c1521ffde76147e3f9f0091f",
+                "reference": "78088162820c35c3c1521ffde76147e3f9f0091f",
                 "shasum": ""
             },
             "type": "symfony-bundle",
@@ -218,7 +218,7 @@
                 "Simple",
                 "bootstrap"
             ],
-            "time": "2015-07-24 12:52:49"
+            "time": "2015-09-28 14:00:08"
         },
         {
             "name": "bprs/user-bundle",
@@ -1169,16 +1169,16 @@
         },
         {
             "name": "gedmo/doctrine-extensions",
-            "version": "v2.4.6",
+            "version": "v2.4.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Atlantic18/DoctrineExtensions.git",
-                "reference": "5d330411e27ab0ced67e1e5383ccae975c23c17d"
+                "reference": "1a86ba1c7426238b4f765089e0af51174a38af7f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/5d330411e27ab0ced67e1e5383ccae975c23c17d",
-                "reference": "5d330411e27ab0ced67e1e5383ccae975c23c17d",
+                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/1a86ba1c7426238b4f765089e0af51174a38af7f",
+                "reference": "1a86ba1c7426238b4f765089e0af51174a38af7f",
                 "shasum": ""
             },
             "require": {
@@ -1188,7 +1188,7 @@
             },
             "require-dev": {
                 "doctrine/common": ">=2.5.0",
-                "doctrine/mongodb-odm": "dev-master",
+                "doctrine/mongodb-odm": ">=1.0.2",
                 "doctrine/orm": ">=2.5.0",
                 "phpunit/phpunit": "~4.4",
                 "phpunit/phpunit-mock-objects": "~2.3",
@@ -1244,7 +1244,7 @@
                 "tree",
                 "uploadable"
             ],
-            "time": "2015-08-28 11:07:14"
+            "time": "2015-09-28 16:39:27"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -2038,16 +2038,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/OKTOTV/OktolabMediaBundle.git",
-                "reference": "a03ac3af162ca8d275d4b1592f21d14302820b09"
+                "reference": "c7ce92812320be87795490904e20c5b9a2975608"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OKTOTV/OktolabMediaBundle/zipball/a03ac3af162ca8d275d4b1592f21d14302820b09",
-                "reference": "a03ac3af162ca8d275d4b1592f21d14302820b09",
+                "url": "https://api.github.com/repos/OKTOTV/OktolabMediaBundle/zipball/c7ce92812320be87795490904e20c5b9a2975608",
+                "reference": "c7ce92812320be87795490904e20c5b9a2975608",
                 "shasum": ""
             },
             "require": {
                 "bprs/applink-bundle": "~1.0",
+                "bprs/commandline-bundle": "~1.1.0",
                 "floriansemm/solr-bundle": "~1.2",
                 "jms/serializer-bundle": "0.13.*",
                 "stof/doctrine-extensions-bundle": "~1.1"
@@ -2075,7 +2076,7 @@
                 "media",
                 "restful"
             ],
-            "time": "2015-09-25 13:30:45"
+            "time": "2015-09-30 09:05:43"
         },
         {
             "name": "oneup/uploader-bundle",
@@ -2724,34 +2725,34 @@
         },
         {
             "name": "symfony/monolog-bundle",
-            "version": "v2.7.1",
+            "version": "v2.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/monolog-bundle.git",
-                "reference": "9320b6863404c70ebe111e9040dab96f251de7ac"
+                "reference": "78883d8c1cfa523ac3a28a482b7793036b243f7d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/monolog-bundle/zipball/9320b6863404c70ebe111e9040dab96f251de7ac",
-                "reference": "9320b6863404c70ebe111e9040dab96f251de7ac",
+                "url": "https://api.github.com/repos/symfony/monolog-bundle/zipball/78883d8c1cfa523ac3a28a482b7793036b243f7d",
+                "reference": "78883d8c1cfa523ac3a28a482b7793036b243f7d",
                 "shasum": ""
             },
             "require": {
                 "monolog/monolog": "~1.8",
                 "php": ">=5.3.2",
-                "symfony/config": "~2.3",
-                "symfony/dependency-injection": "~2.3",
-                "symfony/http-kernel": "~2.3",
-                "symfony/monolog-bridge": "~2.3"
+                "symfony/config": "~2.3|3.*",
+                "symfony/dependency-injection": "~2.3|3.*",
+                "symfony/http-kernel": "~2.3|3.*",
+                "symfony/monolog-bridge": "~2.3|3.*"
             },
             "require-dev": {
-                "symfony/console": "~2.3",
+                "symfony/console": "~2.3|3.*",
                 "symfony/yaml": "~2.3"
             },
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.7.x-dev"
+                    "dev-master": "2.8.x-dev"
                 }
             },
             "autoload": {
@@ -2779,7 +2780,7 @@
                 "log",
                 "logging"
             ],
-            "time": "2015-01-04 20:21:17"
+            "time": "2015-09-29 17:13:11"
         },
         {
             "name": "symfony/swiftmailer-bundle",
@@ -3122,7 +3123,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "bprs/commandline-bundle": 20,
         "oktolab/media-bundle": 20
     },
     "prefer-stable": false,

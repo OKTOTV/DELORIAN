@@ -23,7 +23,6 @@
         "bprs/style-bundle": "~1.0",
         "bprs/asset-bundle": "~1.0",
         "bprs/user-bundle": "^2.0",
-        "bprs/commandline-bundle": "dev-master",
         "oktolab/media-bundle": "dev-master"
     },
     "require-dev": {

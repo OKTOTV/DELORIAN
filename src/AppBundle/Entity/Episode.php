@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Oktolab\MediaBundle\Entity\Episode as BaseEpisode;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * Episode
@@ -13,9 +14,10 @@ use Oktolab\MediaBundle\Entity\Episode as BaseEpisode;
  */
 class Episode extends BaseEpisode
 {
-
     /**
     * @ORM\ManyToOne(targetEntity="Series", inversedBy="episodes", cascade={"persist"})
+    * @JMS\Expose
+    * @JMS\ReadOnly
     */
     private $series;
 
