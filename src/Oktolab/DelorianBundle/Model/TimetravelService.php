@@ -17,12 +17,20 @@ class TimetravelService {
     private $delorian_em;
     private $adapters;
     private $jobservice;
+    private $episode_class;
+    private $series_class;
+    private $asset_class;
+    private $worker_queue;
 
-    public function __construct($flow_manager, $delorian_manager, $adapters, $jobservice) {
+    public function __construct($flow_manager, $delorian_manager, $adapters, $jobservice, $episode_class, $series_class, $asset_class, $worker_queue) {
         $this->adapters = $adapters;
         $this->flow_em = $flow_manager;
         $this->delorian_em = $delorian_manager;
         $this->jobservice = $jobservice;
+        $this->episode_class = $episode_class;
+        $this->series_class = $series_class;
+        $this->asset_class = $asset_class;
+        $this->worker_queue = $worker_queue;
     }
 
     /**
@@ -30,7 +38,7 @@ class TimetravelService {
     */
     public function fluxCompensateEpisode($id)
     {
-        $this->jobservice->addJob("Oktolab\DelorianBundle\Model\TimetravelJob", array('type' => 'episode', 'id' => $id), "default");
+        $this->jobservice->addJob("Oktolab\DelorianBundle\Model\TimetravelJob", array('type' => 'episode', 'id' => $id), $this->worker_queue);
     }
 
     /**
@@ -38,7 +46,7 @@ class TimetravelService {
     */
     public function fluxCompensateSeries($id)
     {
-        $this->jobservice->addJob("Oktolab\DelorianBundle\Model\TimetravelJob", array('type' => 'series', 'id' => $id));
+        $this->jobservice->addJob("Oktolab\DelorianBundle\Model\TimetravelJob", array('type' => 'series', 'id' => $id), $this->worker_queue);
     }
 
     /**
@@ -49,12 +57,12 @@ class TimetravelService {
         echo "import episode ".$id."\n";
         $old_episode = $this->flow_em->getRepository('OktolabDelorianBundle:Episode')->findOneBy(array('id' => $id));
 
-            $episode = $this->delorian_em->getRepository('OktolabMediaBundle:Episode')->findOneBy(array('uniqID' => $old_episode->getId()));
+            $episode = $this->delorian_em->getRepository($this->episode_class)->findOneBy(array('uniqID' => $old_episode->getId()));
             if (!$episode) {
-                $episode = new Episode();
+                $episode = new $this->episode_class;
             }
             $old_series = $old_episode->getSeries();
-            $series = $this->delorian_em->getRepository('OktolabMediaBundle:Series')->findOneBy(array('uniqID' => $old_series->getId()));
+            $series = $this->delorian_em->getRepository($this->series_class)->findOneBy(array('uniqID' => $old_series->getId()));
             if (!$series) {
                 $series = new Series();
                 $series->setUniqID($old_series->getId());
@@ -127,7 +135,7 @@ class TimetravelService {
                 unset($adapter);
                 unset($filesystem);
                 //add posterframe as Asset to the Episode!
-                $asset = new Asset();
+                $asset = new $this->asset_class;
                 $asset->setKey($name);
                 $asset->setAdapter('gallery');
                 $asset->setName($attachment->getFileName());
@@ -204,7 +212,7 @@ class TimetravelService {
     */
     private function encodeVideo($path, $filename, Episode $episode) {
         $key = uniqID().".mov";
-        $asset = new Asset();
+        $asset = new $this->asset_class;
         $asset->setKey($key);
         $asset->setAdapter('video');
         $asset->setName($filename);
