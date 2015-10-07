@@ -21,8 +21,9 @@ class TimetravelService {
     private $series_class;
     private $asset_class;
     private $worker_queue;
+    private $guzzle_client;
 
-    public function __construct($flow_manager, $delorian_manager, $adapters, $jobservice, $episode_class, $series_class, $asset_class, $worker_queue) {
+    public function __construct($flow_manager, $delorian_manager, $adapters, $jobservice, $episode_class, $series_class, $asset_class, $worker_queue, $guzzle_client) {
         $this->adapters = $adapters;
         $this->flow_em = $flow_manager;
         $this->delorian_em = $delorian_manager;
@@ -31,6 +32,7 @@ class TimetravelService {
         $this->series_class = $series_class;
         $this->asset_class = $asset_class;
         $this->worker_queue = $worker_queue;
+        $this->guzzle_client = $guzzle_client;
     }
 
     /**
@@ -225,20 +227,40 @@ class TimetravelService {
         shell_exec(sprintf('ffmpeg -i "%s" -deinterlace -crf 21 -s 1280x720 -movflags +faststart -acodec aac -strict -2 -vcodec h264 -r 50 "%s"', $path, $this->adapters['video']['path'].'/'.$key));
     }
 
-    /**
-     * ffmpeg command for old LTA videos in 4:3
-     */
-    private function encode4to3Video()
+    public function parseProgram(\Datetime $start, \Datetime $end)
     {
+        $program = array();
 
+        $response = $this->guzzle_client->get($this->getProgrammweekURLforDate($start));
+        if ($response->getStatusCode() == 200) {
+            $xml = new \SimpleXMLElement($response->getBody());
+            foreach($xml->show as $xml_show) {
+                // die(var_dump(new \Datetime((string)$xml_show['airdate']) < $start));
+                if (new \Datetime((string)$xml_show['airdate']) < $start || new \Datetime((string)$xml_show['airdate']) > $end ) {
+                    continue;
+                }
+                $show = array();
+                $show['airdate'] = (string)$xml_show['airdate'];
+                $show['uniqID'] = (string)$xml_show['clip_id'];
+                $show['name'] = (string)$xml_show['title'];
+                $show['description'] = (string)$xml_show['content'] == "" ? (string)$xml_show['series_promotext'] : (string)$xml_show['content'];
+                $show['series_name'] = (string)$xml_show['sendungsname'];
+                $show['repetitions'] = array();
+                foreach($xml_show->repetitions->repetition as $xml_repetition) {
+                    $show['repetitions'][] = (string)$xml_repetition['airtime'];
+                }
+                $program[] = $show;
+            }
+        }
+        return $program;
     }
 
-    /**
-     * ffmpeg command for old LTA videos in 4:3 with letterboxed 16:9
-     */
-    private function encodeLetterboxed16to9Video()
+    private function getProgrammweekURLforDate(\Datetime $current)
     {
-
+        $start = clone $current;
+        $date = $start->modify(sprintf('-%s days', $start->format('N')-1));
+        //die(var_dump(sprintf('http://api.okto.tv/program_weeks/website_week_%s.xml', $date->format('Y-m-d'))));
+        return sprintf('http://api.okto.tv/program_weeks/website_week_%s.xml', $date->format('Y-m-d'));
     }
 }
 

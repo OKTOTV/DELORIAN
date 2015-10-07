@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 use Oktolab\DelorianBundle\Entity\Series as DelorianSeries;
 use Oktolab\DelorianBundle\Entity\Episode as DelorianEpisode;
@@ -97,5 +98,17 @@ class DelorianApiController extends Controller
 
         $jsonContent = $this->get('jms_serializer')->serialize($episode, $format);
         return new Response($jsonContent, 200, array('Content-Type' => 'application/json; charset=utf8'));
+    }
+
+    /**
+    * @Route("/program/{start}/{end}.{format}", defaults={"format": "json"}, requirements={"format": "json|xml"})
+    * @ParamConverter("start", options={"format": "Y-m-d\TH:i"})
+    * @ParamConverter("end", options={"format": "Y-m-d\TH:i"})
+    */
+    public function showProgram(\Datetime $start, \Datetime $end, $format)
+    {
+        $program = $this->get('delorian.timetravel')->parseProgram($start, $end);
+        $content = $this->get('jms_serializer')->serialize($program, $format);
+        return new Response($content, 200, array('Content-Type' => 'application/json; charset=utf8'));
     }
 }
