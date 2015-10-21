@@ -1,6 +1,6 @@
 <?php
 
-namespace Oktolab\DelorianBundle\Controller;
+namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -13,7 +13,6 @@ use Oktolab\DelorianBundle\Entity\Episode as DelorianEpisode;
 
 /**
 * handles local import from remote ressources. You may want to secure this controller.
-* @Route("/delorian")
 */
 class DelorianController extends Controller
 {
@@ -32,18 +31,26 @@ class DelorianController extends Controller
             $page/*page number*/,
             10
         );
-        return array('seriess' => $old_seriess, 'paginator' => $paginator);
+        return array('seriess' => $old_seriess);
     }
 
     /**
-     * @Route("/series/{id}", name="show_series", requirements={"id": "\d+"})
+     * @Route("/series/{id}/{page}", name="show_series", requirements={"id": "\d+", "page": "\d+"}, defaults={"page" = 1})
      * @Template()
      */
-    public function showSeriesAction($id)
+    public function showSeriesAction($id, $page)
     {
         $em = $this->getDoctrine()->getManager('flow');
         $series = $em->getRepository('OktolabDelorianBundle:Series')->findOneBy(array('id' => $id));
-        $episodes = $em->getRepository('OktolabDelorianBundle:Episode')->findBy(array('series' => $id), array('firstRanAt' => 'DESC'));
+        $dql = "SELECT e FROM OktolabDelorianBundle:Episode e WHERE e.series = :series_id";
+        $query = $em->createQuery($dql);
+        $query->setParameter('series_id', $series->getId());
+        $paginator  = $this->get('knp_paginator');
+        $episodes = $paginator->paginate(
+            $query,
+            $page/*page number*/,
+            10
+        );
         return array('series' => $series, 'episodes' => $episodes);
     }
 

@@ -8,10 +8,10 @@ oktolab_media:
     type:     annotation
     prefix:   /
 
-oktolab_delorian:
-    resource: "@OktolabDelorianBundle/Controller/"
-    type:     annotation
-    prefix:   /
+# oktolab_delorian:
+#     resource: "@OktolabDelorianBundle/Controller/"
+#     type:     annotation
+#     prefix:   /
 
 bprs_applink:
     resource: "@BprsAppLinkBundle/Controller/"

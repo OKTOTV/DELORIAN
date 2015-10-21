@@ -1,0 +1,84 @@
+{% extends "BprsStyleBundle::layout.html.twig" %}
+
+{% block nav_head%}
+    {% include 'BprsStyleBundle::menu.html.twig' with {'selected': 'programmtool', 'dropdown': ''} %}
+{% endblock %}
+
+{% block body_main %}
+    <div class="page-header">
+        <h1>{{ series.title }}</h1>
+        <p>{{ series.abstractTextPublic|default('') }}</p>
+        <p>Angelegt am: {{ series.createdAt|date("d.m.Y H:i") }}</p>
+        <p>Aktualisiert am: {{ series.updatedAt|date("d.m.Y H:i") }}</p>
+        <p>UniqID: {{ series.id }}</p>
+        <a href="#" data-id="{{ series.id }}" class="btn btn-default series_import"><span class="glyphicon glyphicon-transfer"></span> Importiere gesamte Sendereihe</a>
+    </div>
+
+    <div class="page-header">
+        <h1>Showing {{ episodes.getTotalItemCount }} series</h1>
+    </div>
+
+    <div class="navigation">
+        {{ knp_pagination_render(episodes) }}
+    </div>
+    <table class="table table-striped">
+        <tr>
+            {# sorting of properties based on query components #}
+            <th{% if episodes.isSorted('e.firstRanAt') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(episodes, 'Erstausstrahlungsdatum', 'e.firstRanAt') }}</th>
+            <th{% if episodes.isSorted('e.title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(episodes, 'Name', 'e.title') }}</th>
+            <th{% if episodes.isSorted('e.seasonNumber') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(episodes, 'Staffel', 'e.seasonNumber') }}</th>
+            <th{% if episodes.isSorted('e.episodeNumber') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(episodes, 'Folge', 'e.episodeNumber') }}</th>
+            <th{% if episodes.isSorted('e.id') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(episodes, 'Programmtoollink', 'e.id') }}</th>
+            <th>Importer</th>
+        </tr>
+        {% for episode in episodes %}
+            <tr {% if loop.index is odd %}class="color"{% endif %}>
+                <td>{{ episode.firstRanAt|date('d.m.Y H:i')}}</td>
+                <td>{{ episode.title }}</td>
+                <td>{{ episode.seasonNumber}}</td>
+                <td>{{ episode.episodeNumber}}</td>
+                <td><a href="http://programm.okto.tv/episode/{{ episode.id}}/{{series.abbrevation}}-{{episode.seasonNumber}}x{{ episode.episodeNumber}}" target="blank">{{ episode.id }}</a></td>
+                <td><a href="#" data-id="{{ episode.id }}" class="btn btn-default episode_import"><span class="glyphicon glyphicon-transfer"></span> Importiere Episode</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+    <div class="navigation">
+        {{ knp_pagination_render(episodes) }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script type="text/javascript">
+    $(document).ready( function() {
+        $('.episode_import').click(function(e) {
+            e.preventDefault();
+            var id = $(this).data('id');
+            $.ajax({
+                url: "{{ url('timetravelepisode') }}",
+                data: {'id': id},
+                type: 'POST',
+                statusCode: {
+                    200: function () {
+                        $(this).addClass("disabled");
+                    }
+                }
+            });
+        });
+        $('.series_import').click(function(e) {
+            e.preventDefault();
+            var id = $(this).data('id');
+            $.ajax({
+                url: "{{ url('timetravelseries') }}",
+                data: {'id': id},
+                type: 'POST',
+                statusCode: {
+                    200: function () {
+                        $(this).addClass("disabled");
+                    }
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}
