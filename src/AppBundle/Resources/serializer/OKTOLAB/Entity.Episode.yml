@@ -7,6 +7,8 @@ Oktolab\MediaBundle\Entity\Episode:
             read_only: true
             exclude: true
         uniqID:
+            expose: true
+            type: string
             serialized_name: uniqID
         name:
             expose: true

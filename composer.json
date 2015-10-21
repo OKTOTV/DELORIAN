@@ -23,7 +23,8 @@
         "bprs/style-bundle": "~1.0",
         "bprs/asset-bundle": "~1.0",
         "bprs/user-bundle": "^2.0",
-        "oktolab/media-bundle": "dev-master"
+        "oktolab/media-bundle": "dev-master",
+        "knplabs/knp-paginator-bundle": "^2.5"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

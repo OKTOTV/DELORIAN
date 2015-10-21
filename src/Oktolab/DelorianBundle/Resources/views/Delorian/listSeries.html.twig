@@ -6,16 +6,26 @@
 
 {% block body_main %}
     <div class="page-header">
-        <h1>Showing {{ start_result }} - {{ end_result }} of {{ total }} series</h1>
+        <h1>Showing {{ seriess.getTotalItemCount }} series</h1>
     </div>
-    <ul class="list-group">
+
+    <div class="navigation">
+        {{ knp_pagination_render(seriess) }}
+    </div>
+    <table class="table table-striped">
+        <tr>
+            {# sorting of properties based on query components #}
+            <th{% if seriess.isSorted('s.title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(seriess, 'Name', 's.title') }}</th>
+            <th{% if seriess.isSorted('s.abbrevation') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(seriess, 'Kürzel', 's.abbrevation') }}</th>
+        </tr>
         {% for series in seriess %}
-            <li class="list-group-item">[<a href="{{ path('show_series', {'id': series.id}) }}">{{ series.abbrevation}}</a>] {{ series.title }} - {{ series.promoText }}</li>
+            <tr {% if loop.index is odd %}class="color"{% endif %}>
+                <td>{{ series.title }}</td>
+                <td><a href="{{ path('show_series', {'id': series.id}) }}">{{ series.abbrevation}}</a></td>
+            </tr>
         {% endfor %}
-    </ul>
-    {% if currentPage <= 0 %}
-        <a href="{{ path('list_series', {'page': currentPage+1 }) }}">nächste</a>
-    {% else %}
-        <a href="{{ path('list_series', {'page': currentPage-1 }) }}">vorherige</a> - <a href="{{ path('list_series', {'page': currentPage+1 }) }}">nächste</a>
-    {% endif %}
+    </table>
+    <div class="navigation">
+        {{ knp_pagination_render(seriess) }}
+    </div>
 {% endblock %}

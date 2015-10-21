@@ -18,34 +18,21 @@ use Oktolab\DelorianBundle\Entity\Episode as DelorianEpisode;
 class DelorianController extends Controller
 {
     /**
-     * @Route("/{page}", defaults={"page": 0}, name="list_series", requirements={"page": "\d+"})
+     * @Route("/{page}", defaults={"page": 1}, name="list_series", requirements={"page": "\d+"})
      * @Template()
      */
     public function listSeriesAction($page)
     {
-        $total = $this->getDoctrine()->getManager('flow')->getRepository('OktolabDelorianBundle:Series')->findAll();
-
-        if ($page < 0) {
-            $page = 0;
-        }
-        if ($page*10 > $total) {
-            $page = $total -10;
-        }
-
-        $old_seriess = $this->getDoctrine()->getManager('flow')->getRepository('OktolabDelorianBundle:Series')->findBy(array(), array(), 10, $page*10);
-
-        $start_result = $page*10+1;
-        if ($page == 0) {
-            $start_result = 1;
-        }
-        $end_result = $start_result + 10;
-
-        return array(
-            'currentPage' => $page,
-            'start_result' => $start_result,
-            'end_result' => $end_result,
-            'seriess' => $old_seriess,
-            'total' => count($total));
+        $em = $this->getDoctrine()->getManager('flow');
+        $dql = "SELECT s FROM OktolabDelorianBundle:Series s";
+        $query = $em->createQuery($dql);
+        $paginator  = $this->get('knp_paginator');
+        $old_seriess = $paginator->paginate(
+            $query,
+            $page/*page number*/,
+            10
+        );
+        return array('seriess' => $old_seriess, 'paginator' => $paginator);
     }
 
     /**
