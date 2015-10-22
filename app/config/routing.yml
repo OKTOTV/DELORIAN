@@ -1,19 +1,21 @@
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
-    prefix:   /
+    prefix:   /{_locale}
+    requirements:
+        _locale:  de|en
+    defaults: { _locale: de }
 
 oktolab_media:
     resource: "@OktolabMediaBundle/Controller/"
     type:     annotation
     prefix:   /
 
-# oktolab_delorian:
-#     resource: "@OktolabDelorianBundle/Controller/"
-#     type:     annotation
-#     prefix:   /
-
 bprs_applink:
     resource: "@BprsAppLinkBundle/Controller/"
     type:     annotation
     prefix:   /
+
+bprs_user:
+    resource: .
+    type: bprs_user

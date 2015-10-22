@@ -28,6 +28,7 @@ class AppKernel extends Kernel
             new Bprs\CommandLineBundle\BprsCommandLineBundle(),
             new AppBundle\AppBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new Bprs\UserBundle\BprsUserBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

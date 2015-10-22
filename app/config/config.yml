@@ -5,7 +5,7 @@ imports:
 
 framework:
     #esi:             ~
-    #translator:      { fallbacks: ["%locale%"] }
+    translator:      { fallbacks: ["%locale%"] }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -32,6 +32,10 @@ twig:
     form:
         resources:
             - 'BprsStyleBundle:Form:fields.html.twig'
+    globals:
+        name:         "DELORIAN"
+        version:      "Alpha"
+        junksize:     "%bprs_asset.junksize%"
 
 # Assetic Configuration
 assetic:
@@ -85,6 +89,7 @@ doctrine:
                     BprsAssetBundle: ~
                     BprsAppLinkBundle: ~
                     AppBundle: ~
+                    BprsUserBundle: ~
         resolve_target_entities:
             Bprs\AssetBundle\Entity\AssetInterface: AppBundle\Entity\Asset
 
@@ -178,3 +183,10 @@ knp_paginator:
     template:
         sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig   # sliding pagination controls template
         pagination: KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig # sort link template
+
+bprs_user:
+    class: "AppBundle\Entity\User"
+    mail:
+        commandline_host:   %commandline_host% #www.yourhost.com
+        adress:             %email_adress% #yourbot@example.com
+        name:               %bot_name% #yourbot

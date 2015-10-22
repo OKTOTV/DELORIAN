@@ -16,6 +16,10 @@ parameters:
 
     locale:            en
 
+    commandline_host: www.yourhost.com
+    email_adress: yourbot@example.com
+    bot_name: yourbot
+
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
     xsendfile:              true

@@ -1,7 +1,18 @@
 security:
+    role_hierarchy:
+            ROLE_ADMIN: ROLE_USER
+
+    encoders:
+        Bprs\AppLinkBundle\Entity\Keychain: plaintext
+        Bprs\UserBundle\Entity\User:
+            algorithm: bcrypt
+            cost: 12
+
     providers:
-        in_memory:
-            memory: ~
+        database:
+            entity:
+                class: AppBundle:User
+                property: username
 
         bprs_applink:
             entity:
@@ -9,16 +20,10 @@ security:
                 property: user
                 manager_name: delorian
 
-    encoders:
-        Bprs\AppLinkBundle\Entity\Keychain: plaintext
-
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt|error)|css|images|js)/
             security: false
-
-        # default:
-        #     anonymous: ~
 
         api:
             pattern:  ^/api
@@ -26,6 +31,22 @@ security:
             provider: bprs_applink
             stateless: true
 
+        main:
+            pattern:    /
+            http_basic: ~
+            form_login:
+                login_path: bprs_user_login
+                check_path: bprs_user_login_check
+                default_target_path: list_series
+                csrf_provider: form.csrf_provider
+            logout:
+                path: bprs_user_logout
+                target: /de
+            anonymous: ~
+
     access_control:
     # require BPRS_APPLINK for /api*
+        - { path: /login, role: IS_AUTHENTICATED_ANONYMOUSLY}
         - { path: ^/api, roles: ROLE_BPRS_APPLINK }
+        - { path: /, roles: ROLE_USER }
+        - { path: /backend/admin, roles: ROLE_ADMIN}
