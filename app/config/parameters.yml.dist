@@ -25,3 +25,5 @@ parameters:
     xsendfile:              true
     php_path: "/path/to/php"
     worker_queue: "delorian"
+    redis_backend: "localhost:6397"
+    bprs.asset_junksize: 200000

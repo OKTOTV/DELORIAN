@@ -57,11 +57,11 @@ class DelorianController extends Controller
     /**
      * @Route("/timetravelseries", name="timetravelseries")
      */
-    public function timetravelSeriesAction(Request $request)
+    public function timetravelSeriesEpisodesAction(Request $request)
     {
         $id = $request->request->get('id');
         if ($id) {
-            $this->get('delorian.timetravel')->fluxCompensateSeries($id);
+            $this->get('delorian.timetravel')->fluxCompensateSeriesEpisodes($id);
             return new Response("", Response::HTTP_OK);
         }
         return new Response("", Response::HTTP_BAD_REQUEST);

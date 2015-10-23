@@ -44,6 +44,17 @@ class TimetravelService {
     }
 
     /**
+    * adds timetraveljob for all episodes of a series
+    */
+    public function fluxCompensateSeriesEpisodes($id)
+    {
+        $old_episodes = $this->flow_em->getRepository('OktolabDelorianBundle:Episode')->findBy(array('series' => $id));
+        foreach ($old_episodes as $episode) {
+            $this->jobservice->addJob("Oktolab\DelorianBundle\Model\TimetravelJob", array('type' => 'episode', 'id' => $episode->getId()), $this->worker_queue);
+        }
+    }
+
+    /**
     * adds timetraveljob for given series id
     */
     public function fluxCompensateSeries($id)
@@ -72,7 +83,6 @@ class TimetravelService {
                 $series->setWebTitle($old_series->getWebAbbrevation());
                 $series->setDescription($old_series->getAbstractTextPublic());
                 $this->importSeriesPosterframe($series);
-                echo "okay";
             }
             if ($old_episode->getTitle() == "" || $old_episode->getTitle() == null ) {
                 //use the name of the first clip
@@ -102,14 +112,20 @@ class TimetravelService {
     }
 
     public function timetravelSeries($id) {
-        gc_enable();
-        $old_episodes = $this->flow_em->getRepository('OktolabDelorianBundle:Episode')->findBy(array('series' => $id));
-
-        foreach ($old_episodes as $old_episode) {
-            $this->timetravelEpisode($old_episode->getId());
-            unset($old_episode);
+        $old_series = $this->flow_em->getRepository('OktolabDelorianBundle:Series')->findBy(array('id' => $id));
+        if ($old_series) {
+            $series = $this->delorian_em->getRepository($this->series_class)->findOneBy(array('uniqID' => $old_series->getId()));
+            if (!$series) {
+                $series = new $this->series_class;
+            }
+            $series->setUniqID($old_series->getId());
+            $series->setName($old_series->getTitle());
+            $series->setWebTitle($old_series->getWebAbbrevation());
+            $series->setDescription($old_series->getAbstractTextPublic());
+            $this->importSeriesPosterframe($series);
+            $this->delorian_em->persist($series);
+            $this->delorian_em->flush();
         }
-        gc_disable();
     }
 
     /**
