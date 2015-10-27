@@ -112,7 +112,7 @@ class TimetravelService {
     }
 
     public function timetravelSeries($id) {
-        $old_series = $this->flow_em->getRepository('OktolabDelorianBundle:Series')->findBy(array('id' => $id));
+        $old_series = $this->flow_em->getRepository('OktolabDelorianBundle:Series')->findOneBy(array('id' => $id));
         if ($old_series) {
             $series = $this->delorian_em->getRepository($this->series_class)->findOneBy(array('uniqID' => $old_series->getId()));
             if (!$series) {
