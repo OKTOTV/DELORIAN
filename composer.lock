@@ -144,17 +144,17 @@
         },
         {
             "name": "bprs/commandline-bundle",
-            "version": "1.1.0",
+            "version": "1.1.2",
             "target-dir": "Bprs/CommandLineBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SrgSteak/BPRSCommandlineBundle.git",
-                "reference": "72fbdf0d3a51cb4d92e722a683e6c893e258a209"
+                "reference": "14a364e8ecfb5ca8ed4689ed074da0895093532e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SrgSteak/BPRSCommandlineBundle/zipball/72fbdf0d3a51cb4d92e722a683e6c893e258a209",
-                "reference": "72fbdf0d3a51cb4d92e722a683e6c893e258a209",
+                "url": "https://api.github.com/repos/SrgSteak/BPRSCommandlineBundle/zipball/14a364e8ecfb5ca8ed4689ed074da0895093532e",
+                "reference": "14a364e8ecfb5ca8ed4689ed074da0895093532e",
                 "shasum": ""
             },
             "require": {
@@ -178,7 +178,7 @@
                 }
             ],
             "description": "Allows shellcommand execution in a separate thread. reports output as usable array",
-            "time": "2015-09-30 08:57:42"
+            "time": "2015-10-23 15:35:45"
         },
         {
             "name": "bprs/style-bundle",
@@ -2168,17 +2168,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/OKTOTV/OktolabMediaBundle.git",
-                "reference": "6a8ea5513fbc2ea3fde7eabfd23bd2ab1f77e8b8"
+                "reference": "cbbb46fc061c61ead1ec3cf9e5d77acea8d57d95"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OKTOTV/OktolabMediaBundle/zipball/6a8ea5513fbc2ea3fde7eabfd23bd2ab1f77e8b8",
-                "reference": "6a8ea5513fbc2ea3fde7eabfd23bd2ab1f77e8b8",
+                "url": "https://api.github.com/repos/OKTOTV/OktolabMediaBundle/zipball/cbbb46fc061c61ead1ec3cf9e5d77acea8d57d95",
+                "reference": "cbbb46fc061c61ead1ec3cf9e5d77acea8d57d95",
                 "shasum": ""
             },
             "require": {
                 "bprs/applink-bundle": "~1.0",
-                "bprs/commandline-bundle": "~1.1.0",
+                "bprs/commandline-bundle": "1.1.*",
                 "floriansemm/solr-bundle": "~1.2",
                 "jms/serializer-bundle": "0.13.*",
                 "knplabs/knp-paginator-bundle": "^2.5",
@@ -2207,7 +2207,7 @@
                 "media",
                 "restful"
             ],
-            "time": "2015-10-22 09:33:49"
+            "time": "2015-10-27 10:55:42"
         },
         {
             "name": "oneup/uploader-bundle",
