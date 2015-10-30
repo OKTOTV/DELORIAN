@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a61a725c1923bfbf9654438308832ea3",
+    "hash": "ff716a4b95dd0be38ff13bd303f667d9",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -48,17 +48,17 @@
         },
         {
             "name": "bprs/applink-bundle",
-            "version": "1.0",
+            "version": "1.1.1",
             "target-dir": "Bprs/AppLinkBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SrgSteak/BprsAppLinkBundle.git",
-                "reference": "563503a8d3815c4ee6092ceb1dcb55f8a90a6538"
+                "reference": "575ad228d437c23be97f9e26fe9aff48b99476f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SrgSteak/BprsAppLinkBundle/zipball/563503a8d3815c4ee6092ceb1dcb55f8a90a6538",
-                "reference": "563503a8d3815c4ee6092ceb1dcb55f8a90a6538",
+                "url": "https://api.github.com/repos/SrgSteak/BprsAppLinkBundle/zipball/575ad228d437c23be97f9e26fe9aff48b99476f7",
+                "reference": "575ad228d437c23be97f9e26fe9aff48b99476f7",
                 "shasum": ""
             },
             "require": {
@@ -90,21 +90,21 @@
                 "api",
                 "link"
             ],
-            "time": "2015-09-25 13:59:30"
+            "time": "2015-10-28 10:22:58"
         },
         {
             "name": "bprs/asset-bundle",
-            "version": "1.1.0",
+            "version": "1.1.2",
             "target-dir": "Bprs/AssetBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SrgSteak/BPRSAssetBundle.git",
-                "reference": "c3fe1478073a1faff3549fa8f33e2187201d8ac2"
+                "reference": "94ec157945a38e2b019672a939b50a430ad0e2d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SrgSteak/BPRSAssetBundle/zipball/c3fe1478073a1faff3549fa8f33e2187201d8ac2",
-                "reference": "c3fe1478073a1faff3549fa8f33e2187201d8ac2",
+                "url": "https://api.github.com/repos/SrgSteak/BPRSAssetBundle/zipball/94ec157945a38e2b019672a939b50a430ad0e2d0",
+                "reference": "94ec157945a38e2b019672a939b50a430ad0e2d0",
                 "shasum": ""
             },
             "require": {
@@ -140,7 +140,7 @@
                 "form",
                 "upload"
             ],
-            "time": "2015-09-30 09:22:30"
+            "time": "2015-10-28 10:30:30"
         },
         {
             "name": "bprs/commandline-bundle",
@@ -378,16 +378,16 @@
         },
         {
             "name": "doctrine/cache",
-            "version": "v1.4.2",
+            "version": "v1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/cache.git",
-                "reference": "8c434000f420ade76a07c64cbe08ca47e5c101ca"
+                "reference": "eb8a73619af4f1c8711e2ce482f5de3643258a1f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/cache/zipball/8c434000f420ade76a07c64cbe08ca47e5c101ca",
-                "reference": "8c434000f420ade76a07c64cbe08ca47e5c101ca",
+                "url": "https://api.github.com/repos/doctrine/cache/zipball/eb8a73619af4f1c8711e2ce482f5de3643258a1f",
+                "reference": "eb8a73619af4f1c8711e2ce482f5de3643258a1f",
                 "shasum": ""
             },
             "require": {
@@ -408,8 +408,8 @@
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Doctrine\\Common\\Cache\\": "lib/"
+                "psr-4": {
+                    "Doctrine\\Common\\Cache\\": "lib/Doctrine/Common/Cache"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -444,7 +444,7 @@
                 "cache",
                 "caching"
             ],
-            "time": "2015-08-31 12:36:41"
+            "time": "2015-10-28 11:27:45"
         },
         {
             "name": "doctrine/collections",
@@ -2168,12 +2168,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/OKTOTV/OktolabMediaBundle.git",
-                "reference": "cbbb46fc061c61ead1ec3cf9e5d77acea8d57d95"
+                "reference": "bdf9a89ead1aff115a12e2e84aa0f921df7329cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OKTOTV/OktolabMediaBundle/zipball/cbbb46fc061c61ead1ec3cf9e5d77acea8d57d95",
-                "reference": "cbbb46fc061c61ead1ec3cf9e5d77acea8d57d95",
+                "url": "https://api.github.com/repos/OKTOTV/OktolabMediaBundle/zipball/bdf9a89ead1aff115a12e2e84aa0f921df7329cd",
+                "reference": "bdf9a89ead1aff115a12e2e84aa0f921df7329cd",
                 "shasum": ""
             },
             "require": {
@@ -2207,7 +2207,7 @@
                 "media",
                 "restful"
             ],
-            "time": "2015-10-27 10:55:42"
+            "time": "2015-10-28 07:57:20"
         },
         {
             "name": "oneup/uploader-bundle",
@@ -2459,17 +2459,17 @@
         },
         {
             "name": "sensio/distribution-bundle",
-            "version": "v3.0.32",
+            "version": "v3.0.33",
             "target-dir": "Sensio/Bundle/DistributionBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioDistributionBundle.git",
-                "reference": "e46293aa6dd94f054c500ef990538d822c763ebd"
+                "reference": "63245e12c948bf50278383e70fd5d6841af17e17"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/e46293aa6dd94f054c500ef990538d822c763ebd",
-                "reference": "e46293aa6dd94f054c500ef990538d822c763ebd",
+                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/63245e12c948bf50278383e70fd5d6841af17e17",
+                "reference": "63245e12c948bf50278383e70fd5d6841af17e17",
                 "shasum": ""
             },
             "require": {
@@ -2515,7 +2515,7 @@
                 "configuration",
                 "distribution"
             ],
-            "time": "2015-10-20 06:53:22"
+            "time": "2015-10-27 18:46:42"
         },
         {
             "name": "sensio/framework-extra-bundle",

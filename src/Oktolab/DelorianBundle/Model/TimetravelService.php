@@ -155,7 +155,7 @@ class TimetravelService {
                 unset($filesystem);
                 //add posterframe as Asset to the Episode!
                 $asset = new $this->asset_class;
-                $asset->setKey($name);
+                $asset->setFilekey($name);
                 $asset->setAdapter('gallery');
                 $asset->setName($attachment->getFileName());
                 $asset->setFileSize($attachment->getFileSize());
@@ -184,7 +184,7 @@ class TimetravelService {
                 unset($filesystem);
                 //add posterframe as Asset to the Episode!
                 $asset = new Asset();
-                $asset->setKey($name);
+                $asset->setFilekey($name);
                 $asset->setAdapter('gallery');
                 $asset->setName($attachment->getFileName());
                 $asset->setFileSize($attachment->getFileSize());
@@ -232,7 +232,7 @@ class TimetravelService {
     private function encodeVideo($path, $filename, Episode $episode) {
         $key = uniqID().".mov";
         $asset = new $this->asset_class;
-        $asset->setKey($key);
+        $asset->setFilekey($key);
         $asset->setAdapter('video');
         $asset->setName($filename);
         $asset->setMimetype('video/quicktime');
