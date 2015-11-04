@@ -16,6 +16,8 @@ Oktolab\MediaBundle\Entity\Episode:
             expose: true
         createdAt:
             expose: true
+        firstranAt:
+            expose: true
         posterframe:
             expose: true
             type: string

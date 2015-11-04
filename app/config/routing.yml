@@ -6,6 +6,15 @@ app:
         _locale:  de|en
     defaults: { _locale: de }
 
+delorian:
+    resource: "@OktolabDelorianBundle/Controller/"
+    type:     annotation
+    prefix:   /{_locale}
+    requirements:
+        _locale:  de|en
+    defaults: { _locale: de }
+
+
 oktolab_media:
     resource: "@OktolabMediaBundle/Controller/"
     type:     annotation
@@ -19,3 +28,11 @@ bprs_applink:
 bprs_user:
     resource: .
     type: bprs_user
+
+bprs_asset:
+    resource: .
+    type: bprs_asset
+    prefix:   /{_locale}
+    requirements:
+        _locale:  de|en
+    defaults: { _locale: de }

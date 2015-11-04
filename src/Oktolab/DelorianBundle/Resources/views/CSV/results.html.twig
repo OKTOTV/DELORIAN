@@ -1,0 +1,54 @@
+{% extends "BprsStyleBundle::layout.html.twig" %}
+{% block body_main %}
+
+    <table class="table">
+
+        <tr>
+        <th>
+            Datum
+        </th>
+        <th>
+            Durchschnittsreichweite (Tsd)
+        </th>
+        <th>
+            Marktanteil (%)
+        </th>
+        <th>
+            Episode
+        </th>
+        <th>
+            Programmtool Eingeplante Zeit
+        </th>
+        </tr>
+
+        {% for hit in hitlist %}
+            <tr>
+                <td>
+                    {{ hit.datum|date('Y.m.d H:i') }}
+                </td>
+                <td>
+                    {{ hit.DRW }}
+                </td>
+                <td>
+                    {{ hit.MA }}
+                </td>
+                <td>
+                    {% if hit.episode %}
+                        {{ hit.episode.title }}
+                    {% else %}
+                        NOT FOUND
+                    {% endif %}
+                </td>
+                <td>
+                    {% if hit.episode %}
+                        {{ hit.episode.airtime|date('Y.m.d H:i') ~' - '~ hit.episode.endAirtime|date('Y.m.d H:i') }}
+                    {% else %}
+                        NOT FOUND
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+
+    </table>
+
+{% endblock %}

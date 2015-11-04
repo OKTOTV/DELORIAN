@@ -97,6 +97,7 @@ class TimetravelService {
             $episode->setUniqID($old_episode->getId());
             $episode->setOnlineStart($old_episode->getOnlineStartDate());
             $episode->setOnlineEnd($old_episode->getOnlineEndDate());
+            $episode->setFirstranAt($old_episode->getFirstRanAt());
             $episode->setSeries($series);
 
             $this->importEpisodePosterframe($episode);

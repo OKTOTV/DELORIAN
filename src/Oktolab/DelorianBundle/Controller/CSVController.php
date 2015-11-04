@@ -82,4 +82,68 @@ class CSVController extends Controller
 
         return $response;
     }
+
+    /**
+     * @Route("/hitlist", name="csv_hitlist")
+     * @Template()
+     */
+    public function uploadHitlistCSVAction(Request $request)
+    {
+        $form = $this->createFormBuilder()
+            ->add('csv', 'file')
+            ->add('send', 'submit')
+            ->getForm();
+
+        if ($request->getMethod() == "POST") { // posts CSV
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $data = $form->getData();
+                $hitlist = $this->get('delorian.csvhandler')->generateHitlist($data['csv']);
+
+                return $this->downloadHitlist($hitlist);
+                return $this->render('OktolabDelorianBundle::CSV/results.html.twig', array('hitlist'=> $hitlist));
+            }
+            $this->get('session')->getFlashBag()->add('error', 'CSV Anhängen, schwachkopf!');
+        }
+        return ['form' => $form->createView()];
+    }
+
+    private function downloadHitlist($hitlist)
+    {
+
+        $response = new StreamedResponse(function() use($hitlist) {
+            $handle = fopen('php://output', 'r+');
+                fputcsv($handle,
+                    array(
+                        'Datum',
+                        'Durchschnittsreichweite (Tsd)',
+                        'Marktanteil (%)',
+                        'Episode',
+                        'Programmtool VON',
+                        'Programmtool BIS'
+                    )
+                );
+
+            foreach ($hitlist as $hit) {
+                $date = $hit['datum']->format('H:i d.m.Y');
+                $title = $hit['episode'] ? $hit['episode']->getTitle() : 'NOT FOUND';
+                fputcsv($handle,
+                    array(
+                        $date,
+                        $hit['DRW'],
+                        $hit['MA'],
+                        $title,
+                        $hit['episode'] ? $hit['episode']->getAirtime()->format('H:i d.m.Y') : 'NOT FOUND',
+                        $hit['episode'] ? $hit['episode']->getEndAirtime()->format('H:i d.m.Y') : 'NOT FOUND'
+                    )
+                );
+            }
+            fclose($handle);
+        });
+
+        $response->headers->set('Content-Type', 'application/force-download');
+        $response->headers->set('Content-Disposition','attachment; filename="export.csv"');
+
+        return $response;
+    }
 }
