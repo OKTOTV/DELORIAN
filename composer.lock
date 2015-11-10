@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ff716a4b95dd0be38ff13bd303f667d9",
+    "hash": "7616f7d15eda04fc774c3d3795b42d59",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -94,17 +94,17 @@
         },
         {
             "name": "bprs/asset-bundle",
-            "version": "1.1.3",
+            "version": "1.1.4",
             "target-dir": "Bprs/AssetBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SrgSteak/BPRSAssetBundle.git",
-                "reference": "c5421aacbceccb6a293b0e862d2d702aca3d39b5"
+                "reference": "38078742150051c8b5c346b3053f309e4f0cc9c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SrgSteak/BPRSAssetBundle/zipball/c5421aacbceccb6a293b0e862d2d702aca3d39b5",
-                "reference": "c5421aacbceccb6a293b0e862d2d702aca3d39b5",
+                "url": "https://api.github.com/repos/SrgSteak/BPRSAssetBundle/zipball/38078742150051c8b5c346b3053f309e4f0cc9c1",
+                "reference": "38078742150051c8b5c346b3053f309e4f0cc9c1",
                 "shasum": ""
             },
             "require": {
@@ -140,25 +140,25 @@
                 "form",
                 "upload"
             ],
-            "time": "2015-10-30 08:44:52"
+            "time": "2015-11-04 08:54:14"
         },
         {
             "name": "bprs/commandline-bundle",
-            "version": "1.1.2",
+            "version": "1.2",
             "target-dir": "Bprs/CommandLineBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SrgSteak/BPRSCommandlineBundle.git",
-                "reference": "14a364e8ecfb5ca8ed4689ed074da0895093532e"
+                "reference": "b275f37924e498f1bdff59b8d6794055ce0ebca2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SrgSteak/BPRSCommandlineBundle/zipball/14a364e8ecfb5ca8ed4689ed074da0895093532e",
-                "reference": "14a364e8ecfb5ca8ed4689ed074da0895093532e",
+                "url": "https://api.github.com/repos/SrgSteak/BPRSCommandlineBundle/zipball/b275f37924e498f1bdff59b8d6794055ce0ebca2",
+                "reference": "b275f37924e498f1bdff59b8d6794055ce0ebca2",
                 "shasum": ""
             },
             "require": {
-                "chrisboulton/php-resque": "1.2.x",
+                "chrisboulton/php-resque": "dev-master",
                 "ext-pcntl": "*"
             },
             "type": "library",
@@ -178,7 +178,7 @@
                 }
             ],
             "description": "Allows shellcommand execution in a separate thread. reports output as usable array",
-            "time": "2015-10-23 15:35:45"
+            "time": "2015-11-06 12:23:33"
         },
         {
             "name": "bprs/style-bundle",
@@ -267,21 +267,34 @@
         },
         {
             "name": "chrisboulton/php-resque",
-            "version": "1.2",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/chrisboulton/php-resque.git",
-                "reference": "0549d6c88a4aed934655b7c03b6153349d6c3ad0"
+                "reference": "df69e8980cc21652f10cd775cb6a0e8c572ffd2d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/chrisboulton/php-resque/zipball/0549d6c88a4aed934655b7c03b6153349d6c3ad0",
-                "reference": "0549d6c88a4aed934655b7c03b6153349d6c3ad0",
+                "url": "https://api.github.com/repos/chrisboulton/php-resque/zipball/df69e8980cc21652f10cd775cb6a0e8c572ffd2d",
+                "reference": "df69e8980cc21652f10cd775cb6a0e8c572ffd2d",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "colinmollenhour/credis": "~1.2",
+                "ext-pcntl": "*",
+                "php": ">=5.3.0",
+                "psr/log": "1.0.0"
             },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "suggest": {
+                "ext-proctitle": "Allows php-resque to rename the title of UNIX processes to show the status of a worker.",
+                "ext-redis": "Native PHP extension for Redis connectivity. Credis will automatically utilize when available."
+            },
+            "bin": [
+                "bin/resque"
+            ],
             "type": "library",
             "autoload": {
                 "psr-0": {
@@ -306,7 +319,46 @@
                 "redis",
                 "resque"
             ],
-            "time": "2012-10-13 07:28:16"
+            "time": "2015-05-13 11:58:23"
+        },
+        {
+            "name": "colinmollenhour/credis",
+            "version": "1.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/colinmollenhour/credis.git",
+                "reference": "7bd47b61fc3dad28aa881de45c71026256ad27cc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/colinmollenhour/credis/zipball/7bd47b61fc3dad28aa881de45c71026256ad27cc",
+                "reference": "7bd47b61fc3dad28aa881de45c71026256ad27cc",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "Client.php",
+                    "Cluster.php",
+                    "Sentinel.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Colin Mollenhour",
+                    "email": "colin@mollenhour.com"
+                }
+            ],
+            "description": "Credis is a lightweight interface to the Redis key-value store which wraps the phpredis library when available for better performance.",
+            "homepage": "https://github.com/colinmollenhour/credis",
+            "time": "2014-11-13 18:40:25"
         },
         {
             "name": "doctrine/annotations",
@@ -650,16 +702,16 @@
         },
         {
             "name": "doctrine/doctrine-bundle",
-            "version": "v1.5.2",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineBundle.git",
-                "reference": "d63be7eb9a95d46720f7d6badac4e5bc2bcff2e3"
+                "reference": "a5b3ba908ba68f3e14e42762a7b940fde65ed7da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/d63be7eb9a95d46720f7d6badac4e5bc2bcff2e3",
-                "reference": "d63be7eb9a95d46720f7d6badac4e5bc2bcff2e3",
+                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/a5b3ba908ba68f3e14e42762a7b940fde65ed7da",
+                "reference": "a5b3ba908ba68f3e14e42762a7b940fde65ed7da",
                 "shasum": ""
             },
             "require": {
@@ -724,42 +776,42 @@
                 "orm",
                 "persistence"
             ],
-            "time": "2015-08-31 14:47:06"
+            "time": "2015-11-04 21:33:02"
         },
         {
             "name": "doctrine/doctrine-cache-bundle",
-            "version": "v1.0.1",
-            "target-dir": "Doctrine/Bundle/DoctrineCacheBundle",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineCacheBundle.git",
-                "reference": "e4b6f810aa047f9cbfe41c3d6a3d7e83d7477a9d"
+                "reference": "3233bc78e222d528ca89a6a47d48d6f37888e95e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineCacheBundle/zipball/e4b6f810aa047f9cbfe41c3d6a3d7e83d7477a9d",
-                "reference": "e4b6f810aa047f9cbfe41c3d6a3d7e83d7477a9d",
+                "url": "https://api.github.com/repos/doctrine/DoctrineCacheBundle/zipball/3233bc78e222d528ca89a6a47d48d6f37888e95e",
+                "reference": "3233bc78e222d528ca89a6a47d48d6f37888e95e",
                 "shasum": ""
             },
             "require": {
-                "doctrine/cache": "~1.3",
+                "doctrine/cache": "^1.4.2",
                 "doctrine/inflector": "~1.0",
                 "php": ">=5.3.2",
-                "symfony/doctrine-bridge": "~2.2",
-                "symfony/framework-bundle": "~2.2",
-                "symfony/security": "~2.2"
+                "symfony/doctrine-bridge": "~2.2|~3.0",
+                "symfony/security-acl": "~2.3|~3.0"
             },
             "require-dev": {
                 "instaclick/coding-standard": "~1.1",
                 "instaclick/object-calisthenics-sniffs": "dev-master",
                 "instaclick/symfony2-coding-standard": "dev-remaster",
-                "phpunit/phpunit": "~3.7",
+                "phpunit/phpunit": "~4",
                 "satooshi/php-coveralls": "~0.6.1",
-                "squizlabs/php_codesniffer": "dev-master",
-                "symfony/console": "~2.2",
-                "symfony/finder": "~2.2",
-                "symfony/validator": "~2.2",
-                "symfony/yaml": "~2.2"
+                "squizlabs/php_codesniffer": "~1.5",
+                "symfony/console": "~2.2|~3.0",
+                "symfony/finder": "~2.2|~3.0",
+                "symfony/framework-bundle": "~2.2|~3.0",
+                "symfony/phpunit-bridge": "~2.7|~3.0",
+                "symfony/validator": "~2.2|~3.0",
+                "symfony/yaml": "~2.2|~3.0"
             },
             "type": "symfony-bundle",
             "extra": {
@@ -768,8 +820,8 @@
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Doctrine\\Bundle\\DoctrineCacheBundle": ""
+                "psr-4": {
+                    "Doctrine\\Bundle\\DoctrineCacheBundle\\": ""
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -802,13 +854,13 @@
                     "email": "fabien@symfony.com"
                 }
             ],
-            "description": "Symfony2 Bundle for Doctrine Cache",
+            "description": "Symfony Bundle for Doctrine Cache",
             "homepage": "http://www.doctrine-project.org",
             "keywords": [
                 "cache",
                 "caching"
             ],
-            "time": "2014-11-28 09:43:36"
+            "time": "2015-11-05 13:48:27"
         },
         {
             "name": "doctrine/inflector",
@@ -2168,17 +2220,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/OKTOTV/OktolabMediaBundle.git",
-                "reference": "937d1a1cf73e2b3be0a174db29f640020b5f8874"
+                "reference": "46a782045881944e1d39f71df3083b470bbbc53b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OKTOTV/OktolabMediaBundle/zipball/937d1a1cf73e2b3be0a174db29f640020b5f8874",
-                "reference": "937d1a1cf73e2b3be0a174db29f640020b5f8874",
+                "url": "https://api.github.com/repos/OKTOTV/OktolabMediaBundle/zipball/46a782045881944e1d39f71df3083b470bbbc53b",
+                "reference": "46a782045881944e1d39f71df3083b470bbbc53b",
                 "shasum": ""
             },
             "require": {
                 "bprs/applink-bundle": "~1.0",
-                "bprs/commandline-bundle": "1.1.*",
+                "bprs/commandline-bundle": "^1.2",
                 "floriansemm/solr-bundle": "~1.2",
                 "jms/serializer-bundle": "0.13.*",
                 "knplabs/knp-paginator-bundle": "^2.5",
@@ -2207,7 +2259,7 @@
                 "media",
                 "restful"
             ],
-            "time": "2015-10-30 08:58:49"
+            "time": "2015-11-06 12:52:01"
         },
         {
             "name": "oneup/uploader-bundle",
@@ -2972,25 +3024,26 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v2.6.11",
+            "version": "v2.7.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "c6ab380a577e7bfb8db6e6f3105f470f97c83235"
+                "reference": "66b2e9662c44d478b69e48278aa54079a006eb42"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/c6ab380a577e7bfb8db6e6f3105f470f97c83235",
-                "reference": "c6ab380a577e7bfb8db6e6f3105f470f97c83235",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/66b2e9662c44d478b69e48278aa54079a006eb42",
+                "reference": "66b2e9662c44d478b69e48278aa54079a006eb42",
                 "shasum": ""
             },
             "require": {
-                "doctrine/common": "~2.3",
-                "php": ">=5.3.3",
+                "doctrine/common": "~2.4",
+                "php": ">=5.3.9",
                 "psr/log": "~1.0",
-                "twig/twig": "~1.12,>=1.12.3"
+                "twig/twig": "~1.20|~2.0"
             },
             "replace": {
+                "symfony/asset": "self.version",
                 "symfony/browser-kit": "self.version",
                 "symfony/class-loader": "self.version",
                 "symfony/config": "self.version",
@@ -3014,7 +3067,6 @@
                 "symfony/monolog-bridge": "self.version",
                 "symfony/options-resolver": "self.version",
                 "symfony/process": "self.version",
-                "symfony/propel1-bridge": "self.version",
                 "symfony/property-access": "self.version",
                 "symfony/proxy-manager-bridge": "self.version",
                 "symfony/routing": "self.version",
@@ -3038,25 +3090,29 @@
             },
             "require-dev": {
                 "doctrine/data-fixtures": "1.0.*",
-                "doctrine/dbal": "~2.2",
+                "doctrine/dbal": "~2.4",
                 "doctrine/doctrine-bundle": "~1.2",
-                "doctrine/orm": "~2.2,>=2.2.3",
+                "doctrine/orm": "~2.4,>=2.4.5",
                 "egulias/email-validator": "~1.2",
                 "ircmaxell/password-compat": "~1.0",
                 "monolog/monolog": "~1.11",
-                "ocramius/proxy-manager": "~0.4|~1.0",
-                "propel/propel1": "~1.6",
-                "symfony/phpunit-bridge": "~2.7"
+                "ocramius/proxy-manager": "~0.4|~1.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.6-dev"
+                    "dev-master": "2.7-dev"
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Symfony\\": "src/"
+                "psr-4": {
+                    "Symfony\\Bridge\\Doctrine\\": "src/Symfony/Bridge/Doctrine/",
+                    "Symfony\\Bridge\\Monolog\\": "src/Symfony/Bridge/Monolog/",
+                    "Symfony\\Bridge\\ProxyManager\\": "src/Symfony/Bridge/ProxyManager/",
+                    "Symfony\\Bridge\\Swiftmailer\\": "src/Symfony/Bridge/Swiftmailer/",
+                    "Symfony\\Bridge\\Twig\\": "src/Symfony/Bridge/Twig/",
+                    "Symfony\\Bundle\\": "src/Symfony/Bundle/",
+                    "Symfony\\Component\\": "src/Symfony/Component/"
                 },
                 "classmap": [
                     "src/Symfony/Component/HttpFoundation/Resources/stubs",
@@ -3085,7 +3141,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2015-07-26 10:44:22"
+            "time": "2015-10-27 19:07:24"
         },
         {
             "name": "twig/extensions",
@@ -3141,16 +3197,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.23.0",
+            "version": "v1.23.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "5868cd822fd6cf626d5f805439575f9c323cee2a"
+                "reference": "d9b6333ae8dd2c8e3fd256e127548def0bc614c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/5868cd822fd6cf626d5f805439575f9c323cee2a",
-                "reference": "5868cd822fd6cf626d5f805439575f9c323cee2a",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/d9b6333ae8dd2c8e3fd256e127548def0bc614c6",
+                "reference": "d9b6333ae8dd2c8e3fd256e127548def0bc614c6",
                 "shasum": ""
             },
             "require": {
@@ -3198,7 +3254,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2015-10-29 23:29:01"
+            "time": "2015-11-05 12:49:06"
         }
     ],
     "packages-dev": [
@@ -3252,11 +3308,11 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": {
         "oktolab/media-bundle": 20
     },
-    "prefer-stable": false,
+    "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": ">=5.3.3"
