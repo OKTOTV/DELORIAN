@@ -45,7 +45,6 @@ security:
             anonymous: ~
 
     access_control:
-    # require BPRS_APPLINK for /api*
         - { path: /login, role: IS_AUTHENTICATED_ANONYMOUSLY}
         - { path: /bprs_applink/check_me, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api, roles: ROLE_BPRS_APPLINK }

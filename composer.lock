@@ -182,17 +182,17 @@
         },
         {
             "name": "bprs/style-bundle",
-            "version": "1.1.3",
+            "version": "1.1.4",
             "target-dir": "Bprs/StyleBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SrgSteak/BPRSStyleBundle.git",
-                "reference": "78088162820c35c3c1521ffde76147e3f9f0091f"
+                "reference": "5e3829520bf7905e880590db8781e7340067def9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SrgSteak/BPRSStyleBundle/zipball/78088162820c35c3c1521ffde76147e3f9f0091f",
-                "reference": "78088162820c35c3c1521ffde76147e3f9f0091f",
+                "url": "https://api.github.com/repos/SrgSteak/BPRSStyleBundle/zipball/5e3829520bf7905e880590db8781e7340067def9",
+                "reference": "5e3829520bf7905e880590db8781e7340067def9",
                 "shasum": ""
             },
             "type": "symfony-bundle",
@@ -218,7 +218,7 @@
                 "Simple",
                 "bootstrap"
             ],
-            "time": "2015-09-28 14:00:08"
+            "time": "2015-10-19 14:21:44"
         },
         {
             "name": "bprs/user-bundle",

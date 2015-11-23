@@ -37,6 +37,10 @@ bprs_asset:
         _locale:  de|en
     defaults: { _locale: de }
 
+oneup_uploader:
+    resource: .
+    type: uploader
+
 bprs_commandline:
     resource: .
     type: bprs_commandline
