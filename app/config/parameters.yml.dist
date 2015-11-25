@@ -26,4 +26,4 @@ parameters:
     php_path: "/path/to/php"
     worker_queue: "delorian"
     redis_backend: "localhost:6397"
-    bprs_asset.junksize: 200000
+    bprs_asset.junksize: 2000000
