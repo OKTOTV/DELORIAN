@@ -16,9 +16,8 @@ delorian:
 
 
 oktolab_media:
-    resource: "@OktolabMediaBundle/Controller/"
-    type:     annotation
-    prefix:   /
+    resource: .
+    type: oktolab_media
 
 bprs_applink:
     resource: "@BprsAppLinkBundle/Controller/"
@@ -43,8 +42,4 @@ oneup_uploader:
 
 bprs_commandline:
     resource: .
-    type: bprs_commandline
-    prefix:   /{_locale}
-    requirements:
-        _locale:  de|en
-    defaults: { _locale: de }
+    type:   bprs_commandline

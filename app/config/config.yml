@@ -136,10 +136,10 @@ bprs_asset:
             path: "/Volumes/LTAv1/LTAv2"
         gallery:
             url:  "http://localhost/DELORIAN/web/uploads/posterframes"
-            path: "/opt/local/apache2/htdocs/DELORIAN/web/uploads/posterframes"
+            path: "/usr/local/var/www/htdocs/DELORIAN/web/uploads/posterframes"
         video:
             url:  "http://localhost/DELORIAN/web/uploads/videos"
-            path: "/opt/local/apache2/htdocs/DELORIAN/web/uploads/videos"
+            path: "/usr/local/var/www/htdocs/DELORIAN/web/uploads/videos"
 
 knp_gaufrette:
     adapters:
@@ -186,7 +186,7 @@ knp_paginator:
         pagination: KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig # sort link template
 
 bprs_user:
-    class: "AppBundle\Entity\User"
+    class: "AppBundle\\Entity\\User"
     mail:
         commandline_host:   %commandline_host% #www.yourhost.com
         adress:             %email_adress% #yourbot@example.com
