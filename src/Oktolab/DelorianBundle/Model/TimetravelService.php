@@ -108,6 +108,7 @@ class TimetravelService {
             $this->delorian_em->flush();
             $this->delorian_em->clear();
             $this->flow_em->clear();
+            $this->jobservice->addJob("Oktolab\MediaBundle\Model\EncodeVideoJob", ['uniqID' => $episode->getUniqID()]);
             unset($episode);
             unset($series);
     }
