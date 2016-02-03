@@ -26,6 +26,7 @@ class AppKernel extends Kernel
             new Oneup\UploaderBundle\OneupUploaderBundle(),
             new Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),
             new Bprs\CommandLineBundle\BprsCommandLineBundle(),
+            new Okto\MediaBundle\MediaBundle(),
             new AppBundle\AppBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Bprs\UserBundle\BprsUserBundle()

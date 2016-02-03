@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace Okto\MediaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Oktolab\MediaBundle\Entity\Series as BaseSeries;

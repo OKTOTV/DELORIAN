@@ -4,7 +4,7 @@ namespace Oktolab\DelorianBundle\Model;
 
 use Oktolab\DelorianBundle\Entity\Series as DelorianSeries;
 use Oktolab\DelorianBundle\Entity\Episode as DelorianEpisode;
-use AppBundle\Entity\Series;
+use Okto\MediaBundle\Entity\Series;
 use AppBundle\Entity\Episode;
 use Gaufrette\Filesystem;
 use Gaufrette\Adapter\Local as LocalAdapter;

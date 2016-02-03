@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace Okto\MediaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Oktolab\MediaBundle\Entity\Episode as BaseEpisode;
@@ -20,15 +20,6 @@ class Episode extends BaseEpisode
     * @JMS\ReadOnly
     */
     private $series;
-
-
-    /**
-     * @ManyToMany(targetEntity="Phonenumber")
-     * @JoinTable(name="users_phonenumbers",
-     *      joinColumns={@JoinColumn(name="user_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@JoinColumn(name="phonenumber_id", referencedColumnName="id", unique=true)}
-     *      )
-     */
 
     /**
      *

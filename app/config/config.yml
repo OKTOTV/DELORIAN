@@ -91,9 +91,10 @@ doctrine:
                     BprsAppLinkBundle: ~
                     AppBundle: ~
                     BprsUserBundle: ~
+                    MediaBundle: ~
         resolve_target_entities:
             Bprs\AssetBundle\Entity\AssetInterface: AppBundle\Entity\Asset
-            Oktolab\MediaBundle\Entity\EpisodeInterface: AppBundle\Entity\Episode
+            Oktolab\MediaBundle\Entity\EpisodeInterface: Okto\MediaBundle\Entity\Episode
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -109,8 +110,8 @@ services:
         public: false
 
 oktolab_media:
-    episode_class: "AppBundle\Entity\Episode"
-    series_class: "AppBundle\Entity\Series"
+    episode_class: "Okto\MediaBundle\Entity\Episode"
+    series_class: "Okto\MediaBundle\Entity\Series"
     asset_class: "AppBundle\Entity\Asset"
     resolutions:
         720p:
@@ -140,10 +141,10 @@ jms_serializer:
             directories:
                 OKTOLAB:
                     namespace_prefix: "Oktolab\MediaBundle"
-                    path: "@AppBundle/Resources/serializer/OKTOLAB"
-                APPBUNDLE:
-                    namespace_prefix: "AppBundle"
-                    path: "@AppBundle\Resources/serializer/APPBUNDLE"
+                    path: "@OktolabMediaBundle/Resources/serializer/OKTOLAB"
+                OKTO:
+                    namespace_prefix: "Okto\MediaBundle"
+                    path: "@MediaBundle/Resources/serializer/OKTO"
 
 bprs_command_line:
     php_path: %php_path%

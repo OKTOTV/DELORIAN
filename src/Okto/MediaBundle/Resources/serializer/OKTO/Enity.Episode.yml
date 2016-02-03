@@ -1,10 +1,10 @@
-AppBundle\Entity\Series:
+Okto\MediaBundle\Entity\Episode:
     exclusion_policy: ALL
     access_type: public_method
     properties:
         name:
             expose: true
-        episodes:
+        series:
             expose: true
-            type: AppBundle\Entity\Episode
+            type: Okto\MediaBundle\Entity\Series
             max_depth: 2
