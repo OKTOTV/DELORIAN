@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Okto\MediaBundle\Form\EpisodeType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * Episode controller.
@@ -20,15 +21,15 @@ class EpisodeController extends BaseController
     /**
      * Displays a form to edit an existing Episode entity.
      * @Route("/{episode}/edit", name="oktolab_episode_edit")
-     * @ParamConverter("episode", class="OktolabMediaBundle:Episode")
+     * @ParamConverter("episode", class="MediaBundle:Episode")
      * @Method({"GET", "POST"})
      * @Template()
      */
     public function editAction(Request $request, $episode)
     {
         $form = $this->createForm(new EpisodeType(), $episode);
-        $form->add('submit', 'submit', ['label' => 'oktolab_media.edit_episode_button', 'attr' => ['class' => 'btn btn-primary']]);
-        $form->add('delete', 'submit', ['label' => 'oktolab_media.delete_episode_button', 'attr' => ['class' => 'btn btn-danger']]);
+        $form->add('submit', SubmitType::class, ['label' => 'oktolab_media.edit_episode_button', 'attr' => ['class' => 'btn btn-primary']]);
+        $form->add('delete', SubmitType::class, ['label' => 'oktolab_media.delete_episode_button', 'attr' => ['class' => 'btn btn-danger']]);
 
         if ($request->getMethod() == "POST") { //sends form
             $form->handleRequest($request);

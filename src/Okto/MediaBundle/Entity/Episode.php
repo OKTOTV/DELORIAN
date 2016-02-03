@@ -5,6 +5,7 @@ namespace Okto\MediaBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Oktolab\MediaBundle\Entity\Episode as BaseEpisode;
 use JMS\Serializer\Annotation as JMS;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Episode
@@ -15,6 +16,7 @@ use JMS\Serializer\Annotation as JMS;
 class Episode extends BaseEpisode
 {
     /**
+    * @Assert\NotNull(message = "oktolab_media.episode_series_not_null")
     * @ORM\ManyToOne(targetEntity="Series", inversedBy="episodes", cascade={"persist"})
     * @JMS\Expose
     * @JMS\ReadOnly
