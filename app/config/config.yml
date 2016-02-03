@@ -93,6 +93,7 @@ doctrine:
                     BprsUserBundle: ~
         resolve_target_entities:
             Bprs\AssetBundle\Entity\AssetInterface: AppBundle\Entity\Asset
+            Oktolab\MediaBundle\Entity\EpisodeInterface: AppBundle\Entity\Episode
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -111,6 +112,28 @@ oktolab_media:
     episode_class: "AppBundle\Entity\Episode"
     series_class: "AppBundle\Entity\Series"
     asset_class: "AppBundle\Entity\Asset"
+    resolutions:
+        720p:
+            name: 720p
+            sortNumber: 1
+            video_width: 1280
+            video_height: 720
+        1080p:
+            name: 1080p
+            sortNumber: 2
+            video_width: 1920
+            video_height: 1080
+        360p:
+            name: 360p
+            sortNumber: 0
+            video_width: 480
+            video_height: 360
+        facebook:
+            name: facebook
+            sortNumber: -1
+            video_width: 480
+            video_height: 360
+            container: mp4
 
 jms_serializer:
     metadata:

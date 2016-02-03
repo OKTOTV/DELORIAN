@@ -21,6 +21,21 @@ class Episode extends BaseEpisode
     */
     private $series;
 
+
+    /**
+     * @ManyToMany(targetEntity="Phonenumber")
+     * @JoinTable(name="users_phonenumbers",
+     *      joinColumns={@JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@JoinColumn(name="phonenumber_id", referencedColumnName="id", unique=true)}
+     *      )
+     */
+
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="Oktolab\MediaBundle\Entity\Media", mappedBy="episode")
+     */
+    private $media;
+
     /**
      * Set series
      *
@@ -41,5 +56,43 @@ class Episode extends BaseEpisode
     public function getSeries()
     {
         return $this->series;
+    }
+
+    /**
+     * Add media
+     *
+     * @param \Oktolab\MediaBundle\Entity\Media $media
+     * @return Episode
+     */
+    public function addMedia($media)
+    {
+        $this->media[] = $media;
+        $media->setEpisode($this);
+        return $this;
+    }
+
+    public function setMedia($media)
+    {
+        $this->media = $media;
+    }
+
+    /**
+     * Remove media
+     *
+     * @param \Oktolab\MediaBundle\Entity\Media $media
+     */
+    public function removeMedia($media)
+    {
+        $this->media->removeElement($media);
+    }
+
+    /**
+     * Get media
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMedia()
+    {
+        return $this->media;
     }
 }
