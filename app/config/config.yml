@@ -153,6 +153,8 @@ bprs_command_line:
 
 bprs_asset:
     class:  "AppBundle\Entity\Asset"
+    filesystem_map: oneup_flysystem.mount_manager
+    worker_queue: %worker_queue%
     adapters:
         lta_lager:
             path: "/Volumes/Share 1/LTA Lager"
@@ -165,38 +167,56 @@ bprs_asset:
             url:  "http://localhost/DELORIAN/web/uploads/videos"
             path: "/usr/local/var/www/htdocs/DELORIAN/web/uploads/videos"
 
-knp_gaufrette:
+# knp_gaufrette:
+#     adapters:
+#         posterframe:
+#             local:
+#                 directory: %kernel.root_dir%/../web/uploads/posterframes
+#                 create: true
+#         video:
+#             local:
+#                 directory: %kernel.root_dir%/../web/uploads/videos
+#                 create: true
+#     filesystems:
+#         gallery:
+#             adapter: posterframe
+#         video:
+#             adapter: video
+#     stream_wrapper: ~
+
+oneup_flysystem:
     adapters:
-        posterframe:
+        gallery:
             local:
                 directory: %kernel.root_dir%/../web/uploads/posterframes
-                create: true
         video:
             local:
                 directory: %kernel.root_dir%/../web/uploads/videos
-                create: true
 
     filesystems:
         gallery:
-            adapter: posterframe
+            adapter: gallery
+            mount: gallery
         video:
             adapter: video
-
-    stream_wrapper: ~
+            mount: video
 
 oneup_uploader:
+    chunks:
+        maxage: 86400
+        storage:
+            directory: %kernel.cache_dir%/uploader/chunks
     mappings:
         gallery:
             frontend: blueimp
             storage:
-                type: gaufrette
-                filesystem: gaufrette.gallery_filesystem
-
+                type: flysystem
+                filesystem: oneup_flysystem.gallery_filesystem
         video:
             frontend: blueimp
             storage:
-                type: gaufrette
-                filesystem: gaufrette.video_filesystem
+                type: flysystem
+                filesystem: oneup_flysystem.video_filesystem
 
 knp_paginator:
     page_range: 5                      # default page range used in pagination control

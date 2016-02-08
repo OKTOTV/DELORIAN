@@ -25,7 +25,10 @@
         "bprs/asset-bundle": "^1.0",
         "bprs/user-bundle": "^2.0",
         "oktolab/media-bundle": "dev-master",
-        "knplabs/knp-paginator-bundle": "^2.5"
+        "knplabs/knp-paginator-bundle": "^2.5",
+        "oneup/flysystem-bundle": "@stable",
+        "league/flysystem-aws-s3-v2": "^1.0",
+        "oneup/uploader-bundle": "^1.5"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

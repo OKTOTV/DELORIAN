@@ -7,6 +7,3 @@ services:
     jms_serializer.object_constructor:
         alias: jms_serializer.doctrine_object_constructor
         public: false
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]

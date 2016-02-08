@@ -29,7 +29,8 @@ class AppKernel extends Kernel
             new Okto\MediaBundle\MediaBundle(),
             new AppBundle\AppBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
-            new Bprs\UserBundle\BprsUserBundle()
+            new Bprs\UserBundle\BprsUserBundle(),
+            new Oneup\FlysystemBundle\OneupFlysystemBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -78,12 +78,13 @@ class TimetravelService {
             $series = $this->delorian_em->getRepository($this->series_class)->findOneBy(array('uniqID' => $old_series->getId()));
             if (!$series) {
                 $series = new $this->series_class;
+            }
                 $series->setUniqID($old_series->getId());
                 $series->setName($old_series->getTitle());
                 $series->setWebTitle($old_series->getWebAbbrevation());
                 $series->setDescription($old_series->getAbstractTextPublic());
                 $this->importSeriesPosterframe($series);
-            }
+
             if ($old_episode->getTitle() == "" || $old_episode->getTitle() == null ) {
                 //use the name of the first clip
                 $episodeclips = $this->flow_em->getRepository('OktolabDelorianBundle:EpisodeClip')->findBy(array('episode' => $old_episode->getId()));
@@ -192,6 +193,10 @@ class TimetravelService {
                 $asset->setFileSize($attachment->getFileSize());
                 $asset->setMimetype($attachment->getMimetype());
 
+                // delete old posterframe
+                if ($series->getPosterframe()) {
+                    $this->asset_service->deleteAsset($series->getPosterframe());
+                }
                 $series->setPosterframe($asset);
                 $this->delorian_em->persist($asset);
             }
@@ -219,7 +224,7 @@ class TimetravelService {
                 if (file_exists($path)) {
                     //video found! all hail the flying spagetti monster!
                     echo "found video ".$path."\n";
-                    //TODO: if path is LTA, use own encode Video job to scale 720x576 videos to HD ready!
+                    //if path is LTA, use own encode Video job to scale 720x576 videos to HD ready!
                     $this->encodeVideo($path, $video->getShortCode(), $episode);
                     break;
                 }
