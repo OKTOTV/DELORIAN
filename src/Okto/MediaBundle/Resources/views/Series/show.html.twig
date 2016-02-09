@@ -7,31 +7,58 @@
 {% block body_main -%}
     <div class="page-header">
         <h1>{{ series.name }}</h1>
+        <a class="btn btn-default" href="{{ path('oktolab_episode_new')}}">{{ 'oktolab_media.series_add_new_episode'|trans|raw }}</a>
+        <a href="{{ path('oktolab_series_edit', { 'series': series.id }) }}" class="btn btn-default">{{ 'oktolab_media.series_edit_button'|trans|raw }}</a>
+        <a href="{{ path('oktolab_media_api_show_series', {'uniqID': series.uniqID }) }}" class="btn btn-default">{{ 'oktolab_media.series_show_api'|trans|raw }}</a>
     </div>
     <div class="row">
         <div class="col-md-8">
-            {% if series.posterframe is not empty %}
-                <img src="{{ series.posterframe|path }}" class="img-responsive" />
-            {% endif %}
-            {{ series.description }}
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {% if series.posterframe is not empty %}
+                        <img src="{{ series.posterframe|path }}" class="img-responsive" />
+                    {% endif %}
+                </div>
+                <div class="panel-footer">
+                    {{ series.description }}
+                </div>
+            </div>
         </div>
         <div class="col-md-4">
-            <p>Angelegt am: {{ series.createdAt|date('d.m.Y H:i') }}</p>
-            <p>Aktualisiert am: {{ series.updatedAt|date('d.m.Y H:i') }}</p>
-            {% if series.isActive %}
-                <p>Sendereihe ist: Aktiv</p>
-            {% else %}
-                <p>Sendereihe ist: Inaktiv</p>
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <td>{{'oktolab_media.series_info_isActive'|trans}}</td>
+                        <td>{{ 'oktolab_media.series_info_isActive_choice'|transchoice(series.isActive) }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'oktolab_media.series_info_uniqID'|trans}}</td>
+                        <td>{{ series.uniqID }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'oktolab_media.series_info_webtitle'|trans}}</td>
+                        <td>{{ series.webtitle }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'oktolab_media.series_info_createdAt'|trans}}</td>
+                        <td>{{ series.createdAt|date('Y-m-d H:i:s') }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'oktolab_media.series_info_updatedAt'|trans}}</td>
+                        <td>{{ series.updatedAt|date('Y-m-d H:i:s') }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'oktolab_media.series_info_episodes'|trans}}</td>
+                        <td>{{ series.episodes|length }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            {% if series.posterframe is not empty %}
+                <a href="{{ path('bprs_asset_download', {'key': series.posterframe.filekey}) }}" class="btn btn-default">{{ 'oktolab_media.series_download_posterframe_button'|trans|raw }}</a>
             {% endif %}
-            <p>ID: {{ series.uniqID }}</p>
-            <p>Webtitel: {{ series.webtitle }}</p>
-            <a href="{{ path('oktolab_series_edit', { 'series': series.id }) }}" class="btn btn-default">
-                Edit
-            </a>
         </div>
     </div>
-    <a class="btn btn-default" href="{{ path('oktolab_episode_new')}}">{{ 'oktolab_media.series_add_new_episode'|trans|raw }}</a>
-        {{ render(controller('OktolabMediaBundle:Series:paginationEpisodes', {'page': 1, 'series': series.id })) }}
+    {{ render(controller('OktolabMediaBundle:Series:paginationEpisodes', {'page': 1, 'series': series.id })) }}
 {% endblock %}
 
 {% block javascripts %}
