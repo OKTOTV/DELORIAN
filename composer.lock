@@ -158,17 +158,17 @@
         },
         {
             "name": "bprs/asset-bundle",
-            "version": "2.0",
+            "version": "2.0.1",
             "target-dir": "Bprs/AssetBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SrgSteak/BPRSAssetBundle.git",
-                "reference": "d70dbf2d3eb59666a648ffe37300d456d425c27f"
+                "reference": "b03705aa278b0feee0b4c430b58f13b5fcbbdcd5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SrgSteak/BPRSAssetBundle/zipball/d70dbf2d3eb59666a648ffe37300d456d425c27f",
-                "reference": "d70dbf2d3eb59666a648ffe37300d456d425c27f",
+                "url": "https://api.github.com/repos/SrgSteak/BPRSAssetBundle/zipball/b03705aa278b0feee0b4c430b58f13b5fcbbdcd5",
+                "reference": "b03705aa278b0feee0b4c430b58f13b5fcbbdcd5",
                 "shasum": ""
             },
             "require": {
@@ -204,7 +204,7 @@
                 "form",
                 "upload"
             ],
-            "time": "2016-02-08 09:57:14"
+            "time": "2016-02-10 09:24:19"
         },
         {
             "name": "bprs/commandline-bundle",
@@ -2667,12 +2667,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/OKTOTV/OktolabMediaBundle.git",
-                "reference": "877682463d6979ccb75f895129904411169a8699"
+                "reference": "43fd4173076f3ca3a8e68819d0b397bd4c299a42"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OKTOTV/OktolabMediaBundle/zipball/877682463d6979ccb75f895129904411169a8699",
-                "reference": "877682463d6979ccb75f895129904411169a8699",
+                "url": "https://api.github.com/repos/OKTOTV/OktolabMediaBundle/zipball/43fd4173076f3ca3a8e68819d0b397bd4c299a42",
+                "reference": "43fd4173076f3ca3a8e68819d0b397bd4c299a42",
                 "shasum": ""
             },
             "require": {
@@ -2706,7 +2706,7 @@
                 "media",
                 "restful"
             ],
-            "time": "2016-02-09 14:01:02"
+            "time": "2016-02-10 09:15:27"
         },
         {
             "name": "oneup/flysystem-bundle",
