@@ -113,6 +113,7 @@ oktolab_media:
     episode_class: "Okto\MediaBundle\Entity\Episode"
     series_class: "Okto\MediaBundle\Entity\Series"
     asset_class: "AppBundle\Entity\Asset"
+    encoding_filesystem: cache
     resolutions:
         720p:
             name: 720p
@@ -166,23 +167,9 @@ bprs_asset:
         video:
             url:  "http://localhost/DELORIAN/web/uploads/videos"
             path: "/usr/local/var/www/htdocs/DELORIAN/web/uploads/videos"
-
-# knp_gaufrette:
-#     adapters:
-#         posterframe:
-#             local:
-#                 directory: %kernel.root_dir%/../web/uploads/posterframes
-#                 create: true
-#         video:
-#             local:
-#                 directory: %kernel.root_dir%/../web/uploads/videos
-#                 create: true
-#     filesystems:
-#         gallery:
-#             adapter: posterframe
-#         video:
-#             adapter: video
-#     stream_wrapper: ~
+        cache:
+            url: "/tmp"
+            path: "/tmp"
 
 oneup_flysystem:
     adapters:
@@ -192,6 +179,9 @@ oneup_flysystem:
         video:
             local:
                 directory: %kernel.root_dir%/../web/uploads/videos
+        cache:
+            local:
+                directory: /tmp
 
     filesystems:
         posterframe:
@@ -200,6 +190,9 @@ oneup_flysystem:
         video:
             adapter: video
             mount: video
+        cache:
+            adapter: cache
+            mount: cache
 
 oneup_uploader:
     chunks:

@@ -35,7 +35,7 @@ class Episode extends BaseEpisode
      * @param \Oktolab\MediaBundle\Entity\Series $series
      * @return Episode
      */
-    public function setSeries(\Oktolab\MediaBundle\Entity\Series $series = null)
+    public function setSeries($series = null)
     {
         $this->series = $series;
         return $this;

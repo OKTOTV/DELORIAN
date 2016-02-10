@@ -69,7 +69,7 @@ class EpisodeType extends AbstractType
 
             ->add('video', 'asset', ['label' => 'oktolab_media.video_label'])
 
-            ->add('series', EntityType::class, ['class' => 'OktolabMediaBundle:Series', 'choice_label' => 'name', 'label' => 'oktolab_media.episode_series_label'])
+            ->add('series', EntityType::class, ['class' => 'MediaBundle:Series', 'choice_label' => 'name', 'label' => 'oktolab_media.episode_series_label'])
         ;
     }
 

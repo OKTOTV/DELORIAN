@@ -29,7 +29,7 @@ class Series extends BaseSeries
          * @param \Oktolab\MediaBundle\Entity\Episode $episodes
          * @return Series
          */
-        public function addEpisode(\Oktolab\MediaBundle\Entity\Episode $episodes)
+        public function addEpisode($episodes)
         {
             $this->episodes[] = $episodes;
             return $this;
@@ -40,7 +40,7 @@ class Series extends BaseSeries
          *
          * @param \Oktolab\MediaBundle\Entity\Episode $episodes
          */
-        public function removeEpisode(\Oktolab\MediaBundle\Entity\Episode $episodes)
+        public function removeEpisode($episodes)
         {
             $this->episodes->removeElement($episodes);
         }
