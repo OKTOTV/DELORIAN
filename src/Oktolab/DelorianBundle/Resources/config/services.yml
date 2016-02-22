@@ -1,8 +1,16 @@
 services:
     delorian.timetravel:
         class:  Oktolab\DelorianBundle\Model\TimetravelService
-        arguments: [ @doctrine.orm.flow_entity_manager, @doctrine.orm.delorian_entity_manager, %bprs_asset.adapters%, @bprs_jobservice, %oktolab_media.episode_class%, %oktolab_media.series_class%, %oktolab_media.asset_class%, %bprs_worker_queue%, @guzzle.client ]
+        arguments: [ @delorian.flow, @doctrine.orm.delorian_entity_manager, %bprs_asset.adapters%, @bprs_jobservice, %oktolab_media.episode_class%, %oktolab_media.series_class%, %bprs_worker_queue%, @bprs.asset ]
 
     delorian.csvhandler:
         class: Oktolab\DelorianBundle\Model\CsvHandlerService
         arguments: [ @doctrine.orm.flow_entity_manager ]
+
+    delorian.program:
+        class: Oktolab\DelorianBundle\Model\ProgramService
+        arguments: [ @guzzle.client ]
+
+    delorian.flow:
+        class:  Oktolab\DelorianBundle\Model\FlowService
+        arguments:  [ @doctrine.orm.flow_entity_manager ]
