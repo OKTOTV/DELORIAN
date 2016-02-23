@@ -2,19 +2,15 @@
 
 namespace Oktolab\DelorianBundle\Model;
 
+use GuzzleHttp\Client;
+
 class ProgramService {
-
-    private $guzzle_client;
-
-    public function __construct($guzzle_client) {
-        $this->guzzle_client = $guzzle_client;
-    }
 
     public function parseProgram(\Datetime $start, \Datetime $end)
     {
         $program = array();
-
-        $response = $this->guzzle_client->get($this->getProgrammweekURLforDate($start));
+        $client = new Client();
+        $response = $client->request('GET', $this->getProgrammweekURLforDate($start));
         if ($response->getStatusCode() == 200) {
             $xml = new \SimpleXMLElement($response->getBody());
             foreach($xml->show as $xml_show) {

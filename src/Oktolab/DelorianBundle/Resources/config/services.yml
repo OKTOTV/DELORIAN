@@ -9,7 +9,7 @@ services:
 
     delorian.program:
         class: Oktolab\DelorianBundle\Model\ProgramService
-        arguments: [ @guzzle.client ]
+        arguments: [ ]
 
     delorian.flow:
         class:  Oktolab\DelorianBundle\Model\FlowService
