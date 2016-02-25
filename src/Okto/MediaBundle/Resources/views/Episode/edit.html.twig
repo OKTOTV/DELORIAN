@@ -7,8 +7,7 @@
 {% block body_main %}
     <div class="page-header">
         <h1>{{ 'oktolab_media.edit_episode_header'|trans }}</h1>
-        {# <a href="{{ path('oktolab_episode_show', {'uniqID': form.uniqID.vars.value}) }}" class="btn btn-default">{{ 'oktolab_media.edit_episode_cancel'|trans }}</a>
-        #}
+        <a href="{{ path('oktolab_episode_show', {'uniqID': form.uniqID.vars.value}) }}" class="btn btn-default">{{ 'oktolab_media.edit_episode_cancel'|trans }}</a>
     </div>
 
     {{ form_start(form) }}
@@ -31,13 +30,12 @@
     <script type="text/javascript">
         $(document).ready( function(){
             $('#oktolab_mediabundle_episode_onlineStart_picker').datetimepicker({
+                showTodayButton: true,
                 locale: 'de',
-                // format: "DD.MM.YYYY hh:mm",
                 date: moment($('#oktolab_mediabundle_episode_onlineStart_picker').children(':input').val()),
                 useCurrent: true,
                 calendarWeeks: true,
-                allowInputToggle: true,
-                showTodayButton: true
+                allowInputToggle: true
             });
 
             $('#oktolab_mediabundle_episode_onlineEnd_picker').datetimepicker({
