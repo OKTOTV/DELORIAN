@@ -25,6 +25,7 @@ class CSVController extends Controller
             $form = $this->createFormBuilder($defaultData)
                 ->add('from', 'date')
                 ->add('to', 'date')
+                ->add('delimiter', 'text')
                 ->add('send', 'submit')
                 ->getForm();
 
@@ -39,7 +40,7 @@ class CSVController extends Controller
                 $query->setParameter('series', $old_series);
                 $old_episodes = $query->getResult();
 
-                return $this->CSVResponse($old_episodes, $old_series->getAbbrevation().' '.$data['from']->format('d.m.Y').'-'.$data['to']->format('d.m.Y').'.csv');
+                return $this->CSVResponse($old_episodes, $old_series->getAbbrevation().' '.$data['from']->format('d.m.Y').'-'.$data['to']->format('d.m.Y').'.csv', $data['delimiter']);
             } else {
                 $this->get('session')->getFlashBag()->add('error', "ERROR");
             }
@@ -47,11 +48,8 @@ class CSVController extends Controller
         return array('form' => $form->createView(), 'series' => $old_series);
     }
 
-    public function CSVResponse($old_episodes, $filename = 'export.csv') {
-        // while (false !== ($row = $items->next())) {
-            // add a line in the csv file. You need to implement a toArray() method
-            // to transform your object into an array
-        $response = new StreamedResponse(function() use($old_episodes) {
+    public function CSVResponse($old_episodes, $filename = 'export.csv', $delimiter = ';') {
+        $response = new StreamedResponse(function() use($old_episodes, $delimiter) {
             $handle = fopen('php://output', 'r+');
                 fputcsv($handle,
                     array(
@@ -63,7 +61,7 @@ class CSVController extends Controller
                         'Abstrakt',
                         'Kommentar'
                     ),
-                    ';'
+                    $delimiter
                 );
 
             foreach ($old_episodes as $old_episode) {
@@ -84,7 +82,7 @@ class CSVController extends Controller
                         $old_episode->getAbstractTextPublic(),
                         $old_episode->getComments()
                     ),
-                    ';'
+                    $delimiter
                 );
             }
             fclose($handle);

@@ -1,4 +1,9 @@
 {% extends "BprsStyleBundle::layout.html.twig" %}
+
+{% block nav_head%}
+    {% include 'BprsStyleBundle::menu.html.twig' with {'selected': 'programmtool', 'dropdown': ''} %}
+{% endblock %}
+
 {% block body_main %}
     <div class="page-header">
     <h1>[{{series.abbrevation}}] {{series.title}}</h1>
