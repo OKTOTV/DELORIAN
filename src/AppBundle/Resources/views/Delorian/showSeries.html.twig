@@ -12,6 +12,7 @@
         <p>Aktualisiert am: {{ series.updatedAt|date("d.m.Y H:i") }}</p>
         <p>UniqID: {{ series.id }}</p>
         <a href="#" data-id="{{ series.id }}" class="btn btn-default series_import"><span class="glyphicon glyphicon-transfer"></span> Importiere gesamte Sendereihe</a>
+        <a href="{{ path('csv_firstruns', {'id': series.id }) }}" class="btn btn-default">{{ 'oktolab_first_runs'|trans }}</a>
     </div>
 
     <div class="page-header">

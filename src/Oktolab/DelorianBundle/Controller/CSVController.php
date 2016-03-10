@@ -33,13 +33,13 @@ class CSVController extends Controller
 
             if ($form->isValid()) {
                 $data = $form->getData();
-                $query = $this->getDoctrine()->getManager()->createQuery('SELECT u FROM OktolabDelorianBundle:Episode u WHERE u.firstRanAt > :from AND u.firstRanAt < :to AND u.series = :series ORDER BY u.firstRanAt ASC');
+                $query = $this->getDoctrine()->getManager('flow')->createQuery('SELECT u FROM OktolabDelorianBundle:Episode u WHERE u.firstRanAt > :from AND u.firstRanAt < :to AND u.series = :series ORDER BY u.firstRanAt ASC');
                 $query->setParameter('from', $data['from']);
                 $query->setParameter('to', $data['to']);
                 $query->setParameter('series', $old_series);
                 $old_episodes = $query->getResult();
 
-                return $this->CSVResponse($old_episodes);
+                return $this->CSVResponse($old_episodes, $old_series->getAbbrevation().' '.$data['from']->format('d.m.Y').'-'.$data['to']->format('d.m.Y').'.csv');
             } else {
                 $this->get('session')->getFlashBag()->add('error', "ERROR");
             }
@@ -47,7 +47,7 @@ class CSVController extends Controller
         return array('form' => $form->createView(), 'series' => $old_series);
     }
 
-    public function CSVResponse($old_episodes) {
+    public function CSVResponse($old_episodes, $filename = 'export.csv') {
         // while (false !== ($row = $items->next())) {
             // add a line in the csv file. You need to implement a toArray() method
             // to transform your object into an array
@@ -57,28 +57,41 @@ class CSVController extends Controller
                     array(
                         'Bezeichnung',
                         'Titel',
-                        'Erstausstrahlung',
+                        'Erstausstrahlungsdatum',
+                        'Erstausstrahlungszeit',
+                        'Länge',
                         'Abstrakt',
                         'Kommentar'
-                    )
+                    ),
+                    ';'
                 );
 
             foreach ($old_episodes as $old_episode) {
+                $length = $old_episode->getLength();
+                if (!$length) {
+                    $length = 0;
+                }
+                $hours = floor($length / 3600);
+                $mins = floor(($length - ($hours*3600)) / 60);
+                $secs = floor($length % 60);
                 fputcsv($handle,
                     array(
                         $old_episode->getSeries()->getAbbrevation().' '.$old_episode->getSeasonNumber().'x'.$old_episode->getEpisodeNumber(),
                         $old_episode->getTitle(),
                         $old_episode->getFirstRanAt()->format('d.m.Y'),
+                        $old_episode->getFirstRanAt()->format('H:i'),
+                        $hours.':'.$mins.':'.$secs,
                         $old_episode->getAbstractTextPublic(),
                         $old_episode->getComments()
-                    )
+                    ),
+                    ';'
                 );
             }
             fclose($handle);
         });
 
         $response->headers->set('Content-Type', 'application/force-download');
-        $response->headers->set('Content-Disposition','attachment; filename="export.csv"');
+        $response->headers->set('Content-Disposition','attachment; filename="'.$filename.'"');
 
         return $response;
     }
