@@ -12,8 +12,9 @@ class TimetravelService {
     private $series_class;
     private $worker_queue;
     private $asset_service;
+    private $media_service;
 
-    public function __construct($flow_service, $delorian_manager, $adapters, $jobservice, $episode_class, $series_class, $worker_queue, $asset_service) {
+    public function __construct($flow_service, $delorian_manager, $adapters, $jobservice, $episode_class, $series_class, $worker_queue, $asset_service, $media_service) {
         $this->adapters = $adapters;
         $this->flow_service = $flow_service;
         $this->delorian_em = $delorian_manager;
@@ -22,6 +23,7 @@ class TimetravelService {
         $this->series_class = $series_class;
         $this->worker_queue = $worker_queue;
         $this->asset_service = $asset_service;
+        $this->media_service = $media_service;
     }
 
     /**
@@ -96,7 +98,9 @@ class TimetravelService {
             $this->delorian_em->clear();
             // $this->flow_em->clear();
             if ($episode->getVideo()) {
-                $this->jobservice->addJob("Oktolab\MediaBundle\Model\EncodeVideoJob", ['uniqID' => $episode->getUniqID()]);
+                //TODO: use media service to do jobs
+                $this->media_service->addEncodeVideoJob($episode->getUniqID());
+                // $this->jobservice->addJob("Oktolab\MediaBundle\Model\EncodeVideoJob", ['uniqID' => $episode->getUniqID()]);
             }
             // unset($episode);
             // unset($series);
