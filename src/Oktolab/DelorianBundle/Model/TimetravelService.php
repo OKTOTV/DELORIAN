@@ -35,7 +35,7 @@ class TimetravelService {
     * adds timetraveljob for all episodes of a series
     */
     public function fluxCompensateSeriesEpisodes($id) {
-        $old_episodes = $this->flow_em->getRepository('OktolabDelorianBundle:Episode')->findBy(array('series' => $id));
+        $old_episodes = $this->flow_service->getEpisodes($id); //$this->flow_em->getRepository('OktolabDelorianBundle:Episode')->findBy(array('series' => $id));
         foreach ($old_episodes as $episode) {
             $this->jobservice->addJob("Oktolab\DelorianBundle\Model\TimetravelJob", array('type' => 'episode', 'id' => $episode->getId()), $this->worker_queue);
         }

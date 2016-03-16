@@ -32,6 +32,11 @@ class FlowService {
         return false;
     }
 
+    public function getEpisodes($series_id)
+    {
+        return $this->flow_em->getRepository('OktolabDelorianBundle:Episode')->findBy(['series' => $series_id]);
+    }
+
     public function getClips($episode_id)
     {
         return $this->flow_em->getRepository('OktolabDelorianBundle:EpisodeClip')->findBy(array('episode' => $episode_id));
