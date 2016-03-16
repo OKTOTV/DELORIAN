@@ -45,7 +45,7 @@ class SeriesController extends BaseController
         $pagination = $paginator->paginate(
             $query,
             $page/*page number*/,
-            2
+            8
         );
         $pagination->setUsedRoute('media_episode_paginator', ['series' => $series]);
         $pagination->setParam('series', $series->getId());
