@@ -75,6 +75,11 @@ class FlowService {
             $attachment = $this->flow_em->getRepository('OktolabDelorianBundle:Attachment')->findOneBy(array('attachmentObject' => $attachmentObject->getId(), 'attachmentRole' => 2));
             if ($attachment) {
                 return $attachment;
+            } else {
+                $attachment = $this->flow_em->getRepository('OktolabDelorianBundle:Attachment')->findOneBy(array('attachmentObject' => $attachmentObject->getId(), 'attachmentRole' => 1));
+            }
+            if ($attachment) {
+                return $attachment;
             }
         }
         return false;

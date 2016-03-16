@@ -129,12 +129,7 @@ class TimetravelService {
         if ($attachment) {
             // decode blob and save as file to the filesystem
             $name = uniqID();
-            // $adapter = new LocalAdapter($this->adapters['gallery']['path']);
-            // $filesystem = new Filesystem($adapter);
-            // $filesystem->write($name, stream_get_contents($attachment->getContent()));
-            // unset($adapter);
-            // unset($filesystem);
-            //add posterframe as Asset to the Episode!
+            //add posterframe as Asset to the Episode
             $asset = $this->asset_service->createAsset();
             $asset->setFilekey($name);
             $asset->setAdapter('posterframe');
@@ -162,12 +157,7 @@ class TimetravelService {
         if ($attachment) {
             // decode blob and save as file to the filesystem
             $name = uniqID();
-            // $adapter = new LocalAdapter($this->adapters['gallery']['path']);
-            // $filesystem = new Filesystem($adapter);
-            // $filesystem->write($name, stream_get_contents($attachment->getContent()));
-            // unset($adapter);
-            // unset($filesystem);
-            //add posterframe as Asset to the Episode!
+            //add posterframe as Asset to the Episode
             $asset = $this->asset_service->createAsset();
             $asset->setFilekey($name);
             $asset->setAdapter('posterframe');
