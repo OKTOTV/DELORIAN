@@ -55,6 +55,7 @@
         $('.episode_import').click(function(e) {
             e.preventDefault();
             var id = $(this).data('id');
+            $(this).addClass("disabled");
             $.ajax({
                 url: "{{ url('timetravelepisode') }}",
                 data: {'id': id},
@@ -69,6 +70,7 @@
         $('.series_import').click(function(e) {
             e.preventDefault();
             var id = $(this).data('id');
+            $(this).addClass("disabled");
             $.ajax({
                 url: "{{ url('timetravelseries') }}",
                 data: {'id': id},
