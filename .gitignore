@@ -12,3 +12,5 @@
 /composer.phar
 /web/uploads
 /app/delorian.db3
+
+composer.lock
