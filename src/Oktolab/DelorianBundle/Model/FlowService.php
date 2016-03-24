@@ -70,7 +70,13 @@ class FlowService {
 
     public function getSeriesAttachment($series)
     {
-        $attachmentObject = $this->flow_em->getRepository('OktolabDelorianBundle:AttachmentObject')->findOneBy(array('reference' => $series->getUniqID()));
+        $attachmentObjects = $this->flow_em->getRepository('OktolabDelorianBundle:AttachmentObject')->findBy(array('reference' => $series->getUniqID()));
+        $attachmentObject = null;
+        foreach ($attachmentObjects as $aO) {
+            if ($aO->getAttachmentObjectType()->getClassName() == "Series") {
+                $attachmentObject = $aO;
+            }
+        }
         if ($attachmentObject) {
             $attachment = $this->flow_em->getRepository('OktolabDelorianBundle:Attachment')->findOneBy(array('attachmentObject' => $attachmentObject->getId(), 'attachmentRole' => 2));
             if ($attachment) {

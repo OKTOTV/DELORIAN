@@ -23,5 +23,10 @@ class TimetravelJob extends BprsContainerAwareJob
                 break;
         }
     }
+
+    public function getName()
+    {
+        return 'Timetravel Job';
+    }
 }
 ?>

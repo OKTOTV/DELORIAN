@@ -177,6 +177,7 @@ class TimetravelService {
                 $this->asset_service->deleteAsset($series->getPosterframe());
             }
             $series->setPosterframe($asset);
+            $this->delorian_em->persist($series);
             $this->delorian_em->persist($asset);
         }
         // unset($attachmentObject);
