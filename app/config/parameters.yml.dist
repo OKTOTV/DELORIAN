@@ -27,3 +27,4 @@ parameters:
     worker_queue: "delorian"
     redis_backend: "localhost:6379"
     bprs_asset.junksize: 2000000
+    player_url:    "http://path/to/your/player.js"

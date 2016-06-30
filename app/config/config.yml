@@ -114,6 +114,7 @@ oktolab_media:
     series_class: "Okto\MediaBundle\Entity\Series"
     asset_class: "AppBundle\Entity\Asset"
     encoding_filesystem: cache
+    player_url:   "%player_url%"
     resolutions:
         720p:
             name: 720p
