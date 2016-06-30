@@ -95,6 +95,7 @@ doctrine:
         resolve_target_entities:
             Bprs\AssetBundle\Entity\AssetInterface: AppBundle\Entity\Asset
             Oktolab\MediaBundle\Entity\EpisodeInterface: Okto\MediaBundle\Entity\Episode
+            Oktolab\MediaBundle\Entity\PlaylistInterface: Okto\MediaBundle\Entity\Playlist
 
 # Swiftmailer Configuration
 swiftmailer:
