@@ -27,10 +27,10 @@ class CsvHandlerService {
             // die(var_dump($data));
             $entry = [];
             $date = $data[$headers['Datum']]; // example: 10/31/10
-            $starttime = substr($data[$headers['Zeitabschnitt']], 0, 7); // example: 22:45:00-22:59:59
-            // die(var_dump($endtime));
+            $starttime = substr($data[$headers['Zeitabschnitt']], 4, 8); // example: 22:45:00-22:59:59
+            //die(var_dump($starttime));
             $startdate = new \DateTime($date.' '.$starttime);
-            // die(var_dump($startdate));
+            //die(var_dump($startdate));
             $broadcastitem = $this->findBroadcastItem($startdate);
             $entry['datum'] = $startdate;
             if (!$broadcastitem) {
