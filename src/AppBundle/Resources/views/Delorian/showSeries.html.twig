@@ -5,13 +5,31 @@
 {% endblock %}
 
 {% block body_main %}
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h4 class="modal-title" id="myModalLabel">Hinweis</h4>
+  </div>
+  <div class="modal-body">
+    Diese UniqID exisitiert bereits. Bestehende Daten werden bei einem Import überschrieben. Dennoch Importieren?
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
+    <button type="button" class="btn btn-primary" id="overwrite">Überschreiben</button>
+  </div>
+</div>
+</div>
+</div>
+
     <div class="page-header">
         <h1>{{ series.title }}</h1>
         <p>{{ series.abstractTextPublic|default('') }}</p>
         <p>Angelegt am: {{ series.createdAt|date("d.m.Y H:i") }}</p>
         <p>Aktualisiert am: {{ series.updatedAt|date("d.m.Y H:i") }}</p>
         <p>UniqID: {{ series.id }}</p>
-        <a href="#" data-id="{{ series.id }}" class="btn btn-default series_import"><span class="glyphicon glyphicon-transfer"></span> Importiere gesamte Sendereihe</a>
+        <a href="#" data-id="{{ series.id }}" data-type="series" class="btn btn-default series_import"><span class="glyphicon glyphicon-transfer"></span> Importiere gesamte Sendereihe</a>
         <a href="{{ path('csv_firstruns', {'id': series.id }) }}" class="btn btn-default">{{ 'oktolab_first_runs'|trans }}</a>
     </div>
 
@@ -39,7 +57,7 @@
                 <td>{{ episode.seasonNumber}}</td>
                 <td>{{ episode.episodeNumber}}</td>
                 <td><a href="http://programm.okto.tv/episode/{{ episode.id}}/{{series.abbrevation}}-{{episode.seasonNumber}}x{{ episode.episodeNumber}}" target="blank">{{ episode.id }}</a></td>
-                <td><a href="#" data-id="{{ episode.id }}" class="btn btn-default episode_import"><span class="glyphicon glyphicon-transfer"></span> Importiere Episode</a></td>
+                <td><a href="#" data-id="{{ episode.id }}" data-type="episode" class="btn btn-default episode_import"><span class="glyphicon glyphicon-transfer"></span> Importiere Episode</a></td>
             </tr>
         {% endfor %}
     </table>
@@ -52,35 +70,47 @@
 {{ parent() }}
 <script type="text/javascript">
     $(document).ready( function() {
+        var referer;
         $('.episode_import').click(function(e) {
             e.preventDefault();
-            var id = $(this).data('id');
-            $(this).addClass("disabled");
+            referer = $(this);
             $.ajax({
-                url: "{{ url('timetravelepisode') }}",
-                data: {'id': id},
-                type: 'POST',
-                statusCode: {
-                    200: function () {
-                        $(this).addClass("disabled");
-                    }
+                url: "{{ url('timetravel') }}",
+                data: {'id': referer.attr('data-id'), 'type': 'episode'},
+                type: 'POST'
+            }).success(function(data, status){
+                console.log(data);
+                if (data.already_exists !== undefined) {
+                    $('#myModal').modal('show');
                 }
             });
         });
         $('.series_import').click(function(e) {
             e.preventDefault();
-            var id = $(this).data('id');
-            $(this).addClass("disabled");
+            referer = $(this);
             $.ajax({
-                url: "{{ url('timetravelseries') }}",
-                data: {'id': id},
-                type: 'POST',
-                statusCode: {
-                    200: function () {
-                        $(this).addClass("disabled");
-                    }
+                url: "{{ url('timetravel') }}",
+                data: {'id': referer.attr('data-id'), 'type': 'series'},
+                type: 'POST'
+            }).success(function(data, status){
+                console.log(data);
+                if (data.already_exists !== undefined) {
+                    // theres a series with this uniqID. Do you want to overwrite it?
+                    $('#myModal').modal('show');
                 }
             });
+        });
+
+        $('#overwrite').click(function(e) {
+            referer.addClass("disabled");
+            console.log(referer);
+            e.preventDefault();
+            $.ajax({
+                url: "{{ url('timetravel')}}",
+                data: {'id': referer.attr('data-id'), 'type': referer.attr('data-type'), 'overwrite': 1},
+                type: 'POST'
+            });
+            $('#myModal').modal('hide');
         });
     });
 </script>
