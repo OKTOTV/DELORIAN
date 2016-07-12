@@ -2,6 +2,9 @@
 
 namespace Oktolab\DelorianBundle\Model;
 
+use Oktolab\MediaBundle\Entity\Episode;
+
+
 class TimetravelService {
 
     private $flow_service;
@@ -14,7 +17,7 @@ class TimetravelService {
     private $asset_service;
     private $media_service;
 
-    public function __construct($flow_service, $delorian_manager, $adapters, $jobservice, $episode_class, $series_class, $worker_queue, $asset_service, $media_service) {
+    public function __construct($flow_service, $delorian_manager, $adapters, $jobservice, $episode_class, $series_class, $worker_queue, $asset_service, $media_service, $encoding_filesystem) {
         $this->adapters = $adapters;
         $this->flow_service = $flow_service;
         $this->delorian_em = $delorian_manager;
@@ -24,6 +27,7 @@ class TimetravelService {
         $this->worker_queue = $worker_queue;
         $this->asset_service = $asset_service;
         $this->media_service = $media_service;
+        $this->encoding_filesystem = $encoding_filesystem;
     }
 
     /**
@@ -37,7 +41,7 @@ class TimetravelService {
     * adds timetraveljob for all episodes of a series
     */
     public function fluxCompensateSeriesEpisodes($id) {
-        $old_episodes = $this->flow_service->getEpisodes($id); //$this->flow_em->getRepository('OktolabDelorianBundle:Episode')->findBy(array('series' => $id));
+        $old_episodes = $this->flow_service->getEpisodes($id);
         foreach ($old_episodes as $episode) {
             $this->jobservice->addJob("Oktolab\DelorianBundle\Model\TimetravelJob", array('type' => 'episode', 'id' => $episode->getId()), $this->worker_queue);
         }
@@ -96,14 +100,10 @@ class TimetravelService {
             $this->delorian_em->persist($series);
             $this->delorian_em->flush();
             $this->delorian_em->clear();
-            // $this->flow_em->clear();
+
             if ($episode->getVideo()) {
-                //TODO: use media service to do jobs
                 $this->media_service->addEncodeVideoJob($episode->getUniqID());
-                // $this->jobservice->addJob("Oktolab\MediaBundle\Model\EncodeVideoJob", ['uniqID' => $episode->getUniqID()]);
             }
-            // unset($episode);
-            // unset($series);
         }
     }
 
@@ -151,8 +151,6 @@ class TimetravelService {
             $episode->setPosterframe($asset);
             $this->delorian_em->persist($asset);
         }
-        // unset($attachmentObject);
-        // unset($attachment);
     }
 
     private function importSeriesPosterframe($series)
@@ -180,8 +178,6 @@ class TimetravelService {
             $this->delorian_em->persist($series);
             $this->delorian_em->persist($asset);
         }
-        // unset($attachmentObject);
-        // unset($attachment);
     }
 
     /**
@@ -190,9 +186,9 @@ class TimetravelService {
     private function importEpisodeVideo($episode)
     {
         // get the video of the episode
-        $old_series = $this->flow_service->getSeries($episode->getSeries()->getUniqID()); //$this->flow_em->getRepository('OktolabDelorianBundle:Series')->findOneBy(array('id' => $episode->getSeries()->getUniqID()));
-        $old_episode = $this->flow_service->getEpisode($episode->getUniqID()); //$this->flow_em->getRepository('OktolabDelorianBundle:Episode')->findOneBy(array('id' => $episode->getUniqID()));
-        $episode_clip = $this->flow_service->getEpisodeClip($episode->getUniqID()); //$this->flow_em->getRepository('OktolabDelorianBundle:EpisodeClip')->findOneBy(array('episode' => $episode->getUniqID()));
+        $old_series = $this->flow_service->getSeries($episode->getSeries()->getUniqID());
+        $old_episode = $this->flow_service->getEpisode($episode->getUniqID());
+        $episode_clip = $this->flow_service->getEpisodeClip($episode->getUniqID());
         if ($episode_clip) {
             $video = $episode_clip->getClip()->getVideo();
 
@@ -202,32 +198,20 @@ class TimetravelService {
                 if (file_exists($path)) {
                     //video found! all hail the flying spagetti monster!
                     echo "found video ".$path."\n";
-                    //if path is LTA, use own encode Video job to scale 720x576 videos to HD ready!
-                    $this->encodeVideo($path, $video->getShortCode(), $episode);
+                    $asset = $this->asset_service->createAsset();
+                    $asset->setAdapter($this->encoding_filesystem);
+                    $asset->setFilekey(uniqID().".mov");
+                    $asset->setMimetype('video/quicktime');
+                    $asset->setName($video->getShortCode());
+                    $this->media_service->setEpisodeStatus($episode->getUniqID(), Episode::STATE_IMPORTING);
+                    shell_exec(sprintf('ffmpeg -i "%s" -deinterlace -crf 21 -s 1280x720 -movflags +faststart -acodec aac -strict -2 -vcodec h264 -r 50 "%s"', $path, $this->asset_service->getHelper()->getPath($asset, true)));
+                    $episode->setVideo($asset);
 
                     break;
                 }
             }
         }
 
-    }
-
-    /**
-    * ffmpeg command to encode video to delorian
-    */
-    private function encodeVideo($path, $filename, $episode) {
-        $key = uniqID().".mov";
-        $asset = $this->asset_service->createAsset();
-        $asset->setFilekey($key);
-        $asset->setAdapter('video');
-        $asset->setName($filename);
-        $asset->setMimetype('video/quicktime');
-        $episode->setVideo($asset);
-        $this->delorian_em->persist($asset);
-        $this->delorian_em->persist($episode);
-        $this->delorian_em->flush();
-        echo "start encoding \n";
-        shell_exec(sprintf('ffmpeg -i "%s" -deinterlace -crf 21 -s 1280x720 -movflags +faststart -acodec aac -strict -2 -vcodec h264 -r 50 "%s"', $path, $this->asset_service->getHelper()->getPath($asset)));
     }
 }
 
