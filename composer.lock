@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0db503c9508baa180a5a3d3f6175f686",
-    "content-hash": "97195d94216b3654c843f95c1d19c1a6",
+    "hash": "7d164a7deaf050656357694ac131f90f",
+    "content-hash": "6d574cc40b8ad39a98b05b45ebbe1f63",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -243,6 +243,49 @@
             ],
             "description": "Allows shellcommand execution in a separate thread. reports output as usable array",
             "time": "2016-06-29 08:23:04"
+        },
+        {
+            "name": "bprs/logbook-bundle",
+            "version": "dev-master",
+            "target-dir": "Bprs/LogbookBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SrgSteak/BprsLogbookBundle.git",
+                "reference": "47d9b970e34eee4e5c2aad77359281fb34a9f353"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SrgSteak/BprsLogbookBundle/zipball/47d9b970e34eee4e5c2aad77359281fb34a9f353",
+                "reference": "47d9b970e34eee4e5c2aad77359281fb34a9f353",
+                "shasum": ""
+            },
+            "require": {
+                "knplabs/knp-paginator-bundle": "^2.5"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Bprs\\LogbookBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Robin Schmidt",
+                    "email": "rs@okto.tv",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Translated logging for applications",
+            "homepage": "https://github.com/SrgSteak/BprsLogbookBundle",
+            "keywords": [
+                "Simple",
+                "logging"
+            ],
+            "time": "2016-07-15 14:02:37"
         },
         {
             "name": "bprs/style-bundle",
@@ -1352,6 +1395,7 @@
                 "rest",
                 "web service"
             ],
+            "abandoned": "guzzlehttp/guzzle",
             "time": "2015-03-18 18:23:50"
         },
         {
@@ -4164,7 +4208,8 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "oktolab/media-bundle": 20,
-        "oneup/flysystem-bundle": 0
+        "oneup/flysystem-bundle": 0,
+        "bprs/logbook-bundle": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

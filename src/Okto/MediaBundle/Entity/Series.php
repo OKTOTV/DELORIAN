@@ -10,10 +10,13 @@ use JMS\Serializer\Annotation as JMS;
  * Series
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Okto\MediaBundle\Entity\Repository\SeriesRepository")
  */
 class Series extends BaseSeries
 {
+        const IMPORT_PROGRESS_FRESH = 0;
+        const IMPORT_PROGRESS_IN_WORK = 10;
+        const IMPORT_PROGRESS_FINISHED = 20;
 
         /**
         * @JMS\Expose
@@ -22,6 +25,17 @@ class Series extends BaseSeries
         * @ORM\OneToMany(targetEntity="Episode", mappedBy="series")
         */
         private $episodes;
+
+        /**
+         * @ORM\Column(type="integer", options={"default"="0"})
+         */
+        private $importProgress;
+
+        public function __construct()
+        {
+            parent::__construct();
+            $this->importProgress = 0;
+        }
 
         /**
          * Add episodes
@@ -59,5 +73,16 @@ class Series extends BaseSeries
         {
             $this->episodes = $episodes;
             return $this;
+        }
+
+        public function setImportProgress($value)
+        {
+            $this->importProgress = $value;
+            return $this;
+        }
+
+        public function getImportProgress()
+        {
+            return $this->importProgress;
         }
 }

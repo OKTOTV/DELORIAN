@@ -30,6 +30,7 @@ class AppKernel extends Kernel
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Bprs\UserBundle\BprsUserBundle(),
             new Oneup\FlysystemBundle\OneupFlysystemBundle(),
+            new Bprs\LogbookBundle\BprsLogbookBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

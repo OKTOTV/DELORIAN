@@ -6,16 +6,20 @@ use Bprs\CommandLineBundle\Model\BprsContainerAwareJob;
 class TimetravelJob extends BprsContainerAwareJob
 {
     public function perform() {
-        echo "Activate Fluxcapacitor\n";
         $timetravelService = $this->getContainer()->get('delorian.timetravel');
+        $logbook = $this->getContainer()->get('bprs_logbook');
 
         switch ($this->args['type']) {
             case 'episode':
+                $logbook->info('delorian.start_episode_timetravel', [], $this->args['id']);
                 $timetravelService->timetravelEpisode($this->args['id']);
+                $logbook->info('delorian.end_episode_timetravel', [], $this->args['id']);
                 break;
 
             case 'series':
+                $logbook->info('delorian.start_series_timetravel', [], $this->args['id']);
                 $timetravelService->timetravelSeries($this->args['id']);
+                $logbook->info('delorian.end_series_timetravel', [], $this->args['id']);
                 break;
             default:
                 echo "???";

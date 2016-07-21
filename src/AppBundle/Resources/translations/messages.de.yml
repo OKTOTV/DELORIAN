@@ -1,0 +1,6 @@
+delorian.cant_redirect_to_flow:     Episode konnte nicht gefunden werden
+delorian.triggered_episode_timetravel: Episodenimport aus Programmtool in Auftrag gegeben
+delorian.start_episode_timetravel:  "Beginne import aus Programmtool"
+delorian.end_episode_timetravel:    "Import aus Programmtool beendet"
+delorian.start_series_timetravel:   "Beginne import aus Programmtool"
+delorian.end_series_timetravel:     "Import aus Programmtool beendet"

@@ -26,10 +26,21 @@
                     {{ episode.description|default('oktolab_media.show_episode_description_missing'|trans) }}
                 </div>
             </div>
+            <h2>Logbuch</h2>
+            {% render(controller('BprsLogbookBundle:Default:pager', {'reference': episode.uniqID}))%}
         </div>
         <div class="col-md-4">
             <table class="table table-bordered">
                 <tbody>
+                    <tr>
+                        <td>
+                            Programmtool
+                        </td>
+                        <td>
+                            <a href="{{ path('programmtool', {'uniqID': episode.uniqID}) }}" target="_blank">{{ episode.uniqID }}</a>
+
+                        </td>
+                    </tr>
                     <tr>
                         <td>{{'oktolab_media.episode_info_uniqID'|trans}}</td>
                         <td>{{ episode.uniqID }}</td>

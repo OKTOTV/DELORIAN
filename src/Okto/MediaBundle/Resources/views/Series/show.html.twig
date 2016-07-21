@@ -8,7 +8,16 @@
     <div class="page-header">
         <h1>{{ series.name }}</h1>
         <a class="btn btn-default" href="{{ path('oktolab_episode_new')}}">{{ 'oktolab_media.series_add_new_episode'|trans|raw }}</a>
-        <a href="{{ path('oktolab_series_edit', { 'series': series.id }) }}" class="btn btn-default">{{ 'oktolab_media.series_edit_button'|trans|raw }}</a>
+        <!-- Single button -->
+        <div class="btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{ 'oktolab_media.edit_series_dropdown'|trans|raw }}
+          </button>
+          <ul class="dropdown-menu">
+            <li><a href="{{ path('oktolab_series_edit', { 'series': series.id }) }}">{{ 'oktolab_media.series_edit_button'|trans|raw }}</a></li>
+            <li><a href="{{ path('oktolab_media_update_series_progress', { 'series': series.id }) }}">{{ 'oktolab_media.series_update_progress_button'|trans|raw }}</a></li>
+          </ul>
+        </div>
         <a href="{{ path('oktolab_media_api_show_series', {'uniqID': series.uniqID }) }}" class="btn btn-default">{{ 'oktolab_media.series_show_api'|trans|raw }}</a>
     </div>
     <div class="row">
@@ -27,6 +36,14 @@
         <div class="col-md-4">
             <table class="table table-bordered">
                 <tbody>
+                    <tr>
+                        <td>
+                            {{ 'oktolab_media.series_progress_label'|trans}}
+                        </td>
+                        <td>
+                            {{ 'oktolab_media.series_import_progress_choice'|transchoice(series.importProgress)}}
+                        </td>
+                    </tr>
                     <tr>
                         <td>{{'oktolab_media.series_info_isActive'|trans}}</td>
                         <td>{{ 'oktolab_media.series_info_isActive_choice'|transchoice(series.isActive) }}</td>
@@ -56,6 +73,8 @@
             {% if series.posterframe is not empty %}
                 <a href="{{ path('bprs_asset_download', {'key': series.posterframe.filekey}) }}" class="btn btn-default">{{ 'oktolab_media.series_download_posterframe_button'|trans|raw }}</a>
             {% endif %}
+            <h2>Logbuch</h2>
+            {% render(controller('BprsLogbookBundle:Default:pager', {'reference': series.uniqID}))%}
         </div>
     </div>
     {{ render(controller('OktolabMediaBundle:Series:paginationEpisodes', {'page': 1, 'series': series.id })) }}
