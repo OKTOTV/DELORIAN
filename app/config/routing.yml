@@ -1,7 +1,7 @@
 bprs_logbook:
     resource: "@BprsLogbookBundle/Controller/"
     type:     annotation
-    prefix:   /
+    prefix:   /{_locale}
 
 app:
     resource: "@AppBundle/Controller/"

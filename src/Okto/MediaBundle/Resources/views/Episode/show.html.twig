@@ -113,4 +113,20 @@
             });
         </script>
     {% endif %}
+    <script>
+        var updateView = function(e, link) {
+            e.preventDefault();
+            var link = $(link);
+            $.ajax({
+                url: link.attr('href'),
+                context: document.body
+            }).success(function(data) {
+                $(link.parents('.episode-pager')).replaceWith(data);
+            });
+        }
+        // AJAX pagination
+        $( document ).on('click', '.pagination > li > a', function(e){
+            updateView(e, this);
+        });
+    </script>
 {% endblock %}

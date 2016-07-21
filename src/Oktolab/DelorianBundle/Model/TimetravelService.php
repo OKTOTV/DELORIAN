@@ -16,8 +16,9 @@ class TimetravelService {
     private $worker_queue;
     private $asset_service;
     private $media_service;
+    private $logbook;
 
-    public function __construct($flow_service, $delorian_manager, $adapters, $jobservice, $episode_class, $series_class, $worker_queue, $asset_service, $media_service, $encoding_filesystem) {
+    public function __construct($flow_service, $delorian_manager, $adapters, $jobservice, $episode_class, $series_class, $worker_queue, $asset_service, $media_service, $encoding_filesystem, $logbook) {
         $this->adapters = $adapters;
         $this->flow_service = $flow_service;
         $this->delorian_em = $delorian_manager;
@@ -28,6 +29,7 @@ class TimetravelService {
         $this->asset_service = $asset_service;
         $this->media_service = $media_service;
         $this->encoding_filesystem = $encoding_filesystem;
+        $this->logbook = $logbook;
     }
 
     /**
@@ -59,7 +61,6 @@ class TimetravelService {
     * kicks a worker to search and import the required data (video, posterframe)
     */
     public function timetravelEpisode($id) {
-        echo "import episode ".$id."\n";
         $old_episode = $this->flow_service->getEpisode($id);
         if ($old_episode) {
             $episode = $this->delorian_em->getRepository($this->episode_class)->findOneBy(array('uniqID' => $old_episode->getId()));
@@ -129,6 +130,7 @@ class TimetravelService {
     */
     private function importEpisodePosterframe($episode)
     {
+        $this->logbook->info('delorian.import_posterframe_start', [], $episode->getUniqID());
         $attachment = $this->flow_service->getAttachment($episode);
         if ($attachment) {
             // decode blob and save as file to the filesystem
@@ -141,20 +143,24 @@ class TimetravelService {
             $asset->setFileSize($attachment->getFileSize());
             $asset->setMimetype($attachment->getMimetype());
 
+            $this->logbook->info('delorian.import_posterframe_writing_file', ['%asset%' => $asset], $episode->getUniqID());
             $filesystem = $this->asset_service->getHelper()->getFilesystem($asset->getAdapter());
             $filesystem->write($asset->getFilekey(), $attachment->getContent());
 
             if ($episode->getPosterframe()) {
+                $this->logbook->info('delorian.import_posterframe_removed_old', ['%asset%' => $episode->getPosterframe()], $episode->getUniqID());
                 $this->asset_service->deleteAsset($episode->getPosterframe());
             }
 
             $episode->setPosterframe($asset);
             $this->delorian_em->persist($asset);
         }
+        $this->logbook->info('delorian.import_posterframe_end', [], $episode->getUniqID());
     }
 
     private function importSeriesPosterframe($series)
     {
+        $this->logbook->info('delorian.import_series_posterframe_start', [], $series->getUniqID());
         $attachment = $this->flow_service->getSeriesAttachment($series);
         if ($attachment) {
             // decode blob and save as file to the filesystem
@@ -167,6 +173,7 @@ class TimetravelService {
             $asset->setFileSize($attachment->getFileSize());
             $asset->setMimetype($attachment->getMimetype());
 
+            $this->logbook->info('delorian.import_posterframe_writing_file', ['%asset%' => $asset], $series->getUniqID());
             $filesystem = $this->asset_service->getHelper()->getFilesystem($asset->getAdapter());
             $filesystem->write($asset->getFilekey(), $attachment->getContent());
 
@@ -178,6 +185,7 @@ class TimetravelService {
             $this->delorian_em->persist($series);
             $this->delorian_em->persist($asset);
         }
+        $this->logbook->info('delorian.import_series_posterframe_end', [], $series->getUniqID());
     }
 
     /**
@@ -185,6 +193,7 @@ class TimetravelService {
     */
     private function importEpisodeVideo($episode)
     {
+        $this->logbook->info('delorian.import_video_start', [], $episode->getUniqID());
         // get the video of the episode
         $old_series = $this->flow_service->getSeries($episode->getSeries()->getUniqID());
         $old_episode = $this->flow_service->getEpisode($episode->getUniqID());
@@ -197,7 +206,7 @@ class TimetravelService {
                 $path = $adapter['path'].'/'.$old_series->getAbbrevation().'/'.$video->getShortCode();
                 if (file_exists($path)) {
                     //video found! all hail the flying spagetti monster!
-                    echo "found video ".$path."\n";
+                    $this->logbook->info('delorian.import_video_found', ['%path%' => $path], $episode->getUniqID());
                     $asset = $this->asset_service->createAsset();
                     $asset->setAdapter($this->encoding_filesystem);
                     $asset->setFilekey(uniqID().".mov");
@@ -208,10 +217,12 @@ class TimetravelService {
                     $episode->setVideo($asset);
 
                     break;
+                } else {
+                    $this->logbook->info('delorian.import_video_not_found', ['%path%' => $path], $episode->getUniqID());
                 }
             }
         }
-
+        $this->logbook->info('delorian.import_video_end', [], $episode->getUniqID());
     }
 }
 
