@@ -147,7 +147,7 @@ bprs_asset:
             url:  "http://localhost/DELORIAN/web/uploads/videos"
             path: "/usr/local/var/www/htdocs/DELORIAN/web/uploads/videos"
         cache:
-            url: "/tmp"
+            url: "file:///tmp"
             path: "/tmp"
 
 oneup_flysystem:

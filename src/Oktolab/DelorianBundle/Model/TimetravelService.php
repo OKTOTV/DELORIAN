@@ -215,7 +215,7 @@ class TimetravelService {
                     $this->media_service->setEpisodeStatus($episode->getUniqID(), Episode::STATE_IMPORTING);
                     shell_exec(sprintf('ffmpeg -i "%s" -deinterlace -crf 21 -s 1280x720 -movflags +faststart -acodec aac -strict -2 -vcodec h264 -r 50 "%s"', $path, $this->asset_service->getHelper()->getPath($asset, true)));
                     $episode->setVideo($asset);
-
+                    $this->asset_service->getHelper()->dispatchUpdatedAssetEvent($asset);
                     break;
                 } else {
                     $this->logbook->info('delorian.import_video_not_found', ['%path%' => $path], $episode->getUniqID());

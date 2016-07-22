@@ -8,10 +8,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Okto\MediaBundle\Form\EpisodeType;
+// use Okto\MediaBundle\Form\EpisodeType;
 use Okto\MediaBundle\Form\SeriesImportProgressType;
 use Okto\MediaBundle\Entity\Series;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Oktolab\MediaBundle\Form\SeriesType;
 
 /**
  * @Route("/oktolab_media/series")
@@ -101,5 +102,46 @@ class SeriesController extends BaseController
         }
 
         return ['form' => $form->createView(), 'series' => $series];
+    }
+
+    /**
+     * Displays a form to edit an existing Series entity.
+     *
+     * @ParamConverter("series", class="MediaBundle:Series")
+     * @Method({"GET", "POST"})
+     * @Template()
+     */
+    public function editAction(Request $request, $series)
+    {
+        $form = $this->createForm(new SeriesType(), $series);
+        $form->add('submit', 'submit', ['label' => 'oktolab_media.edit_series_button', 'attr' => ['class' => 'btn btn-primary']]);
+        $form->add('delete', 'submit', ['label' => 'oktolab_media.delete_series_button', 'attr' => ['class' => 'btn btn-danger']]);
+
+        if ($request->getMethod() == "POST") { //sends form
+            $form->handleRequest($request);
+            $em = $this->getDoctrine()->getManager();
+            if ($form->isValid()) { //form is valid, save or preview
+                if ($form->get('submit')->isClicked()) { //save me
+                    $em->persist($series);
+                    $em->flush();
+                    $this->get('session')->getFlashBag()->add('success', 'oktolab_media.success_edit_series');
+                    return $this->redirect($this->generateUrl('oktolab_series_show', ['series' => $series->getId()]));
+                } elseif ($form->get('delete')->isClicked()) {
+                    $media_helper = $this->get('oktolab_media_helper');
+                    foreach ($series->getEpisodes() as $episode) {
+                        $media_helper->deleteEpisode($episode);
+                    }
+                    $media_helper->deleteSeries($series);
+                    $this->get('session')->getFlashBag()->add('success', 'oktolab_media.success_delete_series');
+                    return $this->redirect($this->generateUrl('oktolab_series'));
+                } else { //???
+                    $this->get('session')->getFlashBag()->add('success', 'oktolab_media.unknown_action_series');
+                    return $this->redirect($this->generateUrl('oktolab_series_show', ['id' => $series->getId()]));
+                }
+            }
+            $this->get('session')->getFlashBag()->add('error', 'oktolab_media.error_edit_series');
+        }
+
+        return ['form' => $form->createView()];
     }
 }

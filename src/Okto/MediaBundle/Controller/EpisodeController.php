@@ -41,8 +41,7 @@ class EpisodeController extends BaseController
                     $this->get('session')->getFlashBag()->add('success', 'oktothek.success_edit_episode');
                     return $this->redirect($this->generateUrl('oktolab_episode_show', ['uniqID' => $episode->getUniqID()]));
                 } elseif ($form->get('delete')->isClicked()) {
-                    $em->remove($episode);
-                    $em->flush();
+                    $this->get('oktolab_media_helper')->deleteEpisode($episode);
                     $this->get('session')->getFlashBag()->add('success', 'oktothek.success_delete_episode');
                     return $this->redirect($this->generateUrl('oktolab_series_show', ['series' => $episode->getSeries()->getId()]));
                 } else { //???
