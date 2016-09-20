@@ -9,6 +9,31 @@ use Okto\MediaBundle\Entity\Series as OktoSeries;
  */
 class Series extends OktoSeries {
 
+    const IMPORT_PROGRESS_FRESH = 0;
+    const IMPORT_PROGRESS_IN_WORK = 10;
+    const IMPORT_PROGRESS_FINISHED = 20;
+
+    /**
+     * @ORM\Column(type="integer", options={"default"="0"})
+     */
+    private $importProgress;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->importProgress = 0;
+    }
+
+    public function setImportProgress($value)
+    {
+        $this->importProgress = $value;
+        return $this;
+    }
+
+    public function getImportProgress()
+    {
+        return $this->importProgress;
+    }
 }
 
  ?>

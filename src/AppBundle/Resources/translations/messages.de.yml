@@ -11,3 +11,14 @@ delorian.import_posterframe_removed_old: "Entferne altes Posterframe [%asset%]"
 delorian.import_video_start:        "Videodatei wird aus LTA importiert (FFMPEG)"
 delorian.import_video_found:        "Videodatei under [%path%] gefunden"
 delorian.import_video_not_found:        "Videodatei under [%path%] NICHT gefunden"
+
+
+delorian.episode_series_label:                 "Sendereihe"
+delorian.episode_info_series:                  "Sendereihe"
+delorian.series_info_episodes:                 "Episoden"
+delorian.series_import_progress_choice:        "{0} Muss überprüft werden|{10} Wird überprüft|{20} Überprüfung abgeschlossen"
+delorian.update_progress_button:               "Änderungen speichern"
+delorian.success_updated_series_import_state:  "Importstatus wurde erfolgreich aktualisiert"
+delorian.edit_series_dropdown:                 'Bearbeiten <span class="caret"></span>'
+delorian.series_update_progress_button:        '<span class="glyphicon glyphicon-edit"></span> Importstatus aktualisieren'
+delorian.series_progress_label:                'Importstatus'
