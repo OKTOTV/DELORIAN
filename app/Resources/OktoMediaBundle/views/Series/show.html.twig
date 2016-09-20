@@ -14,8 +14,8 @@
             {{ 'delorian.edit_series_dropdown'|trans|raw }}
           </button>
           <ul class="dropdown-menu">
-            <li><a href="{{ path('oktolab_series_edit', { 'series': series.id }) }}">{{ 'oktolab_media.series_edit_button'|trans|raw }}</a></li>
-            <li><a href="{{ path('delorian_update_series_progress', { 'series': series.id }) }}">{{ 'delorian.series_update_progress_button'|trans|raw }}</a></li>
+            <li><a href="{{ path('oktolab_series_edit', { 'series': series.uniqID }) }}">{{ 'oktolab_media.series_edit_button'|trans|raw }}</a></li>
+            <li><a href="{{ path('delorian_update_series_progress', { 'series': series.uniqID }) }}">{{ 'delorian.series_update_progress_button'|trans|raw }}</a></li>
           </ul>
         </div>
         <a href="{{ path('oktolab_media_api_show_series', {'uniqID': series.uniqID }) }}" class="btn btn-default">{{ 'oktolab_media.series_show_api'|trans|raw }}</a>

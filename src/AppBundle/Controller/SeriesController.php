@@ -17,8 +17,9 @@ class SeriesController extends Controller {
      * @Method({"POST", "GET"})
      * @Template()
      */
-    public function updateProgressAction(Request $request, Series $series)
+    public function updateProgressAction(Request $request, $series)
     {
+        $series = $this->get('oktolab_media')->getSeries($series);
         $trans = $this->get('translator');
         $form = $this->createForm(new SeriesImportProgressType($trans), $series);
         $form->add('submit', SubmitType::class, ['label' => 'delorian.update_progress_button', 'attr' => ['class' => 'btn btn-primary']]);
@@ -29,8 +30,8 @@ class SeriesController extends Controller {
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($series);
                 $em->flush();
-                $this->get('session')->getFlashBag()->add('success', 'oktolab_media.success_updated_series_import_state');
-                return $this->redirect($this->generateUrl('oktolab_series_show', ['series' => $series->getId()]));
+                $this->get('session')->getFlashBag()->add('success', 'delorian.success_updated_series_import_state');
+                return $this->redirect($this->generateUrl('oktolab_series_show', ['series' => $series->getUniqID()]));
             }
             $this->get('session')->getFlashBag()->add('error', 'oktothek.error_edit_episode');
         }
