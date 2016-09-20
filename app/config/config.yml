@@ -15,7 +15,6 @@ framework:
     validation:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        #assets_version: SomeVersionScheme
     default_locale:  "%locale%"
     trusted_hosts:   ~
     trusted_proxies: ~
@@ -42,7 +41,6 @@ assetic:
     debug:          "%kernel.debug%"
     use_controller: false
     bundles:        [ ]
-    #java: /usr/bin/java
     filters:
         cssrewrite: ~
 
@@ -64,7 +62,6 @@ doctrine:
                 path: "%kernel.root_dir%/delorian.db3"
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
-        # auto_mapping: true
         default_entity_manager: delorian
         entity_managers:
             flow:
@@ -75,16 +72,18 @@ doctrine:
                 connection: delorian
                 mappings:
                     OktolabMediaBundle: ~
+                    OktoMediaBundle: ~
                     BprsAssetBundle: ~
                     BprsAppLinkBundle: ~
                     AppBundle: ~
                     BprsUserBundle: ~
                     BprsLogbookBundle: ~
-                    MediaBundle: ~
         resolve_target_entities:
-            Bprs\AssetBundle\Entity\AssetInterface: AppBundle\Entity\Asset
-            Oktolab\MediaBundle\Entity\EpisodeInterface: Okto\MediaBundle\Entity\Episode
-            Oktolab\MediaBundle\Entity\PlaylistInterface: Okto\MediaBundle\Entity\Playlist
+            Bprs\AssetBundle\Entity\AssetInterface:         AppBundle\Entity\Asset
+            Oktolab\MediaBundle\Entity\EpisodeInterface:    AppBundle\Entity\Episode
+            Oktolab\MediaBundle\Entity\SeriesInterface:     AppBundle\Entity\Series
+            Oktolab\MediaBundle\Entity\PlaylistInterface:   Oktolab\MediaBundle\Entity\Playlist
+            Okto\MediaBundle\Entity\TagInterface:           AppBundle\Entity\Tag
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -100,11 +99,12 @@ services:
         public: false
 
 oktolab_media:
-    episode_class: "Okto\MediaBundle\Entity\Episode"
-    series_class: "Okto\MediaBundle\Entity\Series"
-    asset_class: "AppBundle\Entity\Asset"
-    encoding_filesystem: cache
+    episode_class:  "AppBundle\Entity\Episode"
+    series_class:   "AppBundle\Entity\Series"
+    asset_class:    "AppBundle\Entity\Asset"
+    encoding_filesystem: "cache"
     player_url:   "%player_url%"
+    serializing_schema: "okto"
     resolutions:
         720p:
             name: 720p
@@ -113,15 +113,12 @@ oktolab_media:
             video_height: 720
             adapter: video
 
+okto_media:
+    tag_class: "AppBundle\Entity\Tag"
+
 jms_serializer:
     metadata:
-            directories:
-                OKTOLAB:
-                    namespace_prefix: "Oktolab\MediaBundle"
-                    path: "@OktolabMediaBundle/Resources/serializer/OKTOLAB"
-                OKTO:
-                    namespace_prefix: "Okto\MediaBundle"
-                    path: "@MediaBundle/Resources/serializer/OKTO"
+        auto_detection: true
 
 bprs_command_line:
     php_path: %php_path%
@@ -132,6 +129,7 @@ bprs_asset:
     class:  "AppBundle\Entity\Asset"
     filesystem_map: oneup_flysystem.mount_manager
     worker_queue: %worker_queue%
+    thumb_filesystem: posterframe
     404: "/DELORIAN/web/bundles/bprsasset/img/404.png"
     adapters:
         lta_lager:
@@ -207,3 +205,6 @@ bprs_user:
         commandline_host:   %commandline_host% #www.yourhost.com
         adress:             %email_adress% #yourbot@example.com
         name:               %bot_name% #yourbot
+
+bprs_app_link:
+    available_apis: [oktolab_media_api, bprs_asset_api]

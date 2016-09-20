@@ -1,9 +1,0 @@
-oktolab_media.episode_series_label:                 "Sendereihe"
-oktolab_media.episode_info_series:                  "Sendereihe"
-oktolab_media.series_info_episodes:                 "Episoden"
-oktolab_media.series_import_progress_choice:        "{0} Muss überprüft werden|{10} Wird überprüft|{20} Überprüfung abgeschlossen"
-oktolab_media.update_progress_button:               "Änderungen speichern"
-oktolab_media.success_updated_series_import_state:  "Importstatus wurde erfolgreich aktualisiert"
-oktolab_media.edit_series_dropdown:                 'Bearbeiten <span class="caret"></span>'
-oktolab_media.series_update_progress_button:        '<span class="glyphicon glyphicon-edit"></span> Importstatus aktualisieren'
-oktolab_media.series_progress_label:                'Importstatus'
