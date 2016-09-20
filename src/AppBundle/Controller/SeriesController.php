@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Series;
 use AppBundle\Form\SeriesImportProgressType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class SeriesController extends Controller {
 
