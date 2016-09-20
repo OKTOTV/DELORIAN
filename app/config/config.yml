@@ -131,22 +131,22 @@ bprs_asset:
     worker_queue: %worker_queue%
     thumb_filesystem: posterframe
     404: "/DELORIAN/web/bundles/bprsasset/img/404.png"
-    adapters:
-        lta_lager:
-            path: "/Volumes/Share 1/LTA Lager"
-            url:  "/Volumes/Share 1/LTA Lager"
-        lta_v2:
-            path: "/Volumes/LTAv1/LTAv2"
-            url:  "/Volumes/LTAv1/LTAv2"
-        posterframe:
-            url:  "http://localhost/DELORIAN/web/uploads/posterframes"
-            path: "/usr/local/var/www/htdocs/DELORIAN/web/uploads/posterframes"
-        video:
-            url:  "http://localhost/DELORIAN/web/uploads/videos"
-            path: "/usr/local/var/www/htdocs/DELORIAN/web/uploads/videos"
-        cache:
-            url: "file:///tmp"
-            path: "/tmp"
+    adapters: "%bprs_asset_adapters%"
+        # lta_lager:
+        #     path: "/Volumes/Share 1/LTA Lager"
+        #     url:  "/Volumes/Share 1/LTA Lager"
+        # lta_v2:
+        #     path: "/Volumes/LTAv1/LTAv2"
+        #     url:  "/Volumes/LTAv1/LTAv2"
+        # posterframe:
+        #     url:  "http://localhost/DELORIAN/web/uploads/posterframes"
+        #     path: "/usr/local/var/www/htdocs/DELORIAN/web/uploads/posterframes"
+        # video:
+        #     url:  "http://localhost/DELORIAN/web/uploads/videos"
+        #     path: "/usr/local/var/www/htdocs/DELORIAN/web/uploads/videos"
+        # cache:
+        #     url: "file:///tmp"
+        #     path: "/tmp"
 
 oneup_flysystem:
     adapters:

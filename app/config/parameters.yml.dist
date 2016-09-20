@@ -28,3 +28,18 @@ parameters:
     redis_backend: "localhost:6379"
     bprs_asset.junksize: 2000000
     player_url:    "http://path/to/your/player.js"
+
+    bprs_asset_adapters:
+        lta_lager:
+            path: "/mnt/lta_v3/LTA Lager"
+        lta_v2:
+            path: "/mnt/lta_v2/LTAv2"
+        posterframe:
+            url:  "http://delorian.okto.tv/uploads/posterframes"
+            path: "/srv/www/vhosts/DELORIAN/web/uploads/posterframes"
+        video:
+            url:  "http://delorian.okto.tv/uploads/videos"
+            path: "/srv/www/vhosts/DELORIAN/web/uploads/videos"
+        cache:
+            url: "file:///tmp"
+            path: "/tmp"
