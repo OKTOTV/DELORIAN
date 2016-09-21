@@ -25,15 +25,13 @@ security:
             pattern: ^/(_(profiler|wdt|error)|css|images|js)/
             security: false
 
-        api:
-            pattern:  ^/api
+        bprs_applink:
+            pattern:  /api
             http_basic: ~
             provider: bprs_applink
             stateless: true
 
         main:
-            pattern:    /
-            http_basic: ~
             form_login:
                 login_path: bprs_user_login
                 check_path: bprs_user_login_check
@@ -46,6 +44,6 @@ security:
 
     access_control:
         - { path: /login, role: IS_AUTHENTICATED_ANONYMOUSLY}
-        - { path: /bprs_applink/check_me, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: /api, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: /, roles: ROLE_USER }
         - { path: /backend/admin, roles: ROLE_ADMIN}
