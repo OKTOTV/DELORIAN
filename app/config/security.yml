@@ -28,6 +28,7 @@ security:
         bprs_applink:
             pattern:  /api
             http_basic: ~
+            anonymous: ~
             provider: bprs_applink
             stateless: true
 
@@ -43,7 +44,7 @@ security:
             anonymous: ~
 
     access_control:
-        - { path: /login, role: IS_AUTHENTICATED_ANONYMOUSLY}
+        - { path: /login, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: /api, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: /, roles: ROLE_USER }
-        - { path: /backend/admin, roles: ROLE_ADMIN}
+        - { path: /backend/admin, roles: ROLE_ADMIN }
