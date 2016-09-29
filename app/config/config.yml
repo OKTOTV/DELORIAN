@@ -132,21 +132,6 @@ bprs_asset:
     thumb_filesystem: posterframe
     404: "/DELORIAN/web/bundles/bprsasset/img/404.png"
     adapters: "%bprs_asset_adapters%"
-        # lta_lager:
-        #     path: "/Volumes/Share 1/LTA Lager"
-        #     url:  "/Volumes/Share 1/LTA Lager"
-        # lta_v2:
-        #     path: "/Volumes/LTAv1/LTAv2"
-        #     url:  "/Volumes/LTAv1/LTAv2"
-        # posterframe:
-        #     url:  "http://localhost/DELORIAN/web/uploads/posterframes"
-        #     path: "/usr/local/var/www/htdocs/DELORIAN/web/uploads/posterframes"
-        # video:
-        #     url:  "http://localhost/DELORIAN/web/uploads/videos"
-        #     path: "/usr/local/var/www/htdocs/DELORIAN/web/uploads/videos"
-        # cache:
-        #     url: "file:///tmp"
-        #     path: "/tmp"
 
 oneup_flysystem:
     adapters:
@@ -205,6 +190,14 @@ bprs_user:
         commandline_host:   %commandline_host% #www.yourhost.com
         adress:             %email_adress% #yourbot@example.com
         name:               %bot_name% #yourbot
+    permissions:
+        - ROLE_ADMIN
+        - ROLE_USER
+        - ROLE_BPRS_APPLINK_BACKEND
+        - ROLE_BPRS_COMMANDLINE_BACKEND
+        - ROLE_BPRS_USER_BACKEND
+    user_defaults:
+        - ROLE_USER
 
 bprs_app_link:
     available_apis: [oktolab_media_api, bprs_asset_api]

@@ -25,9 +25,12 @@ oktolab_media:
     type: oktolab_media
 
 bprs_applink:
-    resource: "@BprsAppLinkBundle/Controller/"
-    type:     annotation
-    prefix:   /
+    resource: .
+    type: bprs_applink
+# bprs_applink:
+#     resource: "@BprsAppLinkBundle/Controller/"
+#     type:     annotation
+#     prefix:   /
 
 bprs_user:
     resource: .
