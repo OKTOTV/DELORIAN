@@ -15,7 +15,7 @@ use Oktolab\MediaBundle\Entity\Series;
 use Oktolab\MediaBundle\Entity\Episode;
 
 /**
- * @Route("delorian/public_api")
+ * @Route("delorian/api")
  */
 class DelorianApiController extends Controller
 {
