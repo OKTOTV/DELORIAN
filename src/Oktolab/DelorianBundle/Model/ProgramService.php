@@ -38,7 +38,6 @@ class ProgramService {
     {
         $start = clone $current;
         $date = $start->modify(sprintf('-%s days', $start->format('N')-1));
-        //die(var_dump(sprintf('http://api.okto.tv/program_weeks/website_week_%s.xml', $date->format('Y-m-d'))));
         return sprintf('http://api.okto.tv/program_weeks/website_week_%s.xml', $date->format('Y-m-d'));
     }
 }
