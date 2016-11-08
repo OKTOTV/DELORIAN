@@ -28,7 +28,7 @@
                     </li>
                     {% endif %}
                     <li {% if selected == "assets" %}class="active"{% endif %}>
-                        <a href="{{ path('bprs_asset_list')}}">{{ 'bprs_asset.asset_menu'|trans|raw }}</a>
+                        <a href="{{ path('bprs_asset_list')}}">{{ 'bprs_asset.menu'|trans|raw }}</a>
                     </li>
                     {% if is_granted('ROLE_BPRS_USER_BACKEND') %}
                         <li {% if selected == "bprs_applink"%}class="active"{% endif %}>

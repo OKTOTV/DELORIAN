@@ -196,6 +196,9 @@ bprs_user:
         - ROLE_BPRS_APPLINK_BACKEND
         - ROLE_BPRS_COMMANDLINE_BACKEND
         - ROLE_BPRS_USER_BACKEND
+        - ROLE_BPRS_ASSET_READ
+        - ROLE_BPRS_ASSET_WRITE
+        - ROLE_BPRS_ASSET_DELETE
     user_defaults:
         - ROLE_USER
 
