@@ -75,7 +75,7 @@ class FilebasedImportCommand extends ContainerAwareCommand {
 
         $timetravelService = $this->getContainer()->get('delorian.timetravel');
         foreach ($toImport as $id) {
-            $timetravelService->timetravelEpisode($id);
+            $timetravelService->fluxCompensateEpisode($id);
             $output->writeln($id);
         }
 
