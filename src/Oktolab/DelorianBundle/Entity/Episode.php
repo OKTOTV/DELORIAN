@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Episode
  *
  * @ORM\Table(name="episode", indexes={@ORM\Index(name="episode_FI_1", columns={"series_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Oktolab\DelorianBundle\Entity\EpisodeRepository")
  */
 class Episode
 {
@@ -248,12 +248,10 @@ class Episode
      */
     private $series;
 
-
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -276,7 +274,7 @@ class Episode
     /**
      * Get seasonNumber
      *
-     * @return string 
+     * @return string
      */
     public function getSeasonNumber()
     {
@@ -299,7 +297,7 @@ class Episode
     /**
      * Get episodeNumber
      *
-     * @return integer 
+     * @return integer
      */
     public function getEpisodeNumber()
     {
@@ -322,7 +320,7 @@ class Episode
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -345,7 +343,7 @@ class Episode
     /**
      * Get versionTitle
      *
-     * @return string 
+     * @return string
      */
     public function getVersionTitle()
     {
@@ -368,7 +366,7 @@ class Episode
     /**
      * Get overrideTitle
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getOverrideTitle()
     {
@@ -391,7 +389,7 @@ class Episode
     /**
      * Get overrideAbstract
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getOverrideAbstract()
     {
@@ -414,7 +412,7 @@ class Episode
     /**
      * Get firstRanAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFirstRanAt()
     {
@@ -437,7 +435,7 @@ class Episode
     /**
      * Get abstractText
      *
-     * @return string 
+     * @return string
      */
     public function getAbstractText()
     {
@@ -460,7 +458,7 @@ class Episode
     /**
      * Get abstractTextPublic
      *
-     * @return string 
+     * @return string
      */
     public function getAbstractTextPublic()
     {
@@ -483,7 +481,7 @@ class Episode
     /**
      * Get promoText
      *
-     * @return string 
+     * @return string
      */
     public function getPromoText()
     {
@@ -506,7 +504,7 @@ class Episode
     /**
      * Get promoTextPublic
      *
-     * @return string 
+     * @return string
      */
     public function getPromoTextPublic()
     {
@@ -529,7 +527,7 @@ class Episode
     /**
      * Get archiveAbstractText
      *
-     * @return string 
+     * @return string
      */
     public function getArchiveAbstractText()
     {
@@ -552,7 +550,7 @@ class Episode
     /**
      * Get archiveAbstractTextPublic
      *
-     * @return string 
+     * @return string
      */
     public function getArchiveAbstractTextPublic()
     {
@@ -575,7 +573,7 @@ class Episode
     /**
      * Get comments
      *
-     * @return string 
+     * @return string
      */
     public function getComments()
     {
@@ -598,7 +596,7 @@ class Episode
     /**
      * Get plannedLength
      *
-     * @return integer 
+     * @return integer
      */
     public function getPlannedLength()
     {
@@ -621,7 +619,7 @@ class Episode
     /**
      * Get length
      *
-     * @return string 
+     * @return string
      */
     public function getLength()
     {
@@ -644,7 +642,7 @@ class Episode
     /**
      * Get evaluationScoreContent
      *
-     * @return float 
+     * @return float
      */
     public function getEvaluationScoreContent()
     {
@@ -667,7 +665,7 @@ class Episode
     /**
      * Get evaluationScoreTechnical
      *
-     * @return float 
+     * @return float
      */
     public function getEvaluationScoreTechnical()
     {
@@ -690,7 +688,7 @@ class Episode
     /**
      * Get evaluationScore
      *
-     * @return float 
+     * @return float
      */
     public function getEvaluationScore()
     {
@@ -713,7 +711,7 @@ class Episode
     /**
      * Get storedData
      *
-     * @return string 
+     * @return string
      */
     public function getStoredData()
     {
@@ -736,7 +734,7 @@ class Episode
     /**
      * Get onlineStartDate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getOnlineStartDate()
     {
@@ -759,7 +757,7 @@ class Episode
     /**
      * Get enableOnlinePublishing
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getEnableOnlinePublishing()
     {
@@ -782,7 +780,7 @@ class Episode
     /**
      * Get enableClipStartdatePublishing
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getEnableClipStartdatePublishing()
     {
@@ -805,7 +803,7 @@ class Episode
     /**
      * Get isTvTipp
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsTvTipp()
     {
@@ -828,7 +826,7 @@ class Episode
     /**
      * Get isWebEncoded
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsWebEncoded()
     {
@@ -851,7 +849,7 @@ class Episode
     /**
      * Get maxBroadcasts
      *
-     * @return integer 
+     * @return integer
      */
     public function getMaxBroadcasts()
     {
@@ -874,7 +872,7 @@ class Episode
     /**
      * Get minAirdate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getMinAirdate()
     {
@@ -897,7 +895,7 @@ class Episode
     /**
      * Get maxAirdate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getMaxAirdate()
     {
@@ -920,7 +918,7 @@ class Episode
     /**
      * Get onlineEndDate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getOnlineEndDate()
     {
@@ -943,7 +941,7 @@ class Episode
     /**
      * Get createdAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -966,7 +964,7 @@ class Episode
     /**
      * Get updatedAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
@@ -989,7 +987,7 @@ class Episode
     /**
      * Get series
      *
-     * @return \Oktolab\DelorianBundle\Entity\Series 
+     * @return \Oktolab\DelorianBundle\Entity\Series
      */
     public function getSeries()
     {

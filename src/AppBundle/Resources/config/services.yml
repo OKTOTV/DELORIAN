@@ -1,2 +1,6 @@
 services:
-    
+    oktolab.filebasedImportCommand:
+        class:      AppBundle\Command\FilebasedImportCommand
+        arguments: []
+        tags:
+            -  { name: console.command }
