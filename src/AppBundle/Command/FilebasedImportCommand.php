@@ -52,7 +52,11 @@ class FilebasedImportCommand extends ContainerAwareCommand {
         $oktolabMediaService = $this->getContainer()->get('oktolab_media');
         $output->writeln('adding episode import job(s)');
         foreach($files as $file) {
-            $episode = $repo->findEpisodeByFileInformation($file['abb'], $file['season'], $file['episode']);
+            $episode = $repo->findEpisodeByFileInformation(
+                $file['abb'],
+                $file['season'],
+                $file['episode']
+            );
             if (is_string($episode)) {
                 $errors[] = $episode;
             } else {
