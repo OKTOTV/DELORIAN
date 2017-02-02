@@ -5,10 +5,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Okto\MediaBundle\Entity\Episode as OktoEpisode;
 
 /**
- * @ORM\Entity(repositoryClass="Oktolab\MediaBundle\Entity\Repository\BaseEpisodeRepository")
+ * @ORM\Entity(repositoryClass="Okto\MediaBundle\Entity\Repository\EpisodeRepository")
  */
 class Episode extends OktoEpisode {
 
 }
 
- ?>
+?>
