@@ -29,6 +29,7 @@ parameters:
     bprs_asset.junksize: 2000000
     player_url:    "http://path/to/your/player.js"
 
+    bprs_asset_404: "http://yourhost/web/bundles/bprsasset/img/404.png"
     bprs_asset_adapters:
         lta_lager:
             path: "/mnt/lta_v3/LTA Lager"
