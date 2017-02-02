@@ -56,41 +56,6 @@ class DelorianController extends Controller
         return array('series' => $series, 'episodes' => $episodes);
     }
 
-    // /**
-    //  * @Route("/timetravelseries", name="timetravelseries")
-    //  */
-    // public function timetravelSeriesEpisodesAction(Request $request)
-    // {
-    //     $id = $request->request->get('id');
-    //     if ($id) {
-    //         $this->get('bprs_logbook')->info('delorian.triggered_series_timetravel', ['%id%' => $id], $id);
-    //         // @TODO: check if series exists and show warning
-    //         if ($this->get('oktolab_media')->getSeries($id)) {
-    //             if ($request->request->get('overwrite')) { // overwrite series
-    //                 $this->get('delorian.timetravel')->fluxCompensateSeriesEpisodes($id);
-    //                 return new Response("", Response::HTTP_OK);
-    //             }
-    //             return new JsonResponse(['already_exists' => 1]);
-    //         }
-    //     }
-    //     return new Response("", Response::HTTP_BAD_REQUEST);
-    // }
-    //
-    // /**
-    // * @Route("/timetravelepisode", name="timetravelepisode")
-    // */
-    // public function timetravelEpisodeAction(Request $request)
-    // {
-    //     $id = $request->request->get('id');
-    //     if ($id) {
-    //         $this->get('bprs_logbook')->info('delorian.triggered_episode_timetravel', ['%id%' => $id], $id);
-    //         // @TODO: check if episode exists and show warning
-    //         $this->get('delorian.timetravel')->fluxCompensateEpisode($id);
-    //         return new Response("", Response::HTTP_OK);
-    //     }
-    //     return new Response("", Response::HTTP_BAD_REQUEST);
-    // }
-
     /**
      * @Route("/timetravel", name="timetravel")
      */

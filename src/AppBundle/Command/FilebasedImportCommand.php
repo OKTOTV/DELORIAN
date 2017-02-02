@@ -35,13 +35,11 @@ class FilebasedImportCommand extends ContainerAwareCommand {
             $contents = $filesystem->listContents('', true);
             foreach ($contents as $object) {
                 if ($object['type'] == 'file') {
+                    $output->writeln($object['basename']);
                     preg_match('/(?<abb>\D\D\D[A-Z#])(?<season>\d?\d)x(?<episode>\d?\d\d)/', $object['basename'], $matches);
-                    // $output->writeln($matches['abb'].' '.$matches['season'].' '.$matches['episode']);
                     if (array_key_exists(0, $matches)) {
                         $files[] = $matches;
-                        // $output->writeln($matches[0]);
                     }
-                    // print_r($matches);
                 }
             }
         }
@@ -50,7 +48,7 @@ class FilebasedImportCommand extends ContainerAwareCommand {
         $errors = [];
         $already_imported = [];
         $oktolabMediaService = $this->getContainer()->get('oktolab_media');
-        $output->writeln('adding episode import job(s)');
+        $output->writeln('searching episodes by fileinformation');
         foreach($files as $file) {
             $episode = $repo->findEpisodeByFileInformation(
                 $file['abb'],
@@ -61,7 +59,7 @@ class FilebasedImportCommand extends ContainerAwareCommand {
                 $errors[] = $episode;
             } else {
                 $output->write('.');
-                usleep(100000);
+                usleep(10000);
                 $already_imported_episode = $oktolabMediaService->getEpisode($episode->getId());
                 if (null == $already_imported_episode) {
                     $episodeIds[] = $episode->getId();
@@ -71,19 +69,20 @@ class FilebasedImportCommand extends ContainerAwareCommand {
             }
         }
         $output->writeln('');
-        $output->writeln(sprintf('found a total of %s episodes', count($episodeIds)));
 
         // remove duplicates
         $toImport = array_unique($episodeIds);
         asort($toImport);
+        $output->writeln(sprintf('found a total of %s episodes to import', count($toImport)));
 
+        $output->writeln('adding fluxCompensate jobs');
         $timetravelService = $this->getContainer()->get('delorian.timetravel');
         foreach ($toImport as $id) {
             $timetravelService->fluxCompensateEpisode($id);
             $output->writeln($id);
         }
 
-        $output->writeln('This episodes are already imported');
+        $output->writeln('These episodes are already imported');
         foreach($already_imported as $episode_id) {
             $output->writeln($episode_id);
         }

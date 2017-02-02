@@ -24,7 +24,6 @@ class CsvHandlerService {
             if (in_array('Datum', $data)) {
                 continue;
             }
-            // die(var_dump($data));
             $entry = [];
             $date = $data[$headers['Datum']]; // example: 10/31/10
             $starttime = substr($data[$headers['Zeitabschnitt']], 4, 8); // example: 22:45:00-22:59:59
