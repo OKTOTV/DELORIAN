@@ -7,18 +7,23 @@
 {% block body_main -%}
     <div class="page-header">
         <h1>{{ series.name }}</h1>
-        <a class="btn btn-default" href="{{ path('oktolab_episode_new')}}">{{ 'oktolab_media.series_add_new_episode'|trans|raw }}</a>
+
         <!-- Single button -->
         <div class="btn-group">
-          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{ 'delorian.edit_series_dropdown'|trans|raw }}
-          </button>
-          <ul class="dropdown-menu">
-            <li><a href="{{ path('oktolab_series_edit', { 'series': series.uniqID }) }}">{{ 'oktolab_media.series_edit_button'|trans|raw }}</a></li>
-            <li><a href="{{ path('delorian_update_series_progress', { 'series': series.uniqID }) }}">{{ 'delorian.series_update_progress_button'|trans|raw }}</a></li>
-          </ul>
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{ 'delorian.edit_series_dropdown'|trans|raw }}
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="{{ path('oktolab_episode_new')}}">{{ 'oktolab_media.series_add_new_episode'|trans|raw }}</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="{{ path('oktolab_series_edit', { 'series': series.uniqID }) }}">{{ 'oktolab_media.series_edit_button'|trans|raw }}</a></li>
+                <li><a href="{{ path('delorian_update_series_progress', { 'series': series.uniqID }) }}">{{ 'delorian.series_update_progress_button'|trans|raw }}</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="{{ path('show_series', {'id': series.uniqID}) }}">{{ 'delorian.shortcut_to_pt_series'|trans|raw }}</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="{{ path('oktolab_media_api_show_series', {'uniqID': series.uniqID }) }}">{{ 'oktolab_media.series_show_api'|trans|raw }}</a></li>
+            </ul>
         </div>
-        <a href="{{ path('oktolab_media_api_show_series', {'uniqID': series.uniqID }) }}" class="btn btn-default">{{ 'oktolab_media.series_show_api'|trans|raw }}</a>
     </div>
     <div class="row">
         <div class="col-md-8">
