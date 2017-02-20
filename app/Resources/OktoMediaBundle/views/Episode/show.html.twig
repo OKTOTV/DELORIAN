@@ -1,0 +1,88 @@
+{% extends "BprsStyleBundle::layout.html.twig" %}
+
+{% block nav_head%}
+    {% include 'BprsStyleBundle::menu.html.twig' with {'selected': 'delorian', 'dropdown': ''} %}
+{% endblock %}
+
+{% block body_main %}
+    <div class="page-header">
+        <h1>{{ episode.name }}</h1>
+        <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{ 'oktolab_media.episode_show_actions'|trans|raw }}
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="{{ path('oktolab_episode_edit', {'episode': episode.uniqID}) }}">{{ 'oktolab_media.episode_edit_button'|trans|raw }}</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="{{ path('oktolab_media_export_episode', {'uniqID': episode.uniqID}) }}">{{ 'oktolab_media.show_episode_export'|trans|raw }}</a></li>
+                <li><a href="{{ path('oktolab_episode_encode', {'uniqID': episode.uniqID}) }}">{{ 'oktolab_media.show_episode_add_to_encode_queue'|trans|raw }}</a></li>
+                {% set old_episode = pt_episode(episode.uniqID) %}
+                {% set old_series = pt_series(episode.series.uniqID) %}
+                {% if old_episode and old_series %}
+                    <li role="separator" class="divider"></li>
+                    <li><a href="http://programm.okto.tv/episode/{{ old_episode.id}}/{{old_series.abbrevation}}-{{old_episode.seasonNumber}}x{{ old_episode.episodeNumber}}" target="blank">Im Programmtool zeigen</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-7">
+            {% if episode.video is not empty %}
+                <div id="player">
+                </div>
+            {% elseif episode.posterframe is not empty %}
+                <img src="{{ episode.posterframe|path }}" class="img-responsive"/>
+            {% endif %}
+            {{ episode.description|default('oktolab_media.show_episode_description_missing'|trans)|nl2br }}
+        </div>
+        <div class="col-md-5">
+            <h4>{{ 'oktolab_media_info_for_episode_header'|trans }}</h4>
+            <dl class="dl-horizontal">
+                <dt>{{ 'delorian.episode_filename'|trans }}</dt>
+                <dd>{{ '%s%dx%02dv01_%s.mov'|format(old_series.abbrevation, old_episode.seasonNumber, old_episode.episodeNumber, old_episode.firstRanAt|date('Ymd')) }}</dd>
+
+                <dt>{{ 'oktolab_media.episode_info_isActive'|trans }}</dt>
+                <dd>{{ 'oktolab_media.episode_info_isActive_choice'|transchoice( episode.isActive ) }}</dd>
+
+                <dt>{{ 'oktolab_media.episode_info_createdAt'|trans }}</dt>
+                <dd>{{ episode.createdAt|date("d.m.Y H:i") }}</dd>
+
+                <dt>{{ 'oktolab_media.episode_info_updatedAt'|trans }}</dt>
+                <dd>{{ episode.updatedAt|date("d.m.Y H:i") }}</dd>
+
+                <dt>{{ 'oktolab_media.episode_info_onlineStart'|trans }}</dt>
+                <dd>{{ episode.onlineStart|date("d.m.Y H:i") }}</dd>
+
+                <dt>{{ 'oktolab_media.episode_info_onlineEnd'|trans}}</dt>
+                <dd>{% if episode.onlineEnd %}{{ episode.onlineEnd|date("d.m.Y H:i") }}{% endif %}</dd>
+
+                <dt>{{ 'oktolab_media.episode_info_firstranAt'|trans }}</dt>
+                <dd>{{ episode.firstranAt|date("d.m.Y H:i") }}</dd>
+
+                <dt>{{ 'okto_media.episode_info_series'|trans }}</dt>
+                <dd>
+                    {% if episode.series %}
+                        <a href="{{ path('oktolab_series_show', {'series': episode.series.uniqID})}}">{{ episode.series.name}}</a>
+                    {% endif %}
+                </dd>
+
+                <dt>{{ 'oktolab_media.episode_info_uniqID'|trans}}</dt>
+                <dd>{{ episode.uniqID }}</dd>
+            </dl>
+
+            {% if episode.video is not empty %}
+                <a href="{{ path('bprs_asset_download', {'filekey': episode.video.filekey}) }}" class="btn btn-default"><span class="glyphicon glyphicon-download"></span>Video</a>
+            {% endif %}
+            {% if episode.posterframe is not empty %}
+                <a href="{{ path('bprs_asset_download', {'filekey': episode.posterframe.filekey}) }}" class="btn btn-default"><span class="glyphicon glyphicon-download"></span>Posterframe</a>
+            {% endif %}
+            <h2>{{ 'oktolab_media_media_for_episode_header'|trans }}</h2>
+            {{ render(controller('OktolabMediaBundle:Media:mediaForEpisode', {'uniqID': episode.uniqID})) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ player(episode)|raw }}
+{% endblock %}

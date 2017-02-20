@@ -4,3 +4,12 @@ services:
         arguments: []
         tags:
             -  { name: console.command }
+
+
+    # TWIG Extension
+    delorian.twig_extension:
+        class: AppBundle\Twig\PTHelper
+        public: false
+        arguments:  [ "@doctrine.orm.flow_entity_manager" ]
+        tags:
+            - { name: twig.extension }

@@ -14,12 +14,15 @@
                 {{ 'delorian.edit_series_dropdown'|trans|raw }}
             </button>
             <ul class="dropdown-menu">
-                <li><a href="{{ path('oktolab_episode_new')}}">{{ 'oktolab_media.series_add_new_episode'|trans|raw }}</a></li>
+                <li><a href="{{ path('okto_media_new_episode_for_series', {'uniqID': series.uniqID})}}">{{ 'oktolab_media.series_add_new_episode'|trans|raw }}</a></li>
                 <li role="separator" class="divider"></li>
                 <li><a href="{{ path('oktolab_series_edit', { 'series': series.uniqID }) }}">{{ 'oktolab_media.series_edit_button'|trans|raw }}</a></li>
+                <li><a href="{{ path('oktolab_series_edit_tags', { 'series': series.uniqID }) }}">{{ 'okto_media.series_edit_tag_button'|trans|raw }}</a></li>
+                <li><a href="{{ path('okto_media_series_tag_publicate', {'uniqID': series.uniqID})}}">{{ 'okto_media_series_show_publicate_tag_button'|trans|raw }}</a></li>
                 <li><a href="{{ path('delorian_update_series_progress', { 'series': series.uniqID }) }}">{{ 'delorian.series_update_progress_button'|trans|raw }}</a></li>
                 <li role="separator" class="divider"></li>
                 <li><a href="{{ path('show_series', {'id': series.uniqID}) }}">{{ 'delorian.shortcut_to_pt_series'|trans|raw }}</a></li>
+                <li><a href="http://programm.okto.tv/series/{{ pt_series(series.uniqID).abbrevation }}/asdf.html" target="blank">Im Programmtool zeigen</a></li>
                 <li role="separator" class="divider"></li>
                 <li><a href="{{ path('oktolab_media_api_show_series', {'uniqID': series.uniqID }) }}">{{ 'oktolab_media.series_show_api'|trans|raw }}</a></li>
             </ul>
