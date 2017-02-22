@@ -81,11 +81,21 @@
             {% if series.posterframe is not empty %}
                 <a href="{{ path('bprs_asset_download', {'key': series.posterframe.filekey}) }}" class="btn btn-default">{{ 'oktolab_media.series_download_posterframe_button'|trans|raw }}</a>
             {% endif %}
-            <h2>Logbuch</h2>
-            {% render(controller('BprsLogbookBundle:Default:pager', {'reference': series.uniqID}))%}
+
+            <h2>{{ 'okto_media_series_tags_header'|trans }}</h2>
+            <ul class="list-group">
+                {% for tag in series.tags %}
+                    <li class="list-group-item">
+                        {{ tag }}
+                    </li>
+                {% endfor %}
+            </ul>
         </div>
     </div>
     {{ render(controller('OktolabMediaBundle:Series:paginationEpisodes', {'page': 1, 'series': series.id })) }}
+
+    <h2>Logbuch</h2>
+    {% render(controller('BprsLogbookBundle:Default:pager', {'reference': series.uniqID}))%}
 {% endblock %}
 
 {% block javascripts %}

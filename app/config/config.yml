@@ -33,7 +33,7 @@ twig:
             - 'BprsStyleBundle:Form:fields.html.twig'
     globals:
         name:         "DELORIAN"
-        version:      "Alpha"
+        version:      "Beta 1.0"
         junksize:     "%bprs_asset.junksize%"
 
 # Assetic Configuration
