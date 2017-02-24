@@ -38,8 +38,11 @@
         <div class="col-md-5">
             <h4>{{ 'oktolab_media_info_for_episode_header'|trans }}</h4>
             <dl class="dl-horizontal">
+
                 <dt>{{ 'delorian.episode_filename'|trans }}</dt>
-                <dd>{{ '%s%dx%02dv01_%s.mov'|format(old_series.abbrevation, old_episode.seasonNumber, old_episode.episodeNumber, old_episode.firstRanAt|date('Ymd')) }}</dd>
+                {% if old_episode is not empty and old_series is not empty %}
+                    <dd>{{ '%s%dx%02dv01_%s.mov'|format(old_series.abbrevation, old_episode.seasonNumber, old_episode.episodeNumber, old_episode.firstRanAt|date('Ymd')) }}</dd>
+                {% endif %}
 
                 <dt>{{ 'oktolab_media.episode_info_isActive'|trans }}</dt>
                 <dd>{{ 'oktolab_media.episode_info_isActive_choice'|transchoice( episode.isActive ) }}</dd>
@@ -88,6 +91,8 @@
             <h2>{{ 'oktolab_media_media_for_episode_header'|trans }}</h2>
             {{ render(controller('OktolabMediaBundle:Media:mediaForEpisode', {'uniqID': episode.uniqID})) }}
         </div>
+        <h2>Logbuch</h2>
+        {% render(controller('BprsLogbookBundle:Default:pager', {'reference': episode.uniqID}))%}
     </div>
 {% endblock %}
 

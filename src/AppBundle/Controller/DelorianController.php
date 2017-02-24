@@ -37,7 +37,7 @@ class DelorianController extends Controller
     }
 
     /**
-     * @Route("/series/{id}/{page}", name="show_series", requirements={"id": "\d+", "page": "\d+"}, defaults={"page" = 1})
+     * @Route("/series/{id}/{page}", name="show_series", requirements={"page": "\d+"}, defaults={"page" = 1})
      * @Template()
      */
     public function showSeriesAction($id, $page)
