@@ -7,6 +7,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Doctrine\ORM\NonUniqueResultException;
 
 use League\Flysystem\Filesystem;
 use League\Flysystem\Adapter\Local;
@@ -60,7 +61,13 @@ class FilebasedImportCommand extends ContainerAwareCommand {
             } else {
                 $output->write('.');
                 usleep(10000);
-                $already_imported_episode = $oktolabMediaService->getEpisode($episode->getId());
+                $already_imported_episode = null;
+                try {
+                    $already_imported_episode = $oktolabMediaService->getEpisode($episode->getId());
+                } catch (NonUniqueResultException $e) {
+                    $already_imported_episode = null;
+                }
+
                 if (null == $already_imported_episode) {
                     $episodeIds[] = $episode->getId();
                 } else {
