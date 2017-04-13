@@ -36,7 +36,14 @@ class TimetravelService {
     * adds timetraveljob for given episode id
     */
     public function fluxCompensateEpisode($id) {
-        $this->jobservice->addJob("Oktolab\DelorianBundle\Model\TimetravelJob", array('type' => 'episode', 'id' => $id), $this->worker_queue);
+        $this->jobservice->addJob(
+            "Oktolab\DelorianBundle\Model\TimetravelJob",
+            [
+                'type' => 'episode',
+                'id' => $id
+            ],
+            $this->worker_queue
+        );
     }
 
     /**
@@ -45,7 +52,11 @@ class TimetravelService {
     public function fluxCompensateSeriesEpisodes($id) {
         $old_episodes = $this->flow_service->getEpisodes($id);
         foreach ($old_episodes as $episode) {
-            $this->jobservice->addJob("Oktolab\DelorianBundle\Model\TimetravelJob", array('type' => 'episode', 'id' => $episode->getId()), $this->worker_queue);
+            $this->jobservice->addJob(
+                "Oktolab\DelorianBundle\Model\TimetravelJob",
+                ['type' => 'episode', 'id' => $episode->getId()],
+                $this->worker_queue
+            );
         }
     }
 
@@ -53,7 +64,11 @@ class TimetravelService {
     * adds timetraveljob for given series id
     */
     public function fluxCompensateSeries($id) {
-        $this->jobservice->addJob("Oktolab\DelorianBundle\Model\TimetravelJob", array('type' => 'series', 'id' => $id), $this->worker_queue);
+        $this->jobservice->addJob(
+            "Oktolab\DelorianBundle\Model\TimetravelJob",
+            array('type' => 'series', 'id' => $id),
+            $this->worker_queue
+        );
     }
 
     /**

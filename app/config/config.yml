@@ -105,6 +105,7 @@ oktolab_media:
     encoding_filesystem: "cache"
     player_url:   "%player_url%"
     serializing_schema: "okto"
+    worker_queue: %worker_queue%
     resolutions:
         720p:
             name: 720p
