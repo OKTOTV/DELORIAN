@@ -92,11 +92,39 @@
             {{ render(controller('OktolabMediaBundle:Media:mediaForEpisode', {'uniqID': episode.uniqID})) }}
         </div>
         <h2>Logbuch</h2>
-        {% render(controller('BprsLogbookBundle:Default:pager', {'reference': episode.uniqID}))%}
+        {% render(controller('BprsLogbookBundle:Default:pager', {'reference': episode.uniqID})) %}
     </div>
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
     {{ player(episode)|raw }}
+    <script>
+        // AJAX pagination
+
+        var updateView = function(e, link) {
+            e.preventDefault();
+            var link = $(link);
+            $.ajax({
+                url: link.attr('href'),
+                context: document.body
+            }).success(function(data) {
+                $(link.parents('.episode-pager')).replaceWith(data);
+            });
+        }
+
+        $( document ).on('click', '.pagination > li > a', function(e){
+            updateView(e, this);
+        });
+
+        $( document ).on('click', '.sortable', function(e){
+            updateView(e, this);
+        });
+        $( document ).on('click', '.asc', function(e){
+            updateView(e, this);
+        });
+        $( document ).on('click', '.desc', function(e){
+            updateView(e, this);
+        });
+    </script>
 {% endblock %}
