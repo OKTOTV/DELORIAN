@@ -5,6 +5,11 @@ services:
         tags:
             -  { name: console.command }
 
+    oktolab.ReimportCommand:
+        class:      AppBundle\Command\ReimportCommand
+        arguments: []
+        tags:
+            -  { name: console.command }
 
     # TWIG Extension
     delorian.twig_extension:
