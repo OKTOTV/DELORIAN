@@ -117,6 +117,7 @@ oktolab_media:
         margin: 12
         position: "top-left"
         logo: "bundles/app/img/logo.png"
+        url:  "https://www.okto.tv"
 
 okto_media:
     tag_class: "AppBundle\Entity\Tag"
