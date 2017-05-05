@@ -9,7 +9,7 @@ use Bprs\AssetBundle\Entity\Asset as BaseAsset;
  * Asset
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Bprs\AssetBundle\Entity\AssetRepository")
  */
 class Asset extends BaseAsset
 {
