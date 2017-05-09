@@ -42,6 +42,10 @@ security:
                 path: bprs_user_logout
                 target: /de
             anonymous: ~
+            remember_me:
+                secret: '%secret%'
+                httponly: false
+                secure: '%secure_cookie%'
 
     access_control:
         - { path: /login, role: IS_AUTHENTICATED_ANONYMOUSLY }
