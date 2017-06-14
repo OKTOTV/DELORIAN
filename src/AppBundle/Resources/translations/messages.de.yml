@@ -23,6 +23,8 @@ delorian.edit_series_dropdown:                 'Bearbeiten <span class="caret"><
 delorian.series_update_progress_button:        '<span class="glyphicon glyphicon-edit"></span> Importstatus aktualisieren'
 delorian.series_progress_label:                'Importstatus'
 
+delorian.series.index_sortby_importProgress:    "Importstatus"
+delorian.series_index_importProgress:           "Importstatus"
 
 # app/Resources/OktoMediaBundle/views/Series/show.html.twig
 delorian.shortcut_to_pt_series:                 '<span class="glyphicon glyphicon-eye-open"></span> Programmtoolansicht'
