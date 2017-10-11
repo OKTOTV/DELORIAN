@@ -218,7 +218,7 @@ class TimetravelService {
 
             // use the video shortcode to find the file in the filesystem
             foreach ($this->adapters as $key => $adapter) {
-                $path = $adapter['path'].'/'.$old_series->getAbbrevation().'/'.$video->getShortCode();
+                $path = $adapter['path']."/".$old_series->getAbbrevation()."/".$video->getShortCode();
                 if (file_exists($path)) {
                     //video found! all hail the flying spagetti monster!
                     $this->logbook->info('delorian.import_video_found', ['%path%' => $path], $episode->getUniqID());
@@ -228,7 +228,7 @@ class TimetravelService {
                     $asset->setMimetype('video/quicktime');
                     $asset->setName($video->getShortCode());
                     $this->media_service->setEpisodeStatus($episode->getUniqID(), Episode::STATE_IMPORTING);
-                    shell_exec(sprintf('ffmpeg -i "%s" -deinterlace -crf 21 -s 1280x720 -movflags +faststart -acodec aac -strict -2 -vcodec h264 -r 50 "%s"', $path, $this->asset_service->getHelper()->getPath($asset, true)));
+                    shell_exec(sprintf('ffmpeg -i "%s" -deinterlace -crf 22 -s 1280x720 -movflags +faststart -acodec aac -strict -2 -vcodec h264 -r 50 "%s"', $path, $this->asset_service->getHelper()->getPath($asset, true)));
                     $episode->setVideo($asset);
                     $this->delorian_em->persist($episode);
                     $this->delorian_em->persist($asset);
