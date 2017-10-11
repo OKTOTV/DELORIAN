@@ -91,9 +91,11 @@
             <h2>{{ 'oktolab_media_media_for_episode_header'|trans }}</h2>
             {{ render(controller('OktolabMediaBundle:Media:mediaForEpisode', {'uniqID': episode.uniqID})) }}
         </div>
-        <h2>Logbuch</h2>
-        {% render(controller('BprsLogbookBundle:Default:pager', {'reference': episode.uniqID})) %}
     </div>
+
+    <h2>Logbuch</h2>
+    {% render(controller('BprsLogbookBundle:Default:pager', {'reference': episode.uniqID})) %}
+
 {% endblock %}
 
 {% block javascripts %}
