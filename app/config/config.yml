@@ -85,6 +85,7 @@ doctrine:
             Oktolab\MediaBundle\Entity\SeriesInterface:     AppBundle\Entity\Series
             Oktolab\MediaBundle\Entity\PlaylistInterface:   Oktolab\MediaBundle\Entity\Playlist
             Okto\MediaBundle\Entity\TagInterface:           AppBundle\Entity\Tag
+            Bprs\UserBundle\Entity\UserInterface:           AppBundle\Entity\User
 
 # Swiftmailer Configuration
 swiftmailer:
