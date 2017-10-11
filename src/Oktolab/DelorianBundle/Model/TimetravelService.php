@@ -118,7 +118,7 @@ class TimetravelService {
             $this->delorian_em->clear();
 
             if ($episode->getVideo()) {
-                $this->media_service->addEncodeVideoJob($episode->getUniqID());
+                $this->media_service->addEncodeEpisodeJob($episode->getUniqID());
             }
         }
     }
@@ -233,6 +233,7 @@ class TimetravelService {
                     $this->delorian_em->persist($episode);
                     $this->delorian_em->persist($asset);
                     $this->delorian_em->flush();
+
                     break;
                 } else {
                     $this->logbook->info('delorian.import_video_not_found', ['%path%' => $path], $episode->getUniqID());
