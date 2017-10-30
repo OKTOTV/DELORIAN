@@ -143,7 +143,7 @@ class TimetravelService {
     /**
     * loads image from database, base64_decode(s) image and saves it as bprsAsset to the filestorage.
     */
-    private function importEpisodePosterframe($episode)
+    public function importEpisodePosterframe($episode)
     {
         $this->logbook->info('delorian.import_posterframe_start', [], $episode->getUniqID());
         $attachment = $this->flow_service->getAttachment($episode);
@@ -173,7 +173,7 @@ class TimetravelService {
         $this->logbook->info('delorian.import_posterframe_end', [], $episode->getUniqID());
     }
 
-    private function importSeriesPosterframe($series)
+    public function importSeriesPosterframe($series)
     {
         $this->logbook->info('delorian.import_series_posterframe_start', [], $series->getUniqID());
         $attachment = $this->flow_service->getSeriesAttachment($series);
@@ -228,7 +228,7 @@ class TimetravelService {
                     $asset->setMimetype('video/quicktime');
                     $asset->setName($video->getShortCode());
                     $this->media_service->setEpisodeStatus($episode->getUniqID(), Episode::STATE_IMPORTING);
-                    shell_exec(sprintf('ffmpeg -i "%s" -deinterlace -crf 22 -s 1280x720 -movflags +faststart -acodec aac -strict -2 -vcodec h264 -r 50 "%s"', $path, $this->asset_service->getHelper()->getPath($asset, true)));
+                    shell_exec(sprintf('ffmpeg -i "%s" -deinterlace -crf 22 -movflags +faststart -acodec aac -strict -2 -vcodec h264 -r 50 -sws_flags lanczos -vf "scale=-1:720,setsar=1,pad=1280:ih:(ow-iw)/2:(oh-ih)/2" "%s"', $path, $this->asset_service->getHelper()->getPath($asset, true)));
                     $episode->setVideo($asset);
                     $this->delorian_em->persist($episode);
                     $this->delorian_em->persist($asset);
