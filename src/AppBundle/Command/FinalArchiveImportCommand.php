@@ -56,7 +56,7 @@ class FinalArchiveImportCommand extends ContainerAwareCommand {
                 $file['episode']
             );
             if (is_string($episode)) {
-                $output->writeln('Cant Import due do faulty FLOW Entries: '.$error);
+                $output->writeln('Cant Import due do faulty FLOW Entries: '.$episode);
             } else {
                 $output->writeln(sprintf('Found Episode [%s] for File [%s]', $episode->getId(), $file['object']['basename']));
                 $local_episode = null;
