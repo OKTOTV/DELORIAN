@@ -26,6 +26,25 @@
                 {% endif %}
             </ul>
         </div>
+        <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{ 'okto_media.episode_show_files'|trans|raw }}
+            </button>
+            <ul class="dropdown-menu">
+                <li>
+                    {% if episode.video is not empty %}
+                        <a href="{{ path('bprs_asset_show', {'filekey': episode.video.filekey}) }}">{{ 'okto_media.episode_show_files_video'|trans }}</a>
+                    {% endif %}
+                    {% if episode.posterframe is not empty %}
+                    <a href="{{ path('bprs_asset_show', {'filekey': episode.posterframe.filekey}) }}">{{ 'okto_media.episode_show_files_posterframe'|trans }}</a>
+                    {% endif %}
+                    {% if episode.sprite is not empty %}
+                        <a href="{{ path('bprs_asset_show', {'filekey': episode.sprite.filekey}) }}" >{{ 'okto_media.episode_show_files_sprite'|trans }}</a>
+                    {% endif %}
+                </li>
+
+            </ul>
+        </div>
     </div>
     <div class="row">
         <div class="col-md-7">
@@ -87,12 +106,6 @@
                 {% endfor %}
             </ul>
 
-            {% if episode.video is not empty %}
-                <a href="{{ path('bprs_asset_download', {'filekey': episode.video.filekey}) }}" class="btn btn-default"><span class="glyphicon glyphicon-download"></span>Video</a>
-            {% endif %}
-            {% if episode.posterframe is not empty %}
-                <a href="{{ path('bprs_asset_download', {'filekey': episode.posterframe.filekey}) }}" class="btn btn-default"><span class="glyphicon glyphicon-download"></span>Posterframe</a>
-            {% endif %}
             <h2>{{ 'oktolab_media_media_for_episode_header'|trans }}</h2>
             {{ render(controller('OktolabMediaBundle:Media:mediaForEpisode', {'uniqID': episode.uniqID})) }}
         </div>
