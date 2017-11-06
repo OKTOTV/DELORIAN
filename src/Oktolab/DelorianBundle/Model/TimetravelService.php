@@ -217,7 +217,10 @@ class TimetravelService {
             $video = $episode_clip->getClip()->getVideo();
 
             // use the video shortcode to find the file in the filesystem
-            foreach ($this->adapters as $key => $adapter) {
+            $adapters = [];
+            $adapters['lta_lager'] = $this->adapters['lta_lager'];
+            $adapters['lta_v2'] = $this->adapters['lta_v2'];
+            foreach ($adapters as $key => $adapter) {
                 $path = $adapter['path']."/".$old_series->getAbbrevation()."/".$video->getShortCode();
                 if (file_exists($path)) {
                     //video found! all hail the flying spagetti monster!
