@@ -86,12 +86,12 @@ class TimetravelService {
             $series = $this->delorian_em->getRepository($this->series_class)->findOneBy(array('uniqID' => $old_series->getId()));
             if (!$series) {
                 $series = new $this->series_class;
+                $series->setUniqID($old_series->getId());
+                $series->setName($old_series->getTitle());
+                $series->setWebTitle($old_series->getWebAbbrevation());
+                $series->setDescription($old_series->getAbstractTextPublic());
+                $this->importSeriesPosterframe($series);
             }
-            $series->setUniqID($old_series->getId());
-            $series->setName($old_series->getTitle());
-            $series->setWebTitle($old_series->getWebAbbrevation());
-            $series->setDescription($old_series->getAbstractTextPublic());
-            $this->importSeriesPosterframe($series);
 
             if ($old_episode->getTitle() == "" || $old_episode->getTitle() == null ) {
                 //use the name of the first clip
