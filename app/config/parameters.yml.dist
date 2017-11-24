@@ -45,3 +45,21 @@ parameters:
         cache:
             url: "file:///tmp"
             path: "/tmp"
+    oktolab_media_resolutions:
+        720p:
+            name: 720p
+            sortNumber: 1
+            video_width: 1280
+            video_height: 720
+            adapter: video
+        HD:
+            stereomode:  1
+            name: "HD"
+            sortNumber: 1
+            video_width: 3840
+            video_height: 1920
+            adapter:    "video"
+            video_bitrate: 8000000
+            crf_rate:  23
+            video_framerate: "25"
+            preset:     "medium"

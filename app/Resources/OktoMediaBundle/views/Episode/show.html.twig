@@ -17,7 +17,15 @@
                 <li><a href="#" id="set_posterframe">{{ 'okto_media.set_currentposition_asposterframe'|trans|raw }}</a></li>
                 <li role="separator" class="divider"></li>
                 <li><a href="{{ path('oktolab_media_export_episode', {'uniqID': episode.uniqID}) }}">{{ 'oktolab_media.show_episode_export'|trans|raw }}</a></li>
-                <li><a href="{{ path('oktolab_episode_encode', {'uniqID': episode.uniqID}) }}">{{ 'oktolab_media.show_episode_add_to_encode_queue'|trans|raw }}</a></li>
+                <li {% if episode.technicalStatus == constant('Oktolab\\MediaBundle\\Entity\\Episode::STATE_IN_PROGRESS_QUEUE') %}class="disabled"{% endif %}>
+                    <a href="{% if episode.technicalStatus == constant('Oktolab\\MediaBundle\\Entity\\Episode::STATE_IN_PROGRESS_QUEUE') %}
+                        #
+                    {% else %}
+                        {{ path('oktolab_episode_encode', {'uniqID': episode.uniqID}) }}
+                    {% endif %}">
+                        {{ 'oktolab_media.show_episode_add_to_encode_queue'|trans|raw }}
+                    </a>
+                </li>
                 {% set old_episode = pt_episode(episode.uniqID) %}
                 {% set old_series = pt_series(episode.series.uniqID) %}
                 {% if old_episode and old_series %}
@@ -66,6 +74,9 @@
 
                 <dt>{{ 'oktolab_media.episode_info_isActive'|trans }}</dt>
                 <dd>{{ 'oktolab_media.episode_info_isActive_choice'|transchoice( episode.isActive ) }}</dd>
+
+                <dt>{{ 'oktolab_media.episode_info_technicalStatus'|trans }}</dt>
+                <dd>{{ 'oktolab_media.show_episode_technical_state_choice'|transchoice(episode.technicalStatus) }}</dd>
 
                 <dt>{{ 'oktolab_media.episode_info_createdAt'|trans }}</dt>
                 <dd>{{ episode.createdAt|date("d.m.Y H:i") }}</dd>
