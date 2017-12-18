@@ -109,11 +109,7 @@ oktolab_media:
     serializing_schema: "okto"
     worker_queue: %worker_queue%
     resolutions: %oktolab_media_resolutions%
-    origin:
-        margin: 12
-        position: "top-left"
-        logo: "bundles/app/img/logo.png"
-        url:  "https://www.okto.tv"
+    origin: "%oktolab_origin_config%"
 
 okto_media:
     tag_class: "AppBundle\\Entity\\Tag"
