@@ -1,5 +1,9 @@
 # This file is a "template" of what your parameters.yml file should look like
 parameters:
+    flow_program_url:   "http://programm.okto.tv/interface.php/program/broadcasts?type=website_week&startdate[date]=%s&startdate[hour]=00&startdate[minute]=00&length=604800&firstruns=on&repetitions=on"
+    flow_program_path:  "/web/uploads/program/website_week_%s.xml"
+    delorian_program_url: "http://web/uploads/program/website_week_%s.xml"
+
     database_driver:   pdo_mysql
     database_host:     127.0.0.1
     database_port:     ~

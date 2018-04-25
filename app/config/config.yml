@@ -88,6 +88,7 @@ doctrine:
             Oktolab\MediaBundle\Entity\EpisodeInterface:    AppBundle\Entity\Episode
             Oktolab\MediaBundle\Entity\SeriesInterface:     AppBundle\Entity\Series
             Oktolab\MediaBundle\Entity\PlaylistInterface:   Oktolab\MediaBundle\Entity\Playlist
+            Oktolab\MediaBundle\Entity\StreamInterface:     Okto\MediaBundle\Entity\Stream
             Okto\MediaBundle\Entity\TagInterface:           AppBundle\Entity\Tag
             Bprs\UserBundle\Entity\UserInterface:           AppBundle\Entity\User
 
@@ -108,12 +109,18 @@ oktolab_media:
     episode_class:  "AppBundle\\Entity\\Episode"
     series_class:   "AppBundle\\Entity\\Series"
     asset_class:    "AppBundle\\Entity\\Asset"
+    stream_class:   "Okto\\MediaBundle\\Entity\\Stream"
     encoding_filesystem: "cache"
     player_url:   "%player_url%"
     serializing_schema: "okto"
     worker_queue: %worker_queue%
     resolutions: %oktolab_media_resolutions%
     origin: "%oktolab_origin_config%"
+    streamservers:
+        server_1:
+            player_url: "" # this would be the cloudfront public adress
+            rtmp_url:    ""
+            rtmp_control: ""         # this would be a nginx rtmp server at okto or in the cloud
 
 okto_media:
     tag_class: "AppBundle\\Entity\\Tag"
