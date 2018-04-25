@@ -9,7 +9,7 @@ services:
 
     delorian.program:
         class: Oktolab\DelorianBundle\Model\ProgramService
-        arguments: [ ]
+        arguments: [ "%delorian_program_url%" ]
 
     delorian.flow:
         class:  Oktolab\DelorianBundle\Model\FlowService

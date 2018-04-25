@@ -6,6 +6,13 @@ use GuzzleHttp\Client;
 
 class ProgramService {
 
+    private $program_url;
+
+    public function __construct($program_url)
+    {
+        $this->program_url = $program_url;
+    }
+
     public function parseProgram(\Datetime $start, \Datetime $end)
     {
         $program = array();
@@ -38,6 +45,6 @@ class ProgramService {
     {
         $start = clone $current;
         $date = $start->modify(sprintf('-%s days', $start->format('N')-1));
-        return sprintf('http://api.okto.tv/program_weeks/website_week_%s.xml', $date->format('Y-m-d'));
+        return sprintf($this->program_url, $date->format('Y-m-d'));
     }
 }
