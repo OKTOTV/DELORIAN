@@ -47,7 +47,7 @@ class ImportProgramweekCommand extends ContainerAwareCommand {
     {
         $days = $date->format('N') - 1; // Monday = 1, Sunday = 7 - 1 = days of to monday
         if (0 == $days) {
-            return $monday;
+            return $date;
         }
         return $date->modify(sprintf('-%d days', $days));
     }
