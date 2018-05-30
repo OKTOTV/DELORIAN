@@ -123,13 +123,18 @@
                 {% endfor %}
             </ul>
 
-            <h2>{{ 'oktolab_media_media_for_episode_header'|trans }}</h2>
-            {{ render(controller('OktolabMediaBundle:Media:mediaForEpisode', {'uniqID': episode.uniqID})) }}
+            <h4>{{ 'oktolab_media_media_for_episode_header'|trans }}</h4>
+            <div class="list-group">
+                {% for media in episode.media %}
+                    <a href="{{ path('oktolab_media_show_media', {'media': media.id })}}" class="list-group-item">{{ media.quality }}</a>
+                {% endfor %}
+                <a href="{{ path('oktolab_media_new_media', {'uniqID': episode.uniqID}) }}" class="list-group-item">{{ 'oktolab_media.episode_add_new_media'|trans|raw }}</a>
+            </div>
         </div>
     </div>
 
     <h2>Logbuch</h2>
-    {% render(controller('BprsLogbookBundle:Default:pager', {'reference': episode.uniqID})) %}
+    {{ render(controller('BprsLogbookBundle:Default:pager', {'reference': episode.uniqID})) }}
 
 {% endblock %}
 
