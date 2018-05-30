@@ -37,7 +37,7 @@ security:
                 login_path: bprs_user_login
                 check_path: bprs_user_login_check
                 default_target_path: list_series
-                csrf_provider: security.csrf.token_manager
+                csrf_token_generator: security.csrf.token_manager #csrf_provider: security.csrf.token_manager
             logout:
                 path: bprs_user_logout
                 target: /de

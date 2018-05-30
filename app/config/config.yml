@@ -24,14 +24,14 @@ framework:
         cookie_lifetime: 86400 #1 day
     fragments:       ~
     http_method_override: true
+    assets: ~
 
 # Twig Configuration
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
-    form:
-        resources:
-            - 'BprsStyleBundle:Form:fields.html.twig'
+    form_themes:
+        - 'BprsStyleBundle:Form:fields.html.twig'
     globals:
         name:         "DELORIAN"
         version:      "Beta 1.0"
