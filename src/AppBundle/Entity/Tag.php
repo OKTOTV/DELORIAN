@@ -5,7 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Okto\MediaBundle\Entity\Tag as OktoTag;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Okto\MediaBundle\Entity\Repository\TagRepository")
  */
 class Tag extends OktoTag {
 
