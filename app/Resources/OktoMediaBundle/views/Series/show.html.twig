@@ -82,7 +82,7 @@
                 </tbody>
             </table>
             {% if series.posterframe is not empty %}
-                <a href="{{ path('bprs_asset_download', {'key': series.posterframe.filekey}) }}" class="btn btn-default">{{ 'oktolab_media.series_download_posterframe_button'|trans|raw }}</a>
+                <a href="{{ path('bprs_asset_download', {'filekey': series.posterframe.filekey}) }}" class="btn btn-default">{{ 'oktolab_media.series_download_posterframe_button'|trans|raw }}</a>
             {% endif %}
 
             <h2>{{ 'okto_media_series_tags_header'|trans }}</h2>
@@ -95,10 +95,10 @@
             </ul>
         </div>
     </div>
-    {{ render(controller('OktolabMediaBundle:Series:paginationEpisodes', {'page': 1, 'series': series.id })) }}
+    {{ render(controller('OktoMediaBundle:Series:paginationEpisodes', {'page': 1, 'series': series.id })) }}
 
     <h2>Logbuch</h2>
-    {% render(controller('BprsLogbookBundle:Default:pager', {'reference': series.uniqID}))%}
+    {{ render(controller('BprsLogbookBundle:Default:pager', {'reference': series.uniqID})) }}
 {% endblock %}
 
 {% block javascripts %}

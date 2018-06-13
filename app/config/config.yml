@@ -17,7 +17,7 @@ framework:
         engines: ['twig']
     default_locale:  "%locale%"
     trusted_hosts:   ~
-    trusted_proxies: ~
+    #trusted_proxies: ~
     session:
         # handler_id set to null will use default session handler from php.ini
         handler_id:  ~
@@ -34,7 +34,7 @@ twig:
         - 'BprsStyleBundle:Form:fields.html.twig'
     globals:
         name:         "DELORIAN"
-        version:      "Beta 1.0"
+        version:      "Beta 2.0 (Now with Symfony 3.4)"
         junksize:     "%bprs_asset.junksize%"
 
 # Assetic Configuration
@@ -87,7 +87,7 @@ doctrine:
             Bprs\AssetBundle\Entity\AssetInterface:         AppBundle\Entity\Asset
             Oktolab\MediaBundle\Entity\EpisodeInterface:    AppBundle\Entity\Episode
             Oktolab\MediaBundle\Entity\SeriesInterface:     AppBundle\Entity\Series
-            Oktolab\MediaBundle\Entity\PlaylistInterface:   Oktolab\MediaBundle\Entity\Playlist
+            Oktolab\MediaBundle\Entity\PlaylistInterface:   AppBundle\Entity\Playlist
             Oktolab\MediaBundle\Entity\StreamInterface:     Okto\MediaBundle\Entity\Stream
             Okto\MediaBundle\Entity\TagInterface:           AppBundle\Entity\Tag
             Bprs\UserBundle\Entity\UserInterface:           AppBundle\Entity\User
@@ -113,8 +113,8 @@ oktolab_media:
     encoding_filesystem: "cache"
     player_url:   "%player_url%"
     serializing_schema: "okto"
-    worker_queue: %worker_queue%
-    resolutions: %oktolab_media_resolutions%
+    worker_queue: "%worker_queue%"
+    resolutions: "%oktolab_media_resolutions%"
     origin: "%oktolab_origin_config%"
     streamservers:
         server_1:
@@ -130,14 +130,14 @@ jms_serializer:
         auto_detection: true
 
 bprs_command_line:
-    php_path: %php_path%
-    worker_queue: %worker_queue%
+    php_path: "%php_path%"
+    worker_queue: "%worker_queue%"
     redis_backend: "%redis_backend%"
 
 bprs_asset:
     class:  "AppBundle\\Entity\\Asset"
     filesystem_map: oneup_flysystem.mount_manager
-    worker_queue: %worker_queue%
+    worker_queue: "%worker_queue%"
     thumb_filesystem: posterframe
     404: "%bprs_asset_404%"
     adapters: "%bprs_asset_adapters%"
@@ -146,13 +146,13 @@ oneup_flysystem:
     adapters:
         posterframe:
             local:
-                directory: %kernel.root_dir%/../web/uploads/posterframes
+                directory: "%kernel.root_dir%/../web/uploads/posterframes"
         video:
             local:
-                directory: %kernel.root_dir%/../web/uploads/videos
+                directory: "%kernel.root_dir%/../web/uploads/videos"
         cache:
             local:
-                directory: %kernel.root_dir%/../web/uploads/cache
+                directory: "%kernel.root_dir%/../web/uploads/cache"
         archive:
             local:
                 directory: /Volumes/Sendungsarchiv/lta
@@ -175,7 +175,7 @@ oneup_uploader:
     chunks:
         maxage: 86400
         storage:
-            directory: %kernel.cache_dir%/uploader/chunks
+            directory: "%kernel.cache_dir%/uploader/chunks"
     mappings:
         posterframe:
             frontend: blueimp
@@ -207,9 +207,9 @@ knp_paginator:
 bprs_user:
     class: "AppBundle\\Entity\\User"
     mail:
-        commandline_host:   %commandline_host% #www.yourhost.com
-        adress:             %email_adress% #yourbot@example.com
-        name:               %bot_name% #yourbot
+        commandline_host:   "%commandline_host%" #www.yourhost.com
+        adress:             "%email_adress%" #yourbot@example.com
+        name:               "%bot_name%" #yourbot
     permissions:
         - ROLE_ADMIN
         - ROLE_USER

@@ -10,5 +10,3 @@ use Okto\MediaBundle\Entity\Episode as OktoEpisode;
 class Episode extends OktoEpisode {
 
 }
-
-?>
