@@ -127,7 +127,6 @@ class TimetravelService {
             $this->delorian_em->clear();
 
             if ($episode->getVideo()) {
-                var_dump($episode->getVideo());
                 $this->media_service->addEncodeEpisodeJob($episode->getUniqID());
             }
         }

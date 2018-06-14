@@ -58,13 +58,8 @@ doctrine:
                 user:     "%database_user%"
                 password: "%database_password%"
                 charset:  utf8
-            delorian:
-                driver: pdo_mysql
-                host: localhost
-                user: root
-                password: Ixiefoo4
-                dbname: delorian
-                # path: "%kernel.root_dir%/delorian.db3"
+            delorian: "%delorian_db%"
+
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         default_entity_manager: delorian
