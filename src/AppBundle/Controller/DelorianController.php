@@ -19,10 +19,10 @@ use Oktolab\DelorianBundle\Entity\Episode as DelorianEpisode;
 class DelorianController extends Controller
 {
     /**
-     * @Route("/{page}", defaults={"page": 1}, name="list_series", requirements={"page": "\d+"})
+     * @Route("/", name="list_series")
      * @Template()
      */
-    public function listSeriesAction($page)
+    public function listSeriesAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager('flow');
         $dql = "SELECT s FROM OktolabDelorianBundle:Series s";
@@ -30,30 +30,30 @@ class DelorianController extends Controller
         $paginator  = $this->get('knp_paginator');
         $old_seriess = $paginator->paginate(
             $query,
-            $page/*page number*/,
-            20
+            $request->query->get('page', 1),
+            $request->query->get('results', 20)
         );
-        return array('seriess' => $old_seriess);
+        return ['seriess' => $old_seriess];
     }
 
     /**
-     * @Route("/series/{id}/{page}", name="show_series", requirements={"page": "\d+"}, defaults={"page" = 1})
+     * @Route("/series/{id}", name="show_series")
      * @Template()
      */
-    public function showSeriesAction($id, $page)
+    public function showSeriesAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager('flow');
-        $series = $em->getRepository('OktolabDelorianBundle:Series')->findOneBy(array('id' => $id));
+        $series = $em->getRepository('OktolabDelorianBundle:Series')->findOneBy(['id' => $id]);
         $dql = "SELECT e FROM OktolabDelorianBundle:Episode e WHERE e.series = :series_id";
         $query = $em->createQuery($dql);
         $query->setParameter('series_id', $series->getId());
         $paginator  = $this->get('knp_paginator');
         $episodes = $paginator->paginate(
             $query,
-            $page/*page number*/,
-            20
+            $request->query->get('page', 1),
+            $request->query->get('results', 20)
         );
-        return array('series' => $series, 'episodes' => $episodes);
+        return ['series' => $series, 'episodes' => $episodes];
     }
 
     /**

@@ -25,6 +25,7 @@
                     <li role="separator" class="divider"></li>
                     <li><a href="{{ path('show_series', {'id': series.uniqID}) }}">{{ 'delorian.shortcut_to_pt_series'|trans|raw }}</a></li>
                     <li><a href="http://programm.okto.tv/series/{{ pt_series(series.uniqID).abbrevation }}/asdf.html" target="blank"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span> Im Programmtool zeigen</a></li>
+                    <li><a href="{{ path('csv_firstruns', {'id': series.uniqID})}}"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> Erstausstrahlungen exportieren</a>
                 {% endif %}
                 <li role="separator" class="divider"></li>
                 <li><a href="{{ path('oktolab_media_api_show_series', {'uniqID': series.uniqID }) }}">{{ 'oktolab_media.series_show_api'|trans|raw }}</a></li>
@@ -85,14 +86,17 @@
                 <a href="{{ path('bprs_asset_download', {'filekey': series.posterframe.filekey}) }}" class="btn btn-default">{{ 'oktolab_media.series_download_posterframe_button'|trans|raw }}</a>
             {% endif %}
 
-            <h2>{{ 'okto_media_series_tags_header'|trans }}</h2>
-            <ul class="list-group">
+            <h4>{{ 'okto_media_series_tags_header'|trans }}</h4>
+            <div class="list-group">
                 {% for tag in series.tags %}
-                    <li class="list-group-item">
+                    <a href="{{ path('okto_tag_series', {'tag': tag.id}) }}" class="list-group-item">
                         {{ tag }}
-                    </li>
+                    </a>
                 {% endfor %}
-            </ul>
+                <a href="{{ path('oktolab_series_edit_tags', { 'series': series.uniqID }) }}" class="list-group-item">
+                    {{ 'okto_media.show_series_tag_button_list'|trans|raw }}
+                </a>
+            </div>
         </div>
     </div>
     {{ render(controller('OktoMediaBundle:Series:paginationEpisodes', {'page': 1, 'series': series.id })) }}

@@ -41,6 +41,10 @@
                         </li>
                     {% endif %}
                     <li role="separator" class="divider"></li>
+                    <li{% if dropdown == "delorian_first_runs_total" %} class="active"{% endif %}>
+                        <a href="{{ path('csv_firstruns_total') }}">{{ 'delorian.menu_first_runs_total'|trans|raw }}</a>
+                    </li>
+                    <li role="separator" class="divider"></li>
                     <li><a href="{{ path('bprs_user_logout')}}"><span class="glyphicon glyphicon-off" aria-hidden="true" style="color:red"></span> {{ 'bprs_user.button.logout'|trans }}</a><li>
                 </ul>
             </li>

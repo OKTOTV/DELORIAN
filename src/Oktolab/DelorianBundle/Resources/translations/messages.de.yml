@@ -1,3 +1,20 @@
 delorian.import_series_posterframe_start:       "Beginne Sendereihen Posterframe import"
 delorian.import_series_posterframe_end:         "Sendereihen Posterframe import beendet"
 delorian.login.remember_me_label:               "Rembember me"
+
+# src/Oktolab/DelorianBundle/Resources/views/CSV/first_runs_total.html.twig
+delorian.first_runs_total_submit:               "CSV Exportieren"
+delorian.first_runs_total_header:               "Erstausstrahlungsexporter"
+delorian.first_runs_total_subheader:            'Alle Episoden als CSV die ihre Erstausstrahlung im gegebenen Zeitraum haben. Der Delimiter gibt die möglichkeit die Formattierung zu ändern. In der Regel wird Semikolon ";" von den meisten Tabellenverarbeitungsprogrammen unterstützt.'
+
+# src/Oktolab/DelorianBundle/Resources/views/CSV/first_runs.html.twig
+delorian.first_runs_submit:         "CSV Exportieren"
+delorian.first_runs_header:         "[%abbreviation%] %title%"
+delorian.first_runs_subheader:      'Exportiere alle Erstausstrahlungen dieser Sendereihe als CSV die es im angegebenen Zeitraum gab. Das Trennzeichen gibt an, mit welchem Zeichen das CSV unterteilt werden soll. Semikolon ";" sollte für die meisten Tabellenverarbeitungsprogramme funktionieren.'
+
+delorian.runs_total_header:   "Ausstrahlungsexporter"
+delorian.runs_total_subheader:      'Alle Ausstrahlungen als CSV die es im angegebenen Zeitraum gab. Das Trennzeichen gibt an, mit welchem Zeichen das CSV unterteilt werden soll. Semikolon ";" sollte für die meisten Tabellenverarbeitungsprogramme funktionieren.'
+
+delorian.hitlist_header:      "TELETEST Exporter"
+delorian.hitlist_subheader:   'Lässt die Teletest Durchschnittsreichweite und Marktanteil mit Sendungen abgleichen die zu diesem Zeitraum gesendet wurden. Damit lassen sich leichter Rückschlüsse ziehen was "gut ankommt". <a href="%link%">Formattierungsbeispiel für Teletest</a>'
+delorian.hitlist_submit:      "TELETEST Abgleichen"

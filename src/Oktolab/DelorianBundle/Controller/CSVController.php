@@ -7,7 +7,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
-
+use AppBundle\Entity\CSVRange;
+use AppBundle\Form\FirstRunsTotalType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Oktolab\DelorianBundle\Entity\Series as DelorianSeries;
 
 /**
@@ -21,134 +24,168 @@ class CSVController extends Controller
      */
     public function firstRunsAction(Request $request, DelorianSeries $old_series)
     {
-        $defaultData = array('message' => 'Get all firstRans from to');
-            $form = $this->createFormBuilder($defaultData)
-                ->add('from', 'date')
-                ->add('to', 'date')
-                ->add('delimiter', 'text')
-                ->add('send', 'submit')
-                ->getForm();
+        $csvrange = new CSVRange();
+        $form = $this->createForm(FirstRunsTotalType::class, $csvrange);
+        $form->add(
+            'submit',
+            SubmitType::class, [
+                'label' => 'delorian.first_runs_submit',
+                'attr' => ['class' => 'btn btn-primary']
+            ]
+        );
 
-        if ($request->getMethod() == "POST") { //form sent
-            $form->handleRequest($request);
+        $form->handleRequest($request);
 
-            if ($form->isValid()) {
-                $data = $form->getData();
-                $query = $this->getDoctrine()->getManager('flow')->createQuery('SELECT u FROM OktolabDelorianBundle:Episode u WHERE u.firstRanAt > :from AND u.firstRanAt < :to AND u.series = :series ORDER BY u.firstRanAt ASC');
-                $query->setParameter('from', $data['from']);
-                $query->setParameter('to', $data['to']);
-                $query->setParameter('series', $old_series);
-                $old_episodes = $query->getResult();
+        if ($form->isSubmitted()) {
+            $query = $this->getDoctrine()->getManager('flow')->createQuery('SELECT u FROM OktolabDelorianBundle:Episode u WHERE u.firstRanAt > :from AND u.firstRanAt < :to AND u.series = :series ORDER BY u.firstRanAt ASC');
+            $query->setParameter('from', $csvrange->getFrom());
+            $query->setParameter('to', $csvrange->getTo());
+            $query->setParameter('series', $old_series);
+            $old_episodes = $query->getResult();
 
-                return $this->CSVResponse($old_episodes, $old_series->getAbbrevation().' '.$data['from']->format('d.m.Y').'-'.$data['to']->format('d.m.Y').'.csv', $data['delimiter']);
-            } else {
-                $this->get('session')->getFlashBag()->add('error', "ERROR");
-            }
+            return $this->CSVResponse(
+                $old_episodes,
+                sprintf(
+                    "%s %s-%s.csv",
+                    $old_series->getAbbrevation(),
+                    $csvrange->getFrom()->format('d.m.Y'),
+                    $csvrange->getTo()->format('d.m.Y')
+                ),
+                $csvrange->getDelimiter());
         }
-        return array('form' => $form->createView(), 'series' => $old_series);
+
+        return ['form' => $form->createView(), 'series' => $old_series];
     }
 
     /**
-     * @Route("/firstRunsTotal/{from}/{to}")
+     * @Route("/firstRunsTotal", name="csv_firstruns_total")
      * @Template()
      */
-    public function firstRunsTotalAction(Request $request, $from, $to)
+    public function firstRunsTotalAction(Request $request)
     {
-        $from = new \Datetime($from);
-        $to = new \Datetime($to);
-        $query = $this->getDoctrine()->getManager('flow')
-            ->createQuery(
-                'SELECT e FROM OktolabDelorianBundle:Episode e
-                WHERE e.firstRanAt >= :from
-                AND e.firstRanAt <= :to
-                ORDER BY e.series ASC'
-            );
-        $query->setParameter('from', $from);
-        $query->setParameter('to', $to);
-        $old_episodes = $query->getResult();
+        $csvrange = new CSVRange();
+        $form = $this->createForm(FirstRunsTotalType::class, $csvrange);
+        $form->add(
+            'submit',
+            SubmitType::class, [
+                'label' => 'delorian.first_runs_total_submit',
+                'attr' => ['class' => 'btn btn-primary']
+            ]
+        );
 
-        return $this->CSVResponse($old_episodes);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            $query = $this->getDoctrine()->getManager('flow')
+                ->createQuery(
+                    'SELECT e FROM OktolabDelorianBundle:Episode e
+                    WHERE e.firstRanAt >= :from
+                    AND e.firstRanAt <= :to
+                    ORDER BY e.series ASC'
+                );
+            $query->setParameter('from', $csvrange->getFrom());
+            $query->setParameter('to', $csvrange->getTo());
+            $old_episodes = $query->getResult();
+
+            return $this->CSVResponse($old_episodes, 'first_runs_total.csv', $csvrange->getDelimiter());
+        }
+        return ['form' => $form->createView()];
     }
 
     /**
-     * @Route("/runsTotal/{from}/{to}")
+     * @Route("/runsTotal", name="csv_runs_total")
+     * @Template()
      */
-    public function runsTotalAction(Request $request, $from, $to)
+    public function runsTotalAction(Request $request)
     {
-        $from = new \Datetime($from);
-        $to = new \Datetime($to);
-        $query = $this->getDoctrine()->getManager('flow')
-            ->createQuery(
-                'SELECT bei FROM OktolabDelorianBundle:BroadcastEpisodeItem bei
-                LEFT JOIN bei.episode e
-                LEFT JOIN bei.broadcastItem be
-                WHERE be.airtime >= :from
-                AND be.airtime <= :to
-                GROUP BY e.series
-                ORDER BY be.airtime ASC'
-            );
-        $query->setParameter('from', $from);
-        $query->setParameter('to', $to);
+        $csvrange = new CSVRange();
+        $form = $this->createForm(FirstRunsTotalType::class, $csvrange);
+        $form->add(
+            'submit',
+            SubmitType::class, [
+                'label' => 'delorian.first_runs_total_submit',
+                'attr' => ['class' => 'btn btn-primary']
+            ]
+        );
 
-        $broadcastEpisodeItems = $query->getResult();
-        $delimiter = ';';
-        $response = new StreamedResponse(function() use($broadcastEpisodeItems, $delimiter) {
-            $handle = fopen('php://output', 'r+');
-                fputcsv($handle,
-                    array(
-                        'Sendereihe',
-                        'Bezeichnung',
-                        'Titel',
-                        'Ausstrahlung',
-                        'Erstausstrahlungsdatum',
-                        'Erstausstrahlungszeit',
-                        'Länge',
-                        'Abstrakt',
-                        'Kommentar',
-                        'Stunden',
-                        'Minuten',
-                        'Sekunden'
-                    ),
-                    $delimiter
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            $query = $this->getDoctrine()->getManager('flow')
+                ->createQuery(
+                    'SELECT bei FROM OktolabDelorianBundle:BroadcastEpisodeItem bei
+                    LEFT JOIN bei.episode e
+                    LEFT JOIN bei.broadcastItem be
+                    WHERE be.airtime >= :from
+                    AND be.airtime <= :to
+                    GROUP BY e.series
+                    ORDER BY be.airtime ASC'
                 );
+            $query->setParameter('from', $csvrange->getFrom());
+            $query->setParameter('to', $csvrange->getTo());
 
-            foreach ($broadcastEpisodeItems as $bei) {
-                $old_episode = $bei->getEpisode();
-                $length = 0;
-                if ($old_episode) {
-                    $length = $old_episode->getLength();
-                    if (!$length) {
-                        $length = 0;
+            $broadcastEpisodeItems = $query->getResult();
+            $delimiter = $csvrange->getDelimiter();
+            $response = new StreamedResponse(function() use($broadcastEpisodeItems, $delimiter) {
+                $handle = fopen('php://output', 'r+');
+                    fputcsv($handle,
+                        array(
+                            'Sendereihe',
+                            'Bezeichnung',
+                            'Titel',
+                            'Ausstrahlung',
+                            'Erstausstrahlungsdatum',
+                            'Erstausstrahlungszeit',
+                            'Länge',
+                            'Abstrakt',
+                            'Kommentar',
+                            'Stunden',
+                            'Minuten',
+                            'Sekunden'
+                        ),
+                        $delimiter
+                    );
+
+                foreach ($broadcastEpisodeItems as $bei) {
+                    $old_episode = $bei->getEpisode();
+                    $length = 0;
+                    if ($old_episode) {
+                        $length = $old_episode->getLength();
+                        if (!$length) {
+                            $length = 0;
+                        }
                     }
+                    $hours = floor($length / 3600);
+                    $mins = floor(($length - ($hours*3600)) / 60);
+                    $secs = floor($length % 60);
+                    fputcsv($handle,
+                        array(
+                            $old_episode ? $old_episode->getSeries()->getTitle() : 'N/A',
+                            $old_episode ? $old_episode->getSeries()->getAbbrevation().' '.$old_episode->getSeasonNumber().'x'.$old_episode->getEpisodeNumber() : 'N/A',
+                            $old_episode ? $old_episode->getTitle() : 'N/A',
+                            $bei->getBroadcastItem() ? $bei->getBroadcastItem()->getAirtime()->format('H:i d.m.Y') : 'N/A',
+                            $old_episode ? $old_episode->getFirstRanAt()->format('d.m.Y') : 'N/A',
+                            $old_episode ? $old_episode->getFirstRanAt()->format('H:i') : 'N/A',
+                            $old_episode ? $hours.':'.$mins.':'.$secs : 'N/A',
+                            $old_episode ? $old_episode->getAbstractTextPublic() : 'N/A',
+                            $old_episode ? $old_episode->getComments() : 'N/A',
+                            $hours,
+                            $mins,
+                            $secs
+                        ),
+                        $delimiter
+                    );
                 }
-                $hours = floor($length / 3600);
-                $mins = floor(($length - ($hours*3600)) / 60);
-                $secs = floor($length % 60);
-                fputcsv($handle,
-                    array(
-                        $old_episode ? $old_episode->getSeries()->getTitle() : 'N/A',
-                        $old_episode ? $old_episode->getSeries()->getAbbrevation().' '.$old_episode->getSeasonNumber().'x'.$old_episode->getEpisodeNumber() : 'N/A',
-                        $old_episode ? $old_episode->getTitle() : 'N/A',
-                        $bei->getBroadcastItem() ? $bei->getBroadcastItem()->getAirtime()->format('H:i d.m.Y') : 'N/A',
-                        $old_episode ? $old_episode->getFirstRanAt()->format('d.m.Y') : 'N/A',
-                        $old_episode ? $old_episode->getFirstRanAt()->format('H:i') : 'N/A',
-                        $old_episode ? $hours.':'.$mins.':'.$secs : 'N/A',
-                        $old_episode ? $old_episode->getAbstractTextPublic() : 'N/A',
-                        $old_episode ? $old_episode->getComments() : 'N/A',
-                        $hours,
-                        $mins,
-                        $secs
-                    ),
-                    $delimiter
-                );
-            }
-            fclose($handle);
-        });
+                fclose($handle);
+            });
 
-        $response->headers->set('Content-Type', 'application/force-download');
-        $response->headers->set('Content-Disposition','attachment; filename="export.csv"');
+            $response->headers->set('Content-Type', 'application/force-download');
+            $response->headers->set('Content-Disposition','attachment; filename="export.csv"');
 
-        return $response;
+            return $response;
+        }
+
+        return ['form' => $form->createView()];
     }
 
     public function CSVResponse($old_episodes, $filename = 'export.csv', $delimiter = ';') {
@@ -212,8 +249,14 @@ class CSVController extends Controller
     public function uploadHitlistCSVAction(Request $request)
     {
         $form = $this->createFormBuilder()
-            ->add('csv', 'file')
-            ->add('send', 'submit')
+            ->add('csv', FileType::class)
+            ->add(
+                'submit',
+                SubmitType::class, [
+                    'label' => 'delorian.hitlist_submit',
+                    'attr' => ['class' => 'btn btn-primary']
+                ]
+            )
             ->getForm();
 
         if ($request->getMethod() == "POST") { // posts CSV
@@ -228,6 +271,52 @@ class CSVController extends Controller
             $this->get('session')->getFlashBag()->add('error', 'CSV Anhängen, schwachkopf!');
         }
         return ['form' => $form->createView()];
+    }
+
+    /**
+     * @Route("/hitlist_helper", name="csv_htilist_helper")
+     */
+    public function hitlistHelperAction()
+    {
+        $response = new StreamedResponse(function() {
+            $handle = fopen('php://output', 'r+');
+                fputcsv($handle,
+                    [
+                        'Datum',
+                        'Zeitabschnitt',
+                        'DRW Tsd',
+                        'MA %'
+                    ],
+                    ';'
+                );
+
+                fputcsv($handle,
+                    [
+                        '10/31/10',
+                        '22:45:00-22:59:59',
+                        '11',
+                        '0,6'
+                    ],
+                    ';'
+                );
+
+                fputcsv($handle,
+                    [
+                        '5/4/10',
+                        '12:30:00-12:44:59',
+                        '9',
+                        '2,1'
+                    ],
+                    ';'
+                );
+
+                fclose($handle);
+            });
+
+        $response->headers->set('Content-Type', 'application/force-download');
+        $response->headers->set('Content-Disposition','attachment; filename="export.csv"');
+
+        return $response;
     }
 
     private function downloadHitlist($hitlist)

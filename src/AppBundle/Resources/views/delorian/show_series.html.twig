@@ -61,7 +61,13 @@
         </tr>
         {% for episode in episodes %}
             <tr {% if loop.index is odd %}class="color"{% endif %}>
-                <td>{{ episode.firstRanAt|date('d.m.Y H:i')}}</td>
+                <td>
+                    {% if episode.firstRanAt is empty %}
+                        {{ 'delorian.show_series_unknown_firstRanAt'|trans }}
+                    {% else %}
+                        {{ episode.firstRanAt|date('d.m.Y H:i')}}
+                    {% endif %}
+                </td>
                 <td>{{ episode.title }}</td>
                 <td>{{ episode.seasonNumber}}</td>
                 <td>{{ episode.episodeNumber}}</td>

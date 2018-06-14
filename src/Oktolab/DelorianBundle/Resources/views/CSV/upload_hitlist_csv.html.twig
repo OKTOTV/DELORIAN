@@ -1,0 +1,17 @@
+{% extends "BprsStyleBundle::layout.html.twig" %}
+{% block body_main %}
+
+<ul class="nav nav-tabs">
+<li role="presentation"><a href="{{ path('csv_firstruns_total') }}">{{ 'delorian.first_runs_total_header'|trans }}</a></li>
+<li role="presentation"><a href="{{ path('csv_runs_total') }}">{{ 'delorian.runs_total_header'|trans }}</a></li>
+<li role="presentation" class="active"><a href="{{ path('csv_hitlist')}}">{{ 'delorian.hitlist_header'|trans }}</a></li>
+</ul>
+    <div class="page-header">
+        <p>
+            {{ 'delorian.hitlist_subheader'|trans({'%link%': path('csv_htilist_helper')})|raw }}
+        </p>
+    </div>
+    {{ form_start(form) }}
+    {{ form_end(form) }}
+
+{% endblock %}

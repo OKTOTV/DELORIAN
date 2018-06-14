@@ -1,0 +1,62 @@
+{% extends "BprsStyleBundle::layout.html.twig" %}
+
+{% block nav_head%}
+    {% include 'BprsStyleBundle::menu.html.twig' with {'selected': 'programmtool', 'dropdown': ''} %}
+{% endblock %}
+
+{% block body_main %}
+    <div class="page-header">
+        <h1>
+            {{ 'delorian.first_runs_header'|trans({'%abbreviation%': series.abbrevation, '%title%': series.title}) }}
+        </h1>
+        <p>
+            {{ 'delorian.first_runs_subheader'|trans }}
+        </p>
+    </div>
+    {{ form_start(form) }}
+        {{ form_errors(form) }}
+        <div class="row">
+            <div class="col-md-6">
+                {% include "BprsStyleBundle::datetimepicker.html.twig" with {'widget': form.from} %}
+            </div>
+            <div class="col-md-6">
+                {% include "BprsStyleBundle::datetimepicker.html.twig" with {'widget': form.to} %}
+            </div>
+        </div>
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/bprsstyle/js/moment/moment.min.js') }}"></script>
+    <script src="{{ asset('bundles/bprsstyle/js/moment/de.js') }}"></script>
+    <script src="{{ asset('bundles/bprsstyle/js/datetimepicker.min.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready( function(){
+            $('#delorian_first_runs_total_from_picker').datetimepicker({
+                locale: 'de',
+                // format: "DD.MM.YYYY hh:mm",
+                date: moment($('#delorian_first_runs_total_from').val()),
+                useCurrent: true,
+                calendarWeeks: true,
+                allowInputToggle: true,
+                showTodayButton: true
+            });
+
+            $('#delorian_first_runs_total_to_picker').datetimepicker({
+                locale: 'de',
+                // format: "DD.MM.YYYY hh:mm",
+                date: moment($('#delorian_first_runs_total_to').val()),
+                useCurrent: true,
+                calendarWeeks: true,
+                allowInputToggle: true,
+                showTodayButton: true
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/bprsstyle/css/datetimepicker.min.css') }}" rel="stylesheet" />
+{% endblock %}
