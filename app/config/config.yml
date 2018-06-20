@@ -120,10 +120,6 @@ oktolab_media:
 okto_media:
     tag_class: "AppBundle\\Entity\\Tag"
 
-jms_serializer:
-    metadata:
-        auto_detection: true
-
 bprs_command_line:
     php_path: "%php_path%"
     worker_queue: "%worker_queue%"

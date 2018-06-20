@@ -29,7 +29,7 @@
         "incenteev/composer-parameter-handler": "^2.0",
         "bprs/asset-bundle": "^3.0",
         "bprs/user-bundle": "^2.0",
-        "okto/media-bundle": "dev-master",
+        "okto/media-bundle": "^1.0",
         "oneup/flysystem-bundle": "^3.0",
         "league/flysystem-aws-s3-v2": "^1.0"
     },
