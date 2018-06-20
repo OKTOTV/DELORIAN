@@ -4,6 +4,10 @@
     {% include 'BprsStyleBundle::menu.html.twig' with {'selected': 'programmtool', 'dropdown': ''} %}
 {% endblock %}
 
+{% block title %}
+    {{ 'delorian.list_series_title'|trans({'%project%': name}) }}
+{% endblock %}
+
 {% block body_main %}
     <div class="page-header">
         <h1>Showing {{ seriess.getTotalItemCount }} series</h1>

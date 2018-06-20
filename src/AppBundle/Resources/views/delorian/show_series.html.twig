@@ -4,6 +4,10 @@
     {% include 'BprsStyleBundle::menu.html.twig' with {'selected': 'programmtool', 'dropdown': ''} %}
 {% endblock %}
 
+{% block title %}
+    {{ 'delorian.show_series_title'|trans({'%series%': series.title, '%project%': name}) }}
+{% endblock %}
+
 {% block body_main %}
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 <div class="modal-dialog" role="document">

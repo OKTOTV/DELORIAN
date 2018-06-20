@@ -36,7 +36,11 @@ delorian.shortcut_to_delorian_series:           '<span class="glyphicon glyphico
 # app/Resources/OktoMediaBundle/views/Episode/show.html.twig
 delorian.episode_filename:                      'Verm. Videodateiname'
 
+# src/AppBundle/Resources/views/delorian/list_series.html.twig
+delorian.list_series_title:                     "Programmtoolansicht | %project%"
+
 # src/AppBundle/Resources/views/delorian/show_series.html.twig
+delorian.show_series_title:                     "Programmtoolansicht %series% | %project%"
 delorian.show_series_unknown_firstRanAt:        "Kein Erstausstrahlungsdatum"
 
 # src/AppBundle/Form/FirstRunsTotalType
