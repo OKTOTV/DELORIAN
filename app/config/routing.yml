@@ -5,7 +5,7 @@ bprs_logbook:
 
 start:
     path:      /
-    defaults:  { _controller: AppBundle:Default:listSeries, _locale: de }
+    defaults:  { _controller: AppBundle:Delorian:listSeries, _locale: de }
     requirements:
         _locale:  de|en
 
