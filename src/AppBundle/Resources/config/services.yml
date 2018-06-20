@@ -18,3 +18,8 @@ services:
         arguments:  [ "@doctrine.orm.flow_entity_manager" ]
         tags:
             - { name: twig.extension }
+
+    AppBundle\Form\SeriesImportProgressType:
+        arguments: [ "@translator" ]
+        tags:
+            - { name: form.type }

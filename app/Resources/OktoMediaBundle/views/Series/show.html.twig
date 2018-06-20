@@ -4,6 +4,10 @@
     {% include 'BprsStyleBundle::menu.html.twig' with {'selected': 'delorian', 'dropdown': ''} %}
 {% endblock %}
 
+{% block title %}
+    {{ 'delorian.oktolab_media_series_show_title'|trans({'%series%': series.name, '%project%': name}) }}
+{% endblock %}
+
 {% block body_main -%}
     <div class="page-header">
         <h1>{{ series.name }}</h1>

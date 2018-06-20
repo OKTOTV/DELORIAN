@@ -4,6 +4,10 @@
     {% include 'BprsStyleBundle::menu.html.twig' with {'selected': 'delorian', 'dropdown': ''} %}
 {% endblock %}
 
+{% block title %}
+    {{ 'delorian.oktolab_media_series_index_title'|trans({'%project%': name}) }}
+{% endblock %}
+
 {% block body_main -%}
     <ul class="nav nav-tabs">
         <li role="presentation" class="active"><a href="{{ path('oktolab_series') }}">{{ 'oktolab_media.series_index_header'|trans }}</a></li>

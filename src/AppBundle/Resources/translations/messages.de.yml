@@ -47,3 +47,9 @@ delorian.show_series_unknown_firstRanAt:        "Kein Erstausstrahlungsdatum"
 delorian.first_runs_total_from:                 "Von"
 delorian.first_runs_total_to:                   "Bis"
 delorian.first_runs_total_delimiter:            "Trennzeichen"
+
+# app/Resources/views/Series/index.html.twig
+delorian.oktolab_media_series_index_title:      "Sendereihen | %project%"
+
+# /show.html.twig
+delorian.oktolab_media_series_show_title:       "Sendereihe %series% | %project%"

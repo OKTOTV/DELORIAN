@@ -21,7 +21,7 @@ class SeriesController extends Controller {
     {
         $series = $this->get('oktolab_media')->getSeries($series);
         $trans = $this->get('translator');
-        $form = $this->createForm(new SeriesImportProgressType($trans), $series);
+        $form = $this->createForm(SeriesImportProgressType::class, $series);
         $form->add('submit', SubmitType::class, ['label' => 'delorian.update_progress_button', 'attr' => ['class' => 'btn btn-primary']]);
 
         if ($request->getMethod() == "POST") { //sends form

@@ -27,9 +27,9 @@ class SeriesImportProgressType extends AbstractType
         $builder
             ->add('importProgress', ChoiceType::class, [
                 'choices' => [
-                    Series::IMPORT_PROGRESS_FRESH => $this->trans->transchoice('delorian.series_import_progress_choice', Series::IMPORT_PROGRESS_FRESH),
-                    Series::IMPORT_PROGRESS_IN_WORK => $this->trans->transchoice('delorian.series_import_progress_choice', Series::IMPORT_PROGRESS_IN_WORK),
-                    Series::IMPORT_PROGRESS_FINISHED => $this->trans->transchoice('delorian.series_import_progress_choice', Series::IMPORT_PROGRESS_FINISHED)
+                    $this->trans->transchoice('delorian.series_import_progress_choice', Series::IMPORT_PROGRESS_FRESH) => Series::IMPORT_PROGRESS_FRESH,
+                    $this->trans->transchoice('delorian.series_import_progress_choice', Series::IMPORT_PROGRESS_IN_WORK) => Series::IMPORT_PROGRESS_IN_WORK,
+                    $this->trans->transchoice('delorian.series_import_progress_choice', Series::IMPORT_PROGRESS_FINISHED) => Series::IMPORT_PROGRESS_FINISHED
                     ],
                 'label' => 'delorian.series_progress_label'
                 ]
