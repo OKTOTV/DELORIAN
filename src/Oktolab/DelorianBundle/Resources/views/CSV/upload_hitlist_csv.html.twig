@@ -1,4 +1,10 @@
 {% extends "BprsStyleBundle::layout.html.twig" %}
+
+{% block nav_head%}
+    {% include 'BprsStyleBundle::menu.html.twig' with {'selected': 'programmtool', 'dropdown': 'delorian_first_runs_total'} %}
+{% endblock %}
+
+
 {% block body_main %}
 
 <ul class="nav nav-tabs">
