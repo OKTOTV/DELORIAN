@@ -3,6 +3,12 @@ bprs_logbook:
     type:     annotation
     prefix:   /{_locale}
 
+start:
+    path:      /
+    defaults:  { _controller: AppBundle:Default:listSeries, _locale: de }
+    requirements:
+        _locale:  de|en
+
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation

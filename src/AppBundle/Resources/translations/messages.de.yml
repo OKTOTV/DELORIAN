@@ -53,3 +53,6 @@ delorian.oktolab_media_series_index_title:      "Sendereihen | %project%"
 
 # /show.html.twig
 delorian.oktolab_media_series_show_title:       "Sendereihe %series% | %project%"
+
+# /show.html.twig
+delorian.oktolab_media_episode_index_title:     "Episoden | %project%"
