@@ -4,6 +4,10 @@
     {% include 'BprsStyleBundle::menu.html.twig' with {'selected': 'programmtool', 'dropdown': 'delorian_first_runs_total'} %}
 {% endblock %}
 
+{% block title %}
+    {{ 'delorian.runs_total_title'|trans({'%project%': name}) }}
+{% endblock %}
+
 {% block body_main %}
 
 <ul class="nav nav-tabs">
