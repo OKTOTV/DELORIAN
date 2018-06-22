@@ -36,7 +36,6 @@ class ImportProgramweekCommand extends ContainerAwareCommand {
         if (!$xml) {
           $output->writeln(sprintf('Could not fetch xml from: %s', $flow_url));
         } else {
-            // die(var_dump($path));
             if (!@file_put_contents($path, $xml)) {
               $output->writeln(sprintf('Could not write xml to: %s', $path), 'ERROR');
             }
