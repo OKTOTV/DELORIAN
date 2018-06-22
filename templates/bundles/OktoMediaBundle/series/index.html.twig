@@ -47,37 +47,33 @@
     <div class="navigation">
         {{ knp_pagination_render(seriess) }}
     </div>
-    <div class="row">
-        {% for series in seriess %}
-        <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <a href="{{ path('oktolab_series_show', { 'series': series.uniqID }) }}"><img src="{{ series.posterframe|thumb(720,1280) }}" class="img-responsive center-block" /></a>
-                        </div>
-                        <div class="col-md-9">
-                            <dl class="dl-horizontal">
-                                <dt>{{ 'oktolab_media.series_index_info_name'|trans }}</dt>
-                                <dd><a href="{{ path('oktolab_series_show', { 'series': series.uniqID }) }}">{{ series.name }}</a></dd>
-                                <dt>{{ 'oktolab_media.series_index_info_webtitle'|trans }}</dt>
-                                <dd>{{ series.webtitle }}</dd>
-                                <dt>{{ 'oktolab_media.series_index_info_uniqID'|trans }}</dt>
-                                <dd><a href="{{ path('oktolab_series_show', { 'series': series.uniqID }) }}">{{ series.uniqID }}</a></dd>
-                                <dt>{{ 'oktolab_media.series_index_info_updatedAt'|trans }}</dt>
-                                <dd>{{ series.updatedAt|date('d.m.Y') }}</dd>
-                                <dt>
-                                    {{ 'delorian.series_index_importProgress'|trans }}
-                                </dt>
-                                <dd>
-                                    {{ 'delorian.series_import_progress_choice'|transchoice(series.importProgress) }}
-                                </dd>
-                                <dt>{{ 'oktolab_media.series_index_info_description'|trans }}</dt>
-                                <dd>{{ series.description }}</dd>
-                            </dl>
-                        </div>
-                    </div>
+    {% for series in seriess %}
+        <div class="row">
+            <div class="col-md-3">
+                <a href="{{ path('oktolab_series_show', { 'series': series.uniqID }) }}"><img src="{{ series.posterframe|thumb(720,1280) }}" class="img-responsive center-block" /></a>
+            </div>
+            <div class="col-md-9">
+                <dl class="dl-horizontal">
+                    <dt>{{ 'oktolab_media.series_index_info_name'|trans }}</dt>
+                    <dd><a href="{{ path('oktolab_series_show', { 'series': series.uniqID }) }}">{{ series.name }}</a></dd>
+                    <dt>{{ 'oktolab_media.series_index_info_webtitle'|trans }}</dt>
+                    <dd>{{ series.webtitle }}</dd>
+                    <dt>{{ 'oktolab_media.series_index_info_uniqID'|trans }}</dt>
+                    <dd><a href="{{ path('oktolab_series_show', { 'series': series.uniqID }) }}">{{ series.uniqID }}</a></dd>
+                    <dt>{{ 'oktolab_media.series_index_info_updatedAt'|trans }}</dt>
+                    <dd>{{ series.updatedAt|date('d.m.Y') }}</dd>
+                    <dt>
+                        {{ 'delorian.series_index_importProgress'|trans }}
+                    </dt>
+                    <dd>
+                        {{ 'delorian.series_import_progress_choice'|transchoice(series.importProgress) }}
+                    </dd>
+                    <dt>{{ 'oktolab_media.series_index_info_description'|trans }}</dt>
+                    <dd>{{ series.description }}</dd>
+                </dl>
+            </div>
         </div>
-        {% endfor %}
-    </div>
+    {% endfor %}
     <div class="navigation">
         {{ knp_pagination_render(seriess) }}
     </div>
