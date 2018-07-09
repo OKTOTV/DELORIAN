@@ -42,7 +42,8 @@ class TimetravelService {
                 'type' => 'episode',
                 'id' => $id
             ],
-            $this->worker_queue
+            $this->worker_queue,
+            true
         );
     }
 
@@ -66,8 +67,9 @@ class TimetravelService {
     public function fluxCompensateSeries($id) {
         $this->jobservice->addJob(
             "Oktolab\DelorianBundle\Model\TimetravelJob",
-            array('type' => 'series', 'id' => $id),
-            $this->worker_queue
+            ['type' => 'series', 'id' => $id],
+            $this->worker_queue,
+            true
         );
     }
 

@@ -33,7 +33,7 @@ parameters:
     php_path: "/path/to/php"
     worker_queue: "delorian"
     oktolab_media_worker_queue: "delorian_oktolab_media"
-    bprs_asset_worker_queue: "deloran_bprs_asset"
+    bprs_asset_worker_queue: "delorian_bprs_asset"
     redis_backend: "localhost:6379"
     bprs_asset.junksize: 2000000
     player_url:    "http://path/to/your/player.js"
