@@ -35,6 +35,7 @@ delorian.shortcut_to_delorian_series:           '<span class="glyphicon glyphico
 
 # app/Resources/OktoMediaBundle/views/Episode/show.html.twig
 delorian.episode_filename:                      'Verm. Videodateiname'
+delorian.show_episode_in_flow:                  '<span class="glyphicon glyphicon-eye-open"></span> Im Programmtool zeigen'
 
 # src/AppBundle/Resources/views/delorian/list_series.html.twig
 delorian.list_series_title:                     "Programmtoolansicht | %project%"

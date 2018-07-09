@@ -30,11 +30,20 @@
                         {{ 'oktolab_media.show_episode_add_to_encode_queue'|trans|raw }}
                     </a>
                 </li>
+                <li>
+                    <a href="{{ path('oktolab_episode_finalize', {'uniqID': episode.uniqID}) }}">
+                        {{ 'oktolab_media.show_episode_finalize'|trans|raw }}
+                    </a>
+                </li>
                 {% set old_episode = pt_episode(episode.uniqID) %}
                 {% set old_series = pt_series(episode.series.uniqID) %}
                 {% if old_episode and old_series %}
                     <li role="separator" class="divider"></li>
-                    <li><a href="http://programm.okto.tv/episode/{{ old_episode.id}}/{{old_series.abbrevation}}-{{old_episode.seasonNumber}}x{{ old_episode.episodeNumber}}" target="blank">Im Programmtool zeigen</a></li>
+                    <li>
+                        <a href="http://programm.okto.tv/episode/{{ old_episode.id}}/{{old_series.abbrevation}}-{{old_episode.seasonNumber}}x{{ old_episode.episodeNumber}}" target="blank">
+                            {{ 'delorian.show_episode_in_flow'|trans|raw }}
+                        </a>
+                    </li>
                 {% endif %}
             </ul>
         </div>
