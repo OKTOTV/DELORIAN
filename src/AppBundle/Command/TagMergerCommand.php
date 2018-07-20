@@ -21,37 +21,32 @@ class TagMergerCommand extends ContainerAwareCommand {
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $em = $this->get('doctrine.orm.entity_manager');
+        $em = $this->getContainer()->get('doctrine.orm.entity_manager');
 
         $good_tag = $em->getRepository('AppBundle:Tag')->findOneBy(['slug' => $input->getArgument('good_tag')]);
         $bad_tag = $em->getRepository('AppBundle:Tag')->findOneBy(['slug' => $input->getArgument('bad_tag')]);
 
         if ($good_tag && $bad_tag) {
-            $em->createNativeQuery('update episode_tag set taginterface_id = :good_tag where taginterface_id = :bad_tag AND episode_id not in (select episode_id from episode_tag where taginterface_id = :good_tag')
-                ->setParameter('good_tag', $good_tag->getId())
-                ->setParameter('bad_tag', $bad_tag->getId())
-                ->getResult();
+            $episodes = ($em->getRepository('AppBundle:Tag')->findEpisodesWithTag($bad_tag, 0, true, $this->getContainer()->getParameter('oktolab_media.episode_class')))->getResult();
+            foreach ($episodes as $episode) {
+                $episode->removeTag($bad_tag);
+                $added = false;
+                foreach ($episode->getTags() as $tag) {
+                    if ($tag->getSlug() == $good_tag->getSlug()) {
+                        $added = true;
+                    }
+                }
+                if (!$added) {
+                    $episode->addTag($good_tag);
+                }
+                $em->persist($episode);
+            }
+            $em->flush();
+            $em->remove($bad_tag);
 
-            $em->createNativeQuery('delete from episode_tag where taginterface_id = :bad_tag')
-                ->setParameter('bad_tag', $bad_tag->getId())
-                ->getResult();
-
-            $em->createNativeQuery('update series_tag set taginterface_id = :good_tag where taginterface_id = :bad_tag AND series_id not in (select series_id from series_tag where taginterface_id = :good_tag)')
-                ->setParameter('good_tag', $good_tag->getId())
-                ->setParameter('bad_tag', $bad_tag->getId())
-                ->getResult();
-
-            $em->createNativeQuery('delete from series_tag where taginterface_id = :bad_tag')
-                ->setParameter('bad_tag', $bad_tag->getId())
-                ->getResult();
-
-            $em->createNativeQuery('Delete from tag where id = :bad_tag')
-                ->setParameter('bad_tag', $bad_tag->getId())
-                ->getResult();
-
-            $output->println(sprintf('merged tag %s into %s', $bad_tag->getSlug(), $good_tag->getSlug()));
+            $output->writeln(sprintf('merged tag %s into %s', $bad_tag->getSlug(), $good_tag->getSlug()));
         } else {
-            $output->println('One or both tags not found');
+            $output->writeln('One or both tags not found');
         }
 
     }
