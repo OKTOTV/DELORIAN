@@ -41,8 +41,8 @@ class TagMergerCommand extends ContainerAwareCommand {
                 }
                 $em->persist($episode);
             }
-            $em->flush();
             $em->remove($bad_tag);
+            $em->flush();
 
             $output->writeln(sprintf('merged tag %s into %s', $bad_tag->getSlug(), $good_tag->getSlug()));
         } else {
